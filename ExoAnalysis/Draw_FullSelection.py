@@ -14,7 +14,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("2.3 fb^{-1} (13 TeV)")
+    lumi.AddText("6.26 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -88,7 +88,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,MaxRange,sig,sigLeg):
     DYS.Rebin(RB_)
     
     Signal=file.Get(categoriy).Get(sig)
-    Signal.Scale(10)
+    Signal.Scale(10* .0648)
     Signal.Rebin(RB_)
 #    Signal.SetFillStyle(0.)
     Signal.SetLineStyle(11)

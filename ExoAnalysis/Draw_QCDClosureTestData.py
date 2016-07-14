@@ -14,7 +14,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("2.3 fb^{-1} (13 TeV)")
+    lumi.AddText("6.26 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -269,11 +269,11 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 #       c.SaveAs("mvis"+categoriy+".png")
 
 
-channelDirectory = ["MuTau", "EleTau"]
-#channelDirectory = ["EleTau"]
+#channelDirectory = ["MuTau", "EleTau"]
+channelDirectory = ["MuTau"]
 #Category = ["_DiJet","_JetBJet"]
-Category = ["_NoBJet"]
-#Category = ["_inclusive"]
+#Category = ["_NoBJet"]
+Category = ["_inclusive"]
 
 
 FileNamesInfo=[

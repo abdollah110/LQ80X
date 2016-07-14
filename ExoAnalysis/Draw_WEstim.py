@@ -14,7 +14,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("4.0 fb^{-1} (13 TeV)")
+    lumi.AddText("6.26 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -265,7 +265,8 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
     ROOT.gPad.RedrawAxis()
 
     c.Modified()
-    c.SaveAs("_plot_WEstim"+HistName+"_"+categoriy+".pdf")
+#    c.SaveAs("_plot_WEstim"+HistName+"_"+categoriy+".pdf")
+    c.SaveAs("_plot_WEstim"+HistName+"_"+"afterScale"+".pdf")
 
 
 
@@ -280,23 +281,28 @@ Channel=["MuTau"]
 FileNamesInfo=[
                ["_ST_MET","ST_{l#taujjMET}  (GeV)","",10],
                ["_NumJet","Jet multiplicity","",1],
-#               ["_tmass"," M_{T}(lep,MET) (GeV)","",20],
-#               ["_LepPt","  #mu PT (GeV)","",20],
-#               ["_tauPt"," #tau PT (GeV)","",20],
+               ["_NumBJet","B Jet multiplicity","",1],
+#               ["_tmass"," M_{T}(lep,MET) (GeV)","",10],
+               ["_LepPt","  #mu PT (GeV)","",10],
+               ["_TauPt"," #tau PT (GeV)","",10],
 #               ["_ST_DiJet"," ST_{l#taujj} (GeV)","",10],
-#               ["_MET"," MET (GeV)","",20],
-#               ["_LepEta","  #eta_{#mu}","",20],
-#               ["_TauEta","  #eta_{#tau}","",20]
+               ["_MET"," MET (GeV)","",20],
+               ["_LepEta","  #eta_{#mu}","",10],
+               ["_TauEta","  #eta_{#tau}","",10]
 
                
                ]
+
+
 
 #myOut = TFile("WEstimation"+NormQCD+".root" , 'RECREATE') # Name Of the output file
 
 for CH in Channel:
     for cat in range(0,len(Category)):
         for i in range(0,len(FileNamesInfo)):
-
-            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_HighMT_OS_inclusive.root"
+#WEstimation_LepEta_HighMT_OS_DiNonBJetMuTau.root
+#TotalRootForLimit_MuTau_LepPt_HighMT_OS_DiNonBJet.root
+            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJet.root"
+#            FileName="WEstimation"+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJetMuTau.root"
             MakePlot(FileName,Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],INFO[cat],FileNamesInfo[i][3])
 

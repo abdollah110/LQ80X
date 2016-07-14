@@ -1,3 +1,4 @@
+TTSCALEXXXXXXX=0.92  #based om the TT from emu channel 
 #!/usr/bin/env python
 import ROOT
 import re
@@ -14,7 +15,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("4.0 fb^{-1} (13 TeV)")
+    lumi.AddText("6.26 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -77,6 +78,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     W=file.Get(categoriy).Get("W")
     W.Rebin(RB_)
     TT=file.Get(categoriy).Get("TT")
+    TT.Scale(TTSCALEXXXXXXX)
     TT.Rebin(RB_)
     VV=file.Get(categoriy).Get("VV")
     VV.Rebin(RB_)

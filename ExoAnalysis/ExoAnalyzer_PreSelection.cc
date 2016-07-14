@@ -31,14 +31,14 @@ int main(int argc, char** argv) {
     TH1F * HistoPUMC= (TH1F *) PUMC->Get("pileup");
     HistoPUMC->Scale(1.0/HistoPUMC->Integral());
     
-    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_RunCD_Reco74X_Dec1.root");
-    TH2F * HistoMuId= (TH2F *) MuCorrId->Get("NUM_MediumID_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio");
+    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_2016runB_2p6fb.root");
+    TH2F * HistoMuId= (TH2F *) MuCorrId->Get("MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio");
     
-    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonIso_Z_RunCD_Reco74X_Dec1.root");
-    TH2F * HistoMuIso= (TH2F *) MuCorrIso->Get("NUM_TightRelIso_DEN_MediumID_PAR_pt_spliteta_bin1/pt_abseta_ratio");
+    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonISO_Z_2016runB_2p6fb.root");
+    TH2F * HistoMuIso= (TH2F *) MuCorrIso->Get("MC_NUM_TightRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio");
     
     TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunCD_Reco74X_Dec1.root");
-//    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/pt_abseta_ratio");
+    //    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/pt_abseta_ratio");
     TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/efficienciesDATA/pt_abseta_DATA");
     
     
@@ -162,6 +162,7 @@ int main(int argc, char** argv) {
         Run_Tree->SetBranchAddress("jetRawPt",&jetRawPt);
         Run_Tree->SetBranchAddress("jetJECUnc",&jetJECUnc);
         Run_Tree->SetBranchAddress("jetRawEn",&jetRawEn);
+        Run_Tree->SetBranchAddress("jetHadFlvr",&jetHadFlvr);
         /////////////////////////   MET Info
         Run_Tree->SetBranchAddress("pfMET",&pfMET);
         Run_Tree->SetBranchAddress("pfMETPhi",&pfMETPhi);
@@ -171,7 +172,9 @@ int main(int argc, char** argv) {
         //###############################################################################################
         //  Weight Calculation
         //###############################################################################################
-        float WSCALEFACTORE=1.08;  //measured July 4th from WEstimaOutPut/_16_80X
+        float WSCALEFACTORE=1.00;  //measured July 4th from WEstimaOutPut/_16_80X
+        float WSCALEFACTORE_Etau=1.0;
+        float WSCALEFACTORE_Mutau=1.0;
         float MuMass= 0.10565837;
         float eleMass= 0.000511;
         float LeptonPtCut_=50;
@@ -186,8 +189,8 @@ int main(int argc, char** argv) {
         
         Int_t nentries_wtn = (Int_t) Run_Tree->GetEntries();
         cout<<"nentries_wtn===="<<nentries_wtn<<"\n";
-        for (Int_t i = 0; i < nentries_wtn; i++) {
-            //        for (Int_t i = 0; i < 50000; i++) {
+//        for (Int_t i = 0; i < nentries_wtn; i++) {
+                    for (Int_t i = 0; i < 100000; i++) {
             Run_Tree->GetEntry(i);
             if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
             fflush(stdout);
@@ -241,7 +244,7 @@ int main(int argc, char** argv) {
             plotFill("WeightLumi",LumiWeight,10000,0,100);
             plotFill("TopPtReweighting",TopPtReweighting,100,0,10);
             plotFill("WeightPU",PUWeight,100,0,10);
-            //            plotFill("WeightTotal",TotalWeight,50,0,5);
+            plotFill("WeightTotal",TotalWeight,50,0,5);
             plotFill("nVtx_NoPUCorr",nVtx,60,0,60);
             plotFill("nVtx_PUCorr",nVtx,60,0,60,PUWeight);
             for (int qq=0; qq < 60;qq++){
@@ -273,7 +276,7 @@ int main(int argc, char** argv) {
                         bool TauIdIso =  taupfTausDiscriminationByDecayModeFinding->at(itau) > 0.5 && tauByTightMuonRejection3->at(itau) > 0 && tauByMVA6LooseElectronRejection->at(itau) > 0 && fabs(tauDxy->at(itau)) < 0.05;
                         
                         
-                        float LepCor=1;
+                        float LepCor=1 * WSCALEFACTORE_Mutau;
                         LepCor=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
                         
                         
@@ -373,8 +376,10 @@ int main(int argc, char** argv) {
                         vector<TLorentzVector> JetVector;
                         vector<TLorentzVector> BJetBVector;
                         vector<TLorentzVector> BJet20Vector;
+                        vector<float> BJetVectorSF;
                         JetVector.clear();
                         BJetBVector.clear();
+                        BJetVectorSF.clear();
                         BJet20Vector.clear();
                         
                         for (int ijet= 0 ; ijet < nJet ; ijet++){
@@ -388,12 +393,20 @@ int main(int argc, char** argv) {
 //                                cout <<"jetPt= "<< jetPt->at(ijet)<<"   jetRawPt= "<< jetRawPt->at(ijet) <<"  jetEn= "<< jetEn->at(ijet)<<"   jetRawEn= "<< jetRawEn->at(ijet) << "  jetJECUnc="<<jetJECUnc->at(ijet)<<"\n";
                                 if (jetpfCombinedInclusiveSecondaryVertexV2BJetTags->at(ijet) >  LooseCSV  ){
                                     BJetBVector.push_back(Jet4Momentum);
+                                    if (!isData) BJetVectorSF.push_back(GetBJetSF(jetPt->at(ijet),jetEta->at(ijet),jetHadFlvr->at(ijet)));
                                 }
                             }
                             if (jetPFLooseId->at(ijet) > 0.5 && jetPt->at(ijet) > BJetPtCut && fabs(jetEta->at(ijet)) < 2.4 && Jet4Momentum.DeltaR(Tau4Momentum) > 0.5 && Jet4Momentum.DeltaR(Mu4Momentum) > 0.5 && jetpfCombinedInclusiveSecondaryVertexV2BJetTags->at(ijet) >  LooseCSV ){
                                 BJet20Vector.push_back(Jet4Momentum);
                             }
                             
+                        }
+                        
+                        
+                        // get the SF For Bjet multiplicity
+                        float SFBJetMultiplicity =1;
+                        for (int bsf =0; bsf < BJetVectorSF.size() ; bsf++){
+                            SFBJetMultiplicity *= BJetVectorSF[bsf];
                         }
                         
                         
@@ -407,6 +420,9 @@ int main(int argc, char** argv) {
                         bool NonBJet_Selection=BJet20Vector.size() < 1 ;
 //                        bool DiNonBJet_Selection=JetVector.size() > 1 && BJet20Vector.size() < 1 ;                        
                         bool JetBJet_Selection=JetVector.size() > 1& BJetBVector.size()> 0 && (BJetBVector[0].Pt()== JetVector[0].Pt() || BJetBVector[0].Pt() ==JetVector[1].Pt());
+                        float BtagSFLeadBJet=1;
+                        if (!isData && JetBJet_Selection) BtagSFLeadBJet= BJetVectorSF[0];
+                        
                         
                         if (DiJet_Selection){
                             ST_DiJet=JetVector[0].Pt()+JetVector[1].Pt()+muPt->at(imu)+tauPt->at(itau);
@@ -511,10 +527,11 @@ int main(int argc, char** argv) {
                         
                         //###############################################################################################
                         
-                        
+                        std::string CHL="MuTau";
                         if (GeneralMuTauSelection){
                             plotFill("Weight_Mu", LepCor,200,0,2);
                             plotFill("TotalWeight_Mu",TotalWeight*LepCor,1000,0,10);
+                            plotFill("BtagSFLeadBJet",BtagSFLeadBJet,200,0,2);
                             plotFill("TotalNonLumiWeight_Mu",TotalWeight*LepCor/LumiWeight,1000,0,10);
                             
                             for (int qcat = 0; qcat < size_Q; qcat++) {
@@ -537,26 +554,26 @@ int main(int argc, char** argv) {
                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] + trg_Cat[trg] +ST_Cat[ist];
 
                                                                     
-                                                                    plotFill("MuTau_tmass"+FullStringName,tmass,500,0,500,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_VisMass"+FullStringName,Z4Momentum.M(),500,0,500,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_LepPt"+FullStringName,muPt->at(imu),300,0,300,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_LepIso"+FullStringName,IsoMu,100,0,10,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_LepEta"+FullStringName,muEta->at(imu),100,-2.5,2.5,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_TauPt"+FullStringName,tauPt->at(itau),200,0,200,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_TauEta"+FullStringName,tauEta->at(itau),100,-2.5,2.5,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_NumJet"+FullStringName,JetVector.size(),10,0,10,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor);
-//                                                                    plotFill("MuTau_nVtx"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor);
-//                                                                    plotFill("MuTau_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
-                                                                    plotFill("MuTau_MET"+FullStringName,pfMET,500,0,500,TotalWeight * LepCor);
-//                                                                    plotFill("MuTau_M_taujet"+FullStringName,M_TauJet,1000,0,1000,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_LeadJetPt"+FullStringName,leadJetPt_,300,0,300,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_SubLeadJetEta"+FullStringName,subLeadJetEta_,100,-2.5,2.5,TotalWeight * LepCor);
-//                                                                    plotFill("MuTau_ST_DiJet"+FullStringName,ST_DiJet,100,0,1000,TotalWeight * LepCor);
-                                                                    plotFill("MuTau_ST_MET"+FullStringName,ST_MET,100,0,1000,TotalWeight * LepCor);
+                                                                    plotFill(CHL+"_tmass"+FullStringName,tmass,500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_VisMass"+FullStringName,Z4Momentum.M(),500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LepPt"+FullStringName,muPt->at(imu),300,0,300,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LepIso"+FullStringName,IsoMu,100,0,10,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LepEta"+FullStringName,muEta->at(imu),100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_TauPt"+FullStringName,tauPt->at(itau),200,0,200,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_TauEta"+FullStringName,tauEta->at(itau),100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_NumJet"+FullStringName,JetVector.size(),10,0,10,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor * SFBJetMultiplicity);
+//                                                                    plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor * BtagSFLeadBJet);
+//                                                                    plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
+                                                                    plotFill(CHL+"_MET"+FullStringName,pfMET,500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+//                                                                    plotFill(CHL+"_M_taujet"+FullStringName,M_TauJet,1000,0,1000,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LeadJetPt"+FullStringName,leadJetPt_,300,0,300,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_SubLeadJetEta"+FullStringName,subLeadJetEta_,100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+//                                                                    plotFill(CHL+"_ST_DiJet"+FullStringName,ST_DiJet,100,0,1000,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_ST_MET"+FullStringName,ST_MET,100,0,1000,TotalWeight * LepCor * BtagSFLeadBJet);
                                                                     
                                                                     
                                                                 }
@@ -613,7 +630,7 @@ int main(int argc, char** argv) {
                         
                         
                         
-                        float LepCor=1;
+                        float LepCor=1  * WSCALEFACTORE_Etau;
 //                        LepCor=getCorrFactorElectron74X(isData,  elePt->at(iele), eleEta->at(iele) , EleScaleFactor);
                         
                         
@@ -705,8 +722,10 @@ int main(int argc, char** argv) {
                         vector<TLorentzVector> JetVector;
                         vector<TLorentzVector> BJetBVector;
                         vector<TLorentzVector> BJet20Vector;
+                        vector<float> BJetVectorSF;
                         JetVector.clear();
                         BJetBVector.clear();
+                        BJetVectorSF.clear();
                         BJet20Vector.clear();
                         
                         for (int ijet= 0 ; ijet < nJet ; ijet++){
@@ -716,11 +735,21 @@ int main(int argc, char** argv) {
                                 JetVector.push_back(Jet4Momentum);
                                 if (jetpfCombinedInclusiveSecondaryVertexV2BJetTags->at(ijet) >  LooseCSV  ){
                                     BJetBVector.push_back(Jet4Momentum);
+                                    if (!isData) BJetVectorSF.push_back(GetBJetSF(jetPt->at(ijet),jetEta->at(ijet),jetHadFlvr->at(ijet)));
+                                    
                                 }
                             }
                             if (jetPFLooseId->at(ijet) > 0.5 && jetPt->at(ijet) > BJetPtCut && fabs(jetEta->at(ijet)) < 2.4 && Jet4Momentum.DeltaR(Tau4Momentum) > 0.5 && Jet4Momentum.DeltaR(Ele4Momentum) > 0.5 && jetpfCombinedInclusiveSecondaryVertexV2BJetTags->at(ijet) >  LooseCSV ){
                                 BJet20Vector.push_back(Jet4Momentum);
                             }
+                        }
+                        
+                        
+                        
+                        // get the SF For Bjet multiplicity
+                        float SFBJetMultiplicity =1;
+                        for (int bsf =0; bsf < BJetVectorSF.size() ; bsf++){
+                            SFBJetMultiplicity *= BJetVectorSF[bsf];
                         }
                         
                         
@@ -735,6 +764,9 @@ int main(int argc, char** argv) {
                         bool NonBJet_Selection=BJet20Vector.size() < 1 ;
                         //                        bool DiNonBJet_Selection=JetVector.size() > 1 && BJet20Vector.size() < 1 ;
                         bool JetBJet_Selection=JetVector.size() > 1& BJetBVector.size()> 0 && (BJetBVector[0].Pt()== JetVector[0].Pt() || BJetBVector[0].Pt() ==JetVector[1].Pt());
+                        float BtagSFLeadBJet=1;
+                        if (!isData && JetBJet_Selection) BtagSFLeadBJet= BJetVectorSF[0];
+                        
                         
                         if (DiJet_Selection){
                             ST_DiJet=JetVector[0].Pt()+JetVector[1].Pt()+elePt->at(iele)+tauPt->at(itau);
@@ -842,7 +874,7 @@ int main(int argc, char** argv) {
                         //###############################################################################################
                         
                         
-                        
+                        std::string CHL="EleTau";
                         if (GeneralEleTauSelection){
                             
                             plotFill("Weight_Ele", LepCor,200,0,2);
@@ -868,26 +900,26 @@ int main(int argc, char** argv) {
                                                                     
                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] +trg_Cat[trg]+ST_Cat[ist];
                                                                     
-                                                                    plotFill("EleTau_tmass"+FullStringName,tmass,500,0,500,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_VisMass"+FullStringName,Z4Momentum.M(),500,0,500,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_LepPt"+FullStringName,elePt->at(iele),300,0,300,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_LepEta"+FullStringName,eleEta->at(iele),100,-2.5,2.5,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_LepIso"+FullStringName,IsoEle,100,0,10,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_TauPt"+FullStringName,tauPt->at(itau),200,0,200,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_TauEta"+FullStringName,tauEta->at(itau),100,-2.5,2.5,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_NumJet"+FullStringName,JetVector.size(),10,0,10,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor);
-//                                                                    plotFill("EleTau_nVtx"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor);
-//                                                                    plotFill("EleTau_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
-                                                                    plotFill("EleTau_MET"+FullStringName,pfMET,500,0,500,TotalWeight * LepCor);
-//                                                                    plotFill("EleTau_M_taujet"+FullStringName,M_TauJet,1000,0,1000,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_LeadJetPt"+FullStringName,leadJetPt_,300,0,300,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_SubLeadJetEta"+FullStringName,subLeadJetEta_,100,-2.5,2.5,TotalWeight * LepCor);
-//                                                                    plotFill("EleTau_ST_DiJet"+FullStringName,ST_DiJet,100,0,1000,TotalWeight * LepCor);
-                                                                    plotFill("EleTau_ST_MET"+FullStringName,ST_MET,100,0,1000,TotalWeight * LepCor);
+                                                                    plotFill(CHL+"_tmass"+FullStringName,tmass,500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_VisMass"+FullStringName,Z4Momentum.M(),500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LepPt"+FullStringName,elePt->at(iele),300,0,300,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LepEta"+FullStringName,eleEta->at(iele),100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LepIso"+FullStringName,IsoEle,100,0,10,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_TauPt"+FullStringName,tauPt->at(itau),200,0,200,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_TauEta"+FullStringName,tauEta->at(itau),100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_NumJet"+FullStringName,JetVector.size(),10,0,10,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor * SFBJetMultiplicity);
+//                                                                    plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor * BtagSFLeadBJet);
+//                                                                    plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
+                                                                    plotFill(CHL+"_MET"+FullStringName,pfMET,500,0,500,TotalWeight * LepCor * BtagSFLeadBJet);
+//                                                                    plotFill(CHL+"_M_taujet"+FullStringName,M_TauJet,1000,0,1000,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LeadJetPt"+FullStringName,leadJetPt_,300,0,300,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_SubLeadJetEta"+FullStringName,subLeadJetEta_,100,-2.5,2.5,TotalWeight * LepCor * BtagSFLeadBJet);
+//                                                                    plotFill(CHL+"_ST_DiJet"+FullStringName,ST_DiJet,100,0,1000,TotalWeight * LepCor * BtagSFLeadBJet);
+                                                                    plotFill(CHL+"_ST_MET"+FullStringName,ST_MET,100,0,1000,TotalWeight * LepCor * BtagSFLeadBJet);
                                                                     
                                                                     
                                                                 }

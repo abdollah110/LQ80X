@@ -97,6 +97,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
     TauScaleOut = [ ""]
 
 
+#    myOut = TFile("TotalRootForLimit_tauFREtau_"+channel + NormMC+".root" , 'RECREATE') # Name Of the output file
     myOut = TFile("TotalRootForLimit_"+channel + NormMC+".root" , 'RECREATE') # Name Of the output file
 
 
@@ -352,8 +353,8 @@ if __name__ == "__main__":
 
     for NormMC in PlotName:
 
-        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepIso","",0,Binning)
-        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepIso","",1,Binning)
+        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_Total","",0,Binning)
+        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_Total","",1,Binning)
 #        MakeTheHistogram("EleTau",NormMC,"_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0,Binning)
 
 ###OS

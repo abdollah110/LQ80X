@@ -15,7 +15,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("4.0 fb^{-1} (13 TeV)")
+    lumi.AddText("6.26 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():

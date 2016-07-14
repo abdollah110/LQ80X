@@ -28,7 +28,7 @@ import array
 
 gROOT.Reset()
 import os
-
+dataMCScale=1.0
 
 
 
@@ -43,8 +43,9 @@ def _FileReturn(Name, channel,cat,HistoName,PostFix,CoMEnergy):
     if not os.path.exists(SubRootDir):
         os.makedirs(SubRootDir)
     myfile = TFile(SubRootDir + Name +CoMEnergy+ '.root')
+    print "1 --------->>>>>>  ", SubRootDir + Name +CoMEnergy+ '.root'
     Histo =  myfile.Get(channel+HistoName + cat+ PostFix)
-#    print "0--------->>>>>>  ", channel+HistoName + cat+ PostFix
+    print "2 --------->>>>>>  ", channel+HistoName + cat+ PostFix
     if not os.path.exists("Extra"):
         os.makedirs("Extra")
     NewFile=TFile("Extra/XXX.root","RECREATE")
@@ -59,8 +60,8 @@ def _FileReturn(Name, channel,cat,HistoName,PostFix,CoMEnergy):
     ##########################################    ##########################################    ##########################################
     ##########################################    ##########################################    ##########################################
     ##########################################    ##########################################    ##########################################
-
-def Make_W_Control_Plots(Cat,channel,NormQCD,ShapeQCD):
+RB_=1
+def Make_W_Control_Plots(NameCat,channel,NormQCD,ShapeQCD):
     
         
     tscale=0
@@ -68,37 +69,40 @@ def Make_W_Control_Plots(Cat,channel,NormQCD,ShapeQCD):
             
     SingleTSampleQCDNorm= _FileReturn("SingleTop", channel,Cat, NormQCD, TauScale[tscale],CoMEnergy)
     SingleT=SingleTSampleQCDNorm.Get("XXX")
-    SingleT=SingleT.Rebin(10)
+    SingleT=SingleT.Rebin(RB_)
     
     
-    VVSampleQCDNorm= _FileReturn("VV", channel,NameCat, Cat, TauScale[tscale],CoMEnergy)
+    VVSampleQCDNorm= _FileReturn("VV", channel, Cat, NormQCD,TauScale[tscale],CoMEnergy)
+    
     VV=VVSampleQCDNorm.Get("XXX")
-    VV=VV.Rebin(10)
-    
+    VV=VV.Rebin(RB_)
+
     
     TTSampleQCDNorm= _FileReturn( "TTJets", channel,Cat, NormQCD, TauScale[tscale],CoMEnergy)
     TT=TTSampleQCDNorm.Get("XXX")
-    TT=TT.Rebin(10)
+    TT=TT.Rebin(RB_)
     
     
     ZTTSampleQCDNorm= _FileReturn("DYJetsToLL", channel,Cat, NormQCD, TauScale[tscale],CoMEnergy)
     ZTT=ZTTSampleQCDNorm.Get("XXX")
-    ZTT=ZTT.Rebin(10)
+    ZTT=ZTT.Rebin(RB_)
     
     
     WSampleQCDNorm= _FileReturn("WJetsToLNu", channel,Cat, NormQCD, TauScale[tscale],CoMEnergy)
     W=WSampleQCDNorm.Get("XXX")
-    W=W.Rebin(10)
+    W=W.Rebin(RB_)
     
     
-    DataSampleQCDNorm= _FileReturn("Data", channel,Cat, NormQCD, TauScale[tscale],CoMEnergy)
-    Data=DataSampleQCDNorm.Get("XXX")
-    Data=Data.Rebin(10)
-
-
     QCDSampleQCDNorm= _FileReturn("QCD", channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
     QCD=QCDSampleQCDNorm.Get("XXX")
-    QCD=Data.Rebin(10)
+    QCD=QCD.Rebin(RB_)
+    
+
+    DataSampleQCDNorm= _FileReturn("Data", channel,Cat, NormQCD, TauScale[tscale],CoMEnergy)
+    Data=DataSampleQCDNorm.Get("XXX")
+    Data=Data.Rebin(RB_)
+
+
 
 
     myOut = TFile("WEstimation"+NormQCD+Cat+channel+".root" , 'RECREATE') # Name Of the output file
@@ -134,7 +138,8 @@ def Make_W_Control_Plots(Cat,channel,NormQCD,ShapeQCD):
 if __name__ == "__main__":
 
     category = ["_DiNonBJet"]
-    CHANNE = ["MuTau", "EleTau"]
+#    CHANNE = ["MuTau", "EleTau"]
+    CHANNE = ["MuTau"]
 
     for Cat in category:
         for channel in CHANNE:
@@ -143,7 +148,7 @@ if __name__ == "__main__":
             Make_W_Control_Plots(Cat,channel,"_ST_MET_HighMT_OS","_ST_MET_HighMT_OS_TauIsoLepAntiIso")
             Make_W_Control_Plots(Cat,channel,"_LepPt_HighMT_OS","_LepPt_HighMT_OS_TauIsoLepAntiIso")
             Make_W_Control_Plots(Cat,channel,"_TauPt_HighMT_OS","_TauPt_HighMT_OS_TauIsoLepAntiIso")
-            Make_W_Control_Plots(Cat,channel,"_ST_DiJet_HighMT_OS","_ST_DiJet_HighMT_OS_TauIsoLepAntiIso")
+#            Make_W_Control_Plots(Cat,channel,"_ST_DiJet_HighMT_OS","_ST_DiJet_HighMT_OS_TauIsoLepAntiIso")
             Make_W_Control_Plots(Cat,channel,"_MET_HighMT_OS","_MET_HighMT_OS_TauIsoLepAntiIso")
             Make_W_Control_Plots(Cat,channel,"_LepEta_HighMT_OS","_LepEta_HighMT_OS_TauIsoLepAntiIso")
             Make_W_Control_Plots(Cat,channel,"_TauEta_HighMT_OS","_TauEta_HighMT_OS_TauIsoLepAntiIso")

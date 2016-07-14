@@ -24,8 +24,8 @@ import ROOT as r
 import array
 
 ##### Get Jet to Tau FR
-from Step7_TauFakeRate import Make_Tau_FakeRate
-from Step7_TauFakeRate import _FIT_Jet_Function
+from Step4_TauFakeRateData import Make_Tau_FakeRate
+from Step4_TauFakeRateData import _FIT_Jet_Function
 ##### Get Jet to Tau FR
 
 gROOT.Reset()
@@ -41,7 +41,7 @@ ROOT.gROOT.SetBatch(True)
 #SubRootDir = 'OutFiles_FullSelection_MediumIso/'
 #SubRootDir = 'OutFiles_FullSelection_TightIso/'
 #SubRootDir = 'OutFiles_FullSelection/'
-SubRootDir = 'OutFiles_FullSelection_NewDM/'
+SubRootDir = 'OutFiles_FullSelection/'
 
 
 
@@ -98,8 +98,10 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
     if Analysis=="lq":
         signal = ['LQ_']
         signalName = ['LQ_']
-        mass = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
-        TOTMASS = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+#        mass = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+#        TOTMASS = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+        mass = [700]
+        TOTMASS = [700]
         lenghtSig = len(signal) * len(mass) +1
         category = ["_JetBJet"]
         charge="_OS"
@@ -107,8 +109,10 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
     if Analysis=="RHW":
         signal = ['RHNu_']
         signalName = ['RHW_']
-        mass = ['1000-500','1500-750','2000-1000','2500-1250','3000-1500']
-        TOTMASS = ['1000','1500','2000','2500','3000']
+        mass = ['2000-1000']
+        TOTMASS = ['2000']
+#        mass = ['1000-500','1500-750','2000-1000','2500-1250','3000-1500']
+#        TOTMASS = ['1000','1500','2000','2500','3000']
         lenghtSig = len(signal) * len(mass) +1
         category = ["_DiJet"]
         charge=""
