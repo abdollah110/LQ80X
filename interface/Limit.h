@@ -118,3 +118,18 @@ hadd     sampleQCD/QCD_Pt-80to120_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root 
 
 
 
+/Data/SingleElectron/crab_SingleElectronRun2016B-PromptReco-v2/160716_030040/0000
+/Data/SingleElectron/crab_SingleElectronRun2016B-PromptReco-v2/160716_030040/0001
+/Data/SingleElectron/crab_SingleElectronRun2016B-PromptReco-v2/160716_030040/0002
+/Data/SingleElectron/crab_SingleElectronRun2016C-PromptReco-v2/160716_030107/0000
+/Data/SingleElectron/crab_SingleElectronRun2016D-PromptReco-v2/160716_030132/0000
+/Data/SingleMuon/crab_SingleMuonRun2016B-PromptReco-v2/160716_030151/0000
+/Data/SingleMuon/crab_SingleMuonRun2016B-PromptReco-v2/160716_030151/0001
+/Data/SingleMuon/crab_SingleMuonRun2016B-PromptReco-v2/160716_030151/0002
+/Data/SingleMuon/crab_SingleMuonRun2016C-PromptReco-v2/160716_030216/0000
+/Data/SingleMuon/crab_SingleMuonRun2016D-PromptReco-v2/160716_030234/0000
+
+
+
+
+
