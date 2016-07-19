@@ -34,8 +34,8 @@ import os
 
 ROOT.gROOT.SetBatch(True)
 #ROOT.gROOT.ProcessLine('.x rootlogon.C')
+#SubRootDir = 'OutFiles_WEstim/'
 SubRootDir = 'OutFiles_WEstim/'
-#SubRootDir = 'OutFiles_WEstim_Legacy/'
 #SubRootDir = 'OutFiles_WEstimLooseIsoMu/'
 
 verbos_ = False
@@ -205,6 +205,7 @@ def _FIT_Jet(x, p):
     Land = p[2] * TMath.Landau(x[0], p[3], p[4])
     Pol0 = p[0]+p[1]*x[0]
     return Land + Pol0
+#    return Land
 def _FIT_Jet_Function(x, p):
     Land = p[2] * TMath.Landau(x, p[3], p[4])
     Pol0 = p[0]+p[1]*x
@@ -219,8 +220,7 @@ def _FIT_Lepton_Function( x,  par) :
 
 
 category_FakeEstim= "_inclusive"
-channelName="MuTau"
-#channelName="EleTau"
+
 FR_vs_LeptonPT=0
 if FR_vs_LeptonPT:
     ObjectPT="_TauPt"
@@ -239,7 +239,7 @@ HistoFakeDeNum=ObjectPT+"_SS_Total"
 #############################################################################################################
 ##   Calculating the Fake Rate ---> "Linear Fit, 2 parameters"
 #############################################################################################################
-def Make_Tau_FakeRate():
+def Make_Tau_FakeRate(channelName):
     
     
     ShapeNum=MakeTheHistogram(channelName,HistoFakeNum,HistoFakeNum,"",0,BinningFake,1,category_FakeEstim)
@@ -337,8 +337,8 @@ def Make_Tau_FakeRate():
 ##########################################    ##########################################    ##########################################
 
 if __name__ == "__main__":
-    FR_FitMaram=Make_Tau_FakeRate()
-    
+    FR_FitMaram=Make_Tau_FakeRate("MuTau")
+    FR_FitMaram=Make_Tau_FakeRate("EleTau")
 
 
 

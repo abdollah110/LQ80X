@@ -747,7 +747,45 @@ float compTopPtWeight(float top1Pt, float top2Pt) {
 
 int ptBIN=0;
 int etaBIN=0;
+
+
+
+
+
+//x min    x avg    x max     ratio    -err / +err
+//------   ------   ------     -----  ------/------
+//-2.400   -2.231   -2.100     98.79  - 0.27/+ 0.27
+//-2.100   -1.828   -1.600     99.39  - 0.05/+ 0.04
+//-1.600   -1.346   -1.100     99.70  - 0.03/+ 0.03
+//-1.100   -0.843   -0.600     99.54  - 0.02/+ 0.02
+//-0.600   -0.298    0.000     99.37  - 0.02/+ 0.02
+//0.000    0.299    0.600     99.59  - 0.01/+ 0.01
+//0.600    0.843    1.100     99.76  - 0.02/+ 0.02
+//1.100    1.348    1.600     99.61  - 0.03/+ 0.03
+//1.600    1.828    2.100     99.30  - 0.04/+ 0.04
+//2.100    2.234    2.400     98.19  - 0.22/+ 0.21
+/////////////////////////////////////////////////////
+//  Muon TRK Correction 80X
 ////////////////////////////////////////////////////////////
+float Cor74X_TRK_Mu(float eta ) {
+    
+    if (eta >= -2.4 && eta < -2.1 ) return 0.9879;
+    else if (eta >= -2.1 && eta < -1.6 ) return 0.9939;
+    else if (eta >= -1.6 && eta < -1.1) return 0.9970;
+    else if (eta >= -1.1 && eta < -0.6) return 0.9954;
+    else if (eta >= -0.6 && eta < 0 ) return 0.9937;
+    else if (eta >= 0 && eta < 0.6 ) return 0.9959;
+    else if (eta >= 0.6 && eta < 1.1 ) return 0.9976;
+    else if (eta >= 1.1 && eta < 1.6 ) return 0.9961;
+    else if (eta >= 1.6 && eta < 2.1 ) return 0.9930;
+    else if (eta >= 2.1 && eta < 2.4 ) return 0.9819;
+    else return 1;
+
+    
+    
+}
+
+/////////////////////////////////////////////////////
 //  Muon Id Correction 74X
 ////////////////////////////////////////////////////////////
 float Cor74X_ID_Mu(float pt, float eta , TH2F * HistoId) {
@@ -810,10 +848,34 @@ float Cor74X_Trigger_Mu(float pt,float eta, TH2F* HistoTrg ){
 
 
 
-float Cor74X_IDIso_Ele(float pt, float eta,    vector<TGraphAsymmErrors *> EleScaleFactor){
+float Cor74X_IDIso_Ele(float pt, float eta,  TH2F * HistoEleSF0p5, TH2F * HistoEleSF5 ){
     
-    if (fabs(eta) <=1.48) return (EleScaleFactor[3]->Eval(pt) / EleScaleFactor[1]->Eval(pt));
-    else return (EleScaleFactor[2]->Eval(pt) / EleScaleFactor[0]->Eval(pt));
+    if (pt >= 10 && pt < 20 ) ptBIN=1;
+    if (pt >= 20 && pt < 30 ) ptBIN=2;
+    if (pt >= 30 && pt < 40) ptBIN=3;
+    if (pt >= 40 && pt < 50) ptBIN=4;
+    if (pt >= 50 ) ptBIN=5;
+    
+    if (eta >= -2.5 && eta < -2 ) etaBIN=1;
+    if (eta >= -2 && eta < -1.566 ) etaBIN=2;
+    if (eta >= -1.566 && eta < -1.444) etaBIN=3;
+    if (eta >= -1.444 && eta < -0.800) etaBIN=4;
+    if (eta >= -0.800 && eta < 0 ) etaBIN=5;
+    if (eta >= 0 && eta < 0.800 ) etaBIN=6;
+    if (eta >= 0.800 && eta < 1.444 ) etaBIN=7;
+    if (eta >= 1.444 && eta < 1.566 ) etaBIN=8;
+    if (eta >= 1.566 && eta < 2 ) etaBIN=9;
+    if (eta >= 2 && eta < 2.5 ) etaBIN=10;
+    
+    float SF_0p5= HistoEleSF0p5->GetBinContent(etaBIN, ptBIN);
+    float SF_5= HistoEleSF5->GetBinContent(etaBIN, ptBIN);
+    float FinalSF= 0.05 * SF_0p5  + 0.95 * SF_5;   //approximation of 10/fb data
+    
+//    cout << pt << "  " << eta << " "<<SF_0p5<<"  "<<SF_5 << "  "<< FinalSF <<"\n";
+    return FinalSF;
+    
+    
+
     
 }
 
@@ -828,18 +890,17 @@ float getCorrFactorMuon74X(bool isData, float pt, float eta, TH2F * HistoId, TH2
         
         //        cout << Cor74X_ID_Mu(pt,eta,HistoId) << "  "<< Cor74X_Iso_Mu(pt,eta,HistoIso) << "  "<< Cor74X_Trigger_Mu(pt,eta,HistoTrg) << "\n";
 //        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) );
-        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) ); //TMP for 80X
+        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) * Cor74X_TRK_Mu(eta)); //TMP for 80X
     }
     
 }
 
-float getCorrFactorElectron74X(bool isData, float pt, float eta,    vector<TGraphAsymmErrors *> EleScaleFactor){
+float getCorrFactorElectron74X(bool isData, float pt, float eta,    TH2F * HistoEleSF0p5, TH2F * HistoEleSF5 ){
     if (isData)
         return 1;
     else
-        return Cor74X_IDIso_Ele(pt,eta,EleScaleFactor);
+        return Cor74X_IDIso_Ele(pt,eta,HistoEleSF0p5,HistoEleSF5);
 }
-
 
 
 

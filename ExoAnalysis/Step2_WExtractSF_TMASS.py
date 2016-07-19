@@ -56,7 +56,7 @@ Wmass = ['1000','1500','2000','2500','3000']
 lenghtSig = len(signal) * len(mass) +1
 
 category = ["_inclusive"]
-#category = ["_DiJet"]
+#category = ["_DiJet","_JetBJet"]
 #category = ["_DiNonBJet"]
 #category = ["_inclNoBjet"]
 
@@ -204,23 +204,23 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,chl,Binning):
     #            RebinedHist= ShapeHisto.Rebin(RB_)
     #            tDirectory.WriteObject(RebinedHist,NameOut)
 
-                tauFRNum=_FileReturn(Name, channel,"_inclusive", NormMC.replace("_HighMT_OS","_SS")+"_TauIso")
+                tauFRNum=_FileReturn(Name, channel,"_inclusive", NormMC.replace("_OS","_SS")+"_TauIso")
                 tauFRNumHist=tauFRNum.Get("XXX")
                 print tauFRNumHist.Integral()
                 
-                lepFRNum=_FileReturn(Name, channel,"_inclusive", NormMC.replace("_HighMT_OS","_SS")+"_LepIso")
+                lepFRNum=_FileReturn(Name, channel,"_inclusive", NormMC.replace("_OS","_SS")+"_LepIso")
                 lepFRNumHist=lepFRNum.Get("XXX")
                 print lepFRNumHist.Integral()
 
-                lepFRDeNum=_FileReturn(Name, channel,"_inclusive", NormMC.replace("_HighMT_OS","_SS")+"_Total")
+                lepFRDeNum=_FileReturn(Name, channel,"_inclusive", NormMC.replace("_OS","_SS")+"_Total")
                 lepFRDeNumHist=lepFRDeNum.Get("XXX")
                 print lepFRDeNumHist.Integral()
         
-                jetFRNum=_FileReturn(Name, channel,NameCat, NormMC.replace("_HighMT_OS","_SS")+"_Total")
+                jetFRNum=_FileReturn(Name, channel,NameCat, NormMC.replace("_OS","_SS")+"_Total")
                 jetFRNumHist=jetFRNum.Get("XXX")
                 print jetFRNumHist.Integral()
                 
-                jetFRDeNum=_FileReturn(Name, channel,"_inclNoBjet", NormMC.replace("_HighMT_OS","_SS")+"_Total")
+                jetFRDeNum=_FileReturn(Name, channel,"_inclNoBjet", NormMC.replace("_OS","_SS")+"_Total")
                 jetFRDeNumHist=jetFRDeNum.Get("XXX")
                 print jetFRDeNumHist.Integral()
 
@@ -253,12 +253,34 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,chl,Binning):
                 Name="Data"
                 NameOut= "QCD"+str(TauScaleOut[tscale])
             
-#                ShapeFile= _FileReturn(Name, channel,NameCat, NormMC.replace("_HighMT_OS","_LowMT")+"_AntiIso") #for data Shape and Norm should be the same
-                ShapeFile= _FileReturn(Name, channel,NameCat, NormMC.replace("_HighMT","_LowMT")+"_AntiIso") #for data Shape and Norm should be the same
-                ShapeHisto=ShapeFile.Get("XXX")
+#                ShapeFile= _FileReturn(Name, channel,NameCat, NormMC.replace("_OS","")+"_AntiIso") #for data Shape and Norm should be the same
+                ShapeFileData= _FileReturn(Name, channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
+                ShapeHistoData=ShapeFileData.Get("XXX")
                 
-                RebinedHist= ShapeHisto.Rebin(RB_)
-                RebinedHist.Scale(1/RebinedHist.Integral())
+                ShapeFileDY= _FileReturn("DYJetsToLL", channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
+                ShapeHistoDY=ShapeFileDY.Get("XXX")
+                
+                ShapeFileW= _FileReturn("WJetsToLNu", channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
+                ShapeHistoW=ShapeFileW.Get("XXX")
+                
+                ShapeFileTT= _FileReturn("TTJets", channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
+                ShapeHistoTT=ShapeFileTT.Get("XXX")
+                
+                ShapeFileSTop= _FileReturn("SingleTop", channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
+                ShapeHistoSTop=ShapeFileSTop.Get("XXX")
+                
+                ShapeFileVV= _FileReturn("VV", channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
+                ShapeHistoVV=ShapeFileVV.Get("XXX")
+                
+                ShapeHistoData.Add(ShapeHistoDY,-1)
+                ShapeHistoData.Add(ShapeHistoW,-1)
+                ShapeHistoData.Add(ShapeHistoTT,-1)
+                ShapeHistoData.Add(ShapeHistoSTop,-1)
+                ShapeHistoData.Add(ShapeHistoVV,-1)
+                
+                
+                RebinedHist= ShapeHistoData.Rebin(RB_)
+                RebinedHist.Scale(168/RebinedHist.Integral())
                 tDirectory.WriteObject(RebinedHist,NameOut)
             
             ################################################
@@ -285,10 +307,10 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,chl,Binning):
 if __name__ == "__main__":
     Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
     
-#    NormMC="_ST_MET_HighMT"
+#    NormMC="_ST_MET"
 #    MakeTheHistogram("MuTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",0,Binning)
 #    MakeTheHistogram("EleTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",1,Binning)
-    PlotName= ["_LepPt_HighMT","_LepEta_HighMT","_TauPt_HighMT","_TauEta_HighMT","_NumJet_HighMT","_NumBJet_HighMT","_MET_HighMT","_ST_MET_HighMT"]
+    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_ST_MET"]
     
     
     for NormMC in PlotName:

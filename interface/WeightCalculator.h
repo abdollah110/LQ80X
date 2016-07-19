@@ -44,7 +44,7 @@ float XSection(std::string OutName) {
     
     
     //DYJets   float XSection_DY[numBG] = {2950, 561, 181, 51.1, 23};
-    else if (OutName.find("DYJetsToLL_Inc") != string::npos) return 4895;
+    else if (OutName.find("DYJetsToLL_Inc") != string::npos) return 4895 * 1.012; //based on comment from Francesco madgraphMLM it should be 6099 pb
     else if (OutName.find("DYJetsToLL_M-50_HT-100to200") != string::npos) return 147.4;
     else if (OutName.find("DYJetsToLL_M-50_HT-200to400") != string::npos) return 40.99;
     else if (OutName.find("DYJetsToLL_M-50_HT-400to600") != string::npos) return 5.678;
@@ -115,12 +115,12 @@ float XSection(std::string OutName) {
 //    else if (OutName.find("skimed_0_RHNu_3000-1500") != string::npos) return     6.030E-03;
     
     else if (OutName.find("LQToBTau_M") != string::npos) return     1.0;
-        else if (OutName.find("skimed_0_RHNu_") != string::npos ) return      1.0;
+        else if (OutName.find("skimed_Analysisggtree_mc_") != string::npos ) return      1.0;
     
     
 else if (OutName.find("QCD_Pt-20toInf_MuEnrichedPt15") != string::npos) return     720648000  * 0.00042 ;
 else if (OutName.find("LooseQCD") != string::npos) return     720648000  * 0.00042 ;
-else if (OutName.find("QCDLoose") != string::npos) return     720648000  * 0.00042 ;
+else if (OutName.find("QCD") != string::npos) return     720648000  * 0.00042 ;
     
     
 //    
@@ -222,7 +222,8 @@ float weightCalc(TH1F *Histo,std::string outputName , float genHT, vector<float>
     float LOtoNLO_W = 1.213783784 * WScaleFactor;
     //    float luminosity=2154;
 //    float luminosity=    3990;
-    float luminosity=    6260;
+//    float luminosity=    6260;
+    float luminosity=    9235;
     
     size_t isSingleMu = outputName.find("SingleMu");
     size_t isSingleEle = outputName.find("SingleEle");

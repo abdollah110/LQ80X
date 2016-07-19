@@ -302,7 +302,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
 
 if __name__ == "__main__":
     Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
-    PlotName= ["_VisMass_OS","_NumJet_OS","_NumBJet_OS","_MET_OS","_ST_MET_OS","_ST_DiJet_OS","_ElePt_OS","_MuPt_OS","_EleEta_OS","_MuEta_OS"]
+    PlotName= ["_VisMass_OS","_NumJet_OS","_NumBJet_OS","_MET_OS","_ST_MET_OS","_ElePt_OS","_MuPt_OS","_EleEta_OS","_MuEta_OS", "_LeadJetPt_OS", "_SubLeadJetPt_OS", "_LeadJetEta_OS","_SubLeadJetEta_OS"]
 #    PlotName= ["_VisMass_OS","_NumJet_OS","_NumBJet_OS","_MET_OS","_ST_MET_OS","_ST_DiJet_OS","_ElePt_OS","_MuPt_OS","_EleEta_OS","_MuEta_OS", "_LeadJetPt_OS", "_SubLeadJetPt_OS", "_LeadJetEta_OS","_SubLeadJetEta_OS"]
 #    
 

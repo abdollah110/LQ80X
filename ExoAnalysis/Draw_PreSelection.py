@@ -1,4 +1,4 @@
-TTSCALEXXXXXXX=0.92  #based om the TT from emu channel 
+TTSCALEXXXXXXX=1  #based om the TT from emu channel
 #!/usr/bin/env python
 import ROOT
 import re
@@ -15,7 +15,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("6.26 fb^{-1} (13 TeV)")
+    lumi.AddText("9.2 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -305,6 +305,6 @@ for ch in channelDirectory:
     for cat in Category:
         for i in range(0,len(FileNamesInfo)):
 
-            FileName="TotalRootForLimit_"+ch+FileNamesInfo[i][0]+"_OS.root"
+            FileName="TotalRootForLimit_PreSelection_"+ch+FileNamesInfo[i][0]+"_OS.root"
             MakePlot(FileName,ch+cat,FileNamesInfo[i][0],FileNamesInfo[i][1],FileNamesInfo[i][2],FileNamesInfo[i][3],ch+cat)
 

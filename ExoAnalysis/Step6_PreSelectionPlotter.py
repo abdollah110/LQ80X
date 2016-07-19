@@ -61,7 +61,7 @@ category = ["_inclusive","_DiJet","_JetBJet"]
 #category = ["_JetBJet"]
 
 #channelDirectory = [ "EleTau"]
-channelDirectory = ["MuTau", "EleTau"]
+#channelDirectory = ["MuTau", "EleTau"]
 
 ####################################################
 ##   Functions
@@ -98,7 +98,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 
 
 #    myOut = TFile("TotalRootForLimit_tauFREtau_"+channel + NormMC+".root" , 'RECREATE') # Name Of the output file
-    myOut = TFile("TotalRootForLimit_"+channel + NormMC+".root" , 'RECREATE') # Name Of the output file
+    myOut = TFile("TotalRootForLimit_PreSelection_"+channel + NormMC+".root" , 'RECREATE') # Name Of the output file
 
 
     icat=-1
@@ -106,7 +106,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
         icat =icat +1
         print "starting NameCat and channel and HistoName ", NameCat, channel, NormMC
 
-        tDirectory= myOut.mkdir(channelDirectory[chl] + str(NameCat))
+        tDirectory= myOut.mkdir(channel + str(NameCat))
         tDirectory.cd()
         for tscale in range(len(TauScale)):
 
@@ -294,7 +294,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
             DataSampleQCDNormHist.Add(WSampleQCDNormHist, -1)
             
 
-            FR_FitMaram=Make_Tau_FakeRate()
+            FR_FitMaram=Make_Tau_FakeRate(channel)
             QCDEstimation=0
             for bin in xrange(50,400):
                 value=DataSampleQCDNormHist.GetBinContent(bin)

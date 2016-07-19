@@ -15,7 +15,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("6.26 fb^{-1} (13 TeV)")
+    lumi.AddText("9.2 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -287,14 +287,14 @@ FileNamesInfo=[
                ["_NumJet_OS","Jet multiplicity","",1],
                ["_NumBJet_OS","B Jet multiplicity","",1],
                ["_ST_MET_OS","ST_{e#mujjMET}  (GeV)","",10],
-               ["_ST_DiJet_OS","ST_{e#mujj}  (GeV)","",10],
+#               ["_ST_DiJet_OS","ST_{e#mujj}  (GeV)","",10],
                ["_MET_OS","MET  (GeV)","",5],
                ["_EleEta_OS","#eta_{e}","",5],
                ["_MuEta_OS","#eta_{#mu}","",5],
-#               ["_LeadJetPt_OS","leading jet p_{T}","",5],
-#               ["_SubLeadJetPt_OS","leading jet p_{T}","",5],
-#               ["_LeadJetEta_OS","#eta of leading jet","",5],
-#               ["_SubLeadJetEta_OS","#eta of subleading jet","",5],
+               ["_LeadJetPt_OS","leading jet p_{T}","",5],
+               ["_SubLeadJetPt_OS","leading jet p_{T}","",5],
+               ["_LeadJetEta_OS","#eta of leading jet","",5],
+               ["_SubLeadJetEta_OS","#eta of subleading jet","",5],
                ]
 
 

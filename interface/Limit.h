@@ -39,7 +39,7 @@ python HiggsAnalysis/CombinedLimit/test/diffNuisances.py mlfit.root -A -a --stol
 
 
 
-step1:   limit.py --max-likelihood --stable --rMin -5 --rMax 5 outputLQ/lq9_FinalPreTalk//LIMITS/700/
+step1:   limit.py --max-likelihood --stable --rMin -5 --rMax 5 LIMITS/120/
 =combineCards.py -S lq_et_1_13TeV=lq_et_1_13TeV.txt lq_mt_1_13TeV=lq_mt_1_13TeV.txt
 =text2workspace.py -b /tmp/tmpWWHo59 -o ./tmp.root -m 700 --default-morphing shape2
 =combine -M MaxLikelihoodFit -m 700  --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.01 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.001 --cminFallbackAlgo "Minuit,0:0.001" --keepFailures --rMin -5 --rMax 5   --saveNormalizations --saveShapes --saveWithUncertainties  ./tmp.root --out=out
