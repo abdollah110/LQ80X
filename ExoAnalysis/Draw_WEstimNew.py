@@ -276,7 +276,7 @@ INFO = ["before W Scale","after W Scale"]
 
 FileNamesInfo=[
                ["_ST_MET","ST_{l#taujjMET}  (GeV)","",10],
-               ["_tmass"," M_{T}(lep,MET) (GeV)","",20],
+#               ["_tmass"," M_{T}(lep,MET) (GeV)","",20],
                ["_LepPt","  #mu PT (GeV)","",20],
                ["_tauPt"," #tau PT (GeV)","",20],
                ["_NumBJet"," ST_{l#taujj} (GeV)","",10],
@@ -293,7 +293,8 @@ FileNamesInfo=[
 for cat in range(0,len(Category)):
     for i in range(0,len(FileNamesInfo)):
         if cat==0: Scale_W=1.00; NameF="_beforeScale"
-        if cat==1: Scale_W=1.35; NameF="_afterScale"
-        FileName="WEstimation"+FileNamesInfo[i][0]+"_HighMT_OS.root"
+        if cat==1: Scale_W=0.92; NameF="_afterScale"
+        FileName="TotalRootForLimit_MuTau"+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJet.root"
+        print  "----> FileName =", FileName
         MakePlot(FileName,Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],INFO[cat],FileNamesInfo[i][3],Scale_W,NameF)
 

@@ -34,7 +34,7 @@ import os
 
 ROOT.gROOT.SetBatch(True)
 #ROOT.gROOT.ProcessLine('.x rootlogon.C')
-SubRootDir = './'  # GetQCDFile
+SubRootDir = 'OutFiles_WEstim/'  # GetQCDFile
 
 verbos_ = False
 TauScale = [ ""]
@@ -184,7 +184,7 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,doBinning,Na
 #            else : RebinedHist= DataSampleQCDShapeHist
 #            #            tDirectory.WriteObject(RebinedHist,NameOut)
 #
-            Name= "qcdForValdation"
+            Name= "QCD"
             QCD= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
             QCDSHape= QCD.Get("XXX")
             print "integral=", QCDSHape.Integral()
@@ -257,7 +257,7 @@ HistoFakeDeNum=ObjectPT+"_SS_Total"
 #############################################################################################################
 ##   Calculating the Fake Rate ---> "Linear Fit, 2 parameters"
 #############################################################################################################
-def Make_Tau_FakeRate():
+def Make_Tau_FakeRate(Channel):
     
     
     ShapeNum=MakeTheHistogram(channelName,HistoFakeNum,HistoFakeNum,"",0,BinningFake,1,category_FakeEstim)
@@ -368,7 +368,7 @@ def Make_Tau_FakeRate():
 ##########################################    ##########################################    ##########################################
 
 if __name__ == "__main__":
-    FR_FitMaram=Make_Tau_FakeRate()
+    FR_FitMaram=Make_Tau_FakeRate("MuTau")
     
 
 

@@ -50,12 +50,12 @@ verbos_ = False
 OS_SS_Ratio=1.00
 RB_=10
 
-#TauScale = ["Down", "", "Up"]
-TauScale = ["", "", ""]
+TauScale = ["Down", "", "Up"]
+#TauScale = ["", "", ""]
 JetScale = ["JetDown", "", "JetUp"]
 SystematicHighPtTau = ["TauHighPtRWUp","TauHighPtRWDown"]
 SystematicTopPtReWeight = ["TopPtRWUp","TopPtRWDown"]
-SystematicWShape = ["_WShapeUp","_WShapeDown"]
+#SystematicWShape = ["_WShapeUp","_WShapeDown"]
 #TauScale = ["", "", ""]
 #POSTFIX=["","Up","Down"]
 
@@ -83,7 +83,7 @@ def _FileReturn(Name, channel,cat,HistoName,PostFix,PostFixJet,CoMEnergy):
         os.makedirs(SubRootDir)
     myfile = TFile(SubRootDir + Name +CoMEnergy+ '.root')
     print "##### --->>>>>>> File name is ", SubRootDir + Name +CoMEnergy+ '.root'  "   and histo is -->  ", channel+HistoName + cat+ PostFix+PostFixJet
-    Histo =  myfile.Get(channel+HistoName + cat+ PostFix)
+    Histo =  myfile.Get(channel+HistoName + cat+ PostFix+PostFixJet)
     if not os.path.exists("Extra"):
         os.makedirs("Extra")
     NewFile=TFile("Extra/XXX.root","RECREATE")
@@ -351,7 +351,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                 ################################################
                 #  Filling QCD
                 ################################################
-                if tscale ==1:
+                if tscale ==1 and jscale==1:
                     print "--------------------------------------------------->     Processing QCD"
                     tDirectory.cd()
                     
@@ -390,10 +390,10 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 
                     print "\n##########\nlooseQCDNORM before=",    DataSampleQCDShapeHist.Integral()
                     
-                    if (SingleTSampleQCDShapeHist) : DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
-                    if (VVSampleQCDShapeHist): DataSampleQCDShapeHist.Add(VVSampleQCDShapeHist, -1)
-                    DataSampleQCDShapeHist.Add(TTSampleQCDShapeHist, -1)
-                    DataSampleQCDShapeHist.Add(ZTTSampleQCDShapeHist, -1)
+#                    if (SingleTSampleQCDShapeHist) : DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
+#                    if (VVSampleQCDShapeHist): DataSampleQCDShapeHist.Add(VVSampleQCDShapeHist, -1)
+#                    DataSampleQCDShapeHist.Add(TTSampleQCDShapeHist, -1)
+#                    DataSampleQCDShapeHist.Add(ZTTSampleQCDShapeHist, -1)
 #                    DataSampleQCDShapeHist.Add(WSampleQCDShapeHist, -1)
 
 
@@ -432,7 +432,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                 ################################################
                 #  Filling Data
                 ################################################
-                if tscale ==1:
+                if tscale ==1 and jscale==1:
                     print "--------------------------------------------------->     Processing Data"
                     tDirectory.cd()
 

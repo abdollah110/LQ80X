@@ -37,7 +37,7 @@ SubRootDir = 'OutFiles_TTEstim/'
 
 
 verbos_ = False
-RBN_=1
+RBN_=10
 
 
 TauScale = [ ""]
@@ -45,9 +45,13 @@ TauScale = [ ""]
 
 signal = ['LQ_']
 signalName = ['LQ_']
-mass = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
-
+#mass = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+#TOTMASS = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+mass = [1000,1100]
+TOTMASS = [1000,1100]
 lenghtSig = len(signal) * len(mass) +1
+category = ["_JetBJet"]
+charge="_OS"
 
 #category = ["_inclusive", "_nobtag", "_btag", "_btagLoose"]
 #category = ["_inclusive"]
@@ -99,28 +103,24 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
         tDirectory.cd()
         for tscale in range(len(TauScale)):
             
-#            #           ################################################
-#            #           #   Filling Signal
-#            #           ################################################
-#            for sig in range(len(signal)):
-#                for m in range(len(mass)):#    for m in range(110, 145, 5):
-#                    
-#                    print "Now is processing", signal[sig],mass[m]
-#                    tDirectory.cd()
-#                    
-#                    Name= str(signal[sig])+str(mass[m])
-#                    NameOut= str(signalName[sig]) +str(mass[m])+str(TauScaleOut[tscale])
-#                    
-#                    
-#                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
-#                    NormHisto=NormFile.Get("XXX")
-#                    
-#                    ShapeFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
-#                    ShapeHisto=ShapeFile.Get("XXX")
-#                    
-#                    ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-#                    RebinedHist= ShapeHisto.Rebin(RBN_)
-#                    tDirectory.WriteObject(RebinedHist,NameOut)
+            #           ################################################
+            #           #   Filling Signal
+            ##           ################################################
+            for sig in range(len(signal)):
+                for m in range(len(mass)):#    for m in range(110, 145, 5):
+                    
+                    print "--------------------------------------------------->     Processing LQ Signal ", signal[sig],mass[m]
+                    tDirectory.cd()
+                    
+                    Name= str(signal[sig])+str(mass[m])
+                    NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(TauScaleOut[tscale])
+                    
+                    
+                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+                    NormHisto=NormFile.Get("XXX")
+                    
+                    RebinedHist= NormHisto.Rebin(RBN_)
+                    tDirectory.WriteObject(RebinedHist,NameOut)
 
 
 

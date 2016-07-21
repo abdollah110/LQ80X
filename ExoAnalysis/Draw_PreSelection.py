@@ -4,6 +4,104 @@ import ROOT
 import re
 from array import array
 
+
+#
+#----------------------------------------------------------
+#lq_mt_1_13TeV             LQ_                  0.86708
+#lq_mt_1_13TeV             QCD                  0.98690
+#lq_mt_1_13TeV             SingleTop            0.88731
+#lq_mt_1_13TeV             TT                   0.82758
+#lq_mt_1_13TeV             VV                   0.86718
+#lq_mt_1_13TeV             W                    0.87289
+#lq_mt_1_13TeV             ZTT                  0.88400
+#[abdollah@cmslpc39 out]$ PostFitShapes -o final_lq_et_1000.root -m 1000 -f mlfit.root:fit_b --postfit --sampling --print -d ../lq_et_1_13TeV.txt
+#Bin                       Total relative bkg uncert. (prefit)
+#----------------------------------------------------------
+#lq_et_1_13TeV             0.11467
+#
+#Bin                       Total relative bkg uncert. (postfit)
+#----------------------------------------------------------
+#lq_et_1_13TeV             0.02897
+#
+#Bin                       Process              Scale factor
+#----------------------------------------------------------
+#lq_et_1_13TeV             LQ_                  0.83664
+#lq_et_1_13TeV             QCD                  0.98690
+#lq_et_1_13TeV             SingleTop            0.85616
+#lq_et_1_13TeV             TT                   0.79853
+#lq_et_1_13TeV             VV                   0.83674
+#lq_et_1_13TeV             W                    0.84225
+#lq_et_1_13TeV             ZTT                  0.85297
+#
+#lq_mt_1_13TeV             QCD
+#lq_mt_1_13TeV             SingleTop
+#lq_mt_1_13TeV             TT                   0.86226
+#lq_mt_1_13TeV             VV                   0.89715
+#lq_mt_1_13TeV             W                    0.87024
+#lq_mt_1_13TeV             ZTT                  0.90582
+#[abdollah@cmslpc39 out]$ PostFitShapes -o final_lq_et_1000.root -m 1000 -f mlfit.root:fit_b --postfit --sampling --print -d ../lq_et_1_13TeV.txt
+#Bin                       Total relative bkg uncert. (prefit)
+#----------------------------------------------------------
+#lq_et_1_13TeV             0.11484
+#
+#Bin                       Total relative bkg uncert. (postfit)
+#----------------------------------------------------------
+#lq_et_1_13TeV             0.02559
+#
+#Bin                       Process              Scale factor
+#----------------------------------------------------------
+#lq_et_1_13TeV             LQ_                  0.89526
+#lq_et_1_13TeV             QCD                  0.97588
+#lq_et_1_13TeV             SingleTop            0.90265
+#lq_et_1_13TeV             TT                   0.86658
+#lq_et_1_13TeV             VV                   0.90163
+#lq_et_1_13TeV             W                    0.87459
+#lq_et_1_13TeV             ZTT                  0.91035
+
+
+def _GetSF(Channel,process):
+    
+    return 1
+#    print "----->     Channel,process", Channel,process
+#    
+#    if Channel=="MuTau_DiJet":
+#
+#        #MuTau   DiJet
+#        if  process=="QCD"        :            return 0.97588
+#        if  process=="SingleTop"    :            return 0.89815
+#        if  process=="TT"           :            return 0.85865
+#        if  process=="VV"           :            return 0.89172
+#        if  process=="W"            :            return 0.87075
+#        if  process=="ZTT"          :            return 0.89964
+#
+#    if Channel=="EleTau_DiJet":
+#        #EleTau   DiJet
+#        if  process=="QCD"          :            return 0.97752
+#        if  process=="SingleTop"    :            return 0.90099
+#        if  process=="TT"           :            return 0.86775
+#        if  process=="VV"           :            return 0.90117
+#        if  process=="W"            :            return 0.87998
+#        if  process=="ZTT"          :            return 0.90917
+#
+#    if Channel=="MuTau_JetBJet":
+#        #MuTau   JetBJet
+#        if  process=="QCD"          :            return 0.98603
+#        if  process=="SingleTop"    :            return 0.88067
+#        if  process=="TT"           :            return 0.82611
+#        if  process=="VV"           :            return 0.86442
+#        if  process=="W"            :            return 0.86417
+#        if  process=="ZTT"          :            return 0.87969
+#
+#    if Channel=="EleTau_JetBJet":
+#        #EleTau   JetBJet
+#        if  process=="QCD"          :            return 0.98603
+#        if  process=="SingleTop"    :            return 0.85370
+#        if  process=="TT"           :            return 0.80080
+#        if  process=="VV"           :            return 0.83794
+#        if  process=="W"            :            return 0.83770
+#        if  process=="ZTT"          :            return 0.85275
+
+
 RB_=10
 def add_lumi():
     lowX=0.69
@@ -73,18 +171,27 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 
     Data=file.Get(categoriy).Get("data_obs")
     Data.Rebin(RB_)
+    
     QCD=file.Get(categoriy).Get("QCD")
     QCD.Rebin(RB_)
+    QCD.Scale(_GetSF(channel,"QCD"))
+    
     W=file.Get(categoriy).Get("W")
     W.Rebin(RB_)
+    W.Scale(_GetSF(channel,"W"))
+    
     TT=file.Get(categoriy).Get("TT")
-    TT.Scale(TTSCALEXXXXXXX)
     TT.Rebin(RB_)
+    TT.Scale(_GetSF(channel,"TT"))
+
     VV=file.Get(categoriy).Get("VV")
     VV.Rebin(RB_)
-    #W.Add(VV)
+    VV.Scale(_GetSF(channel,"VV"))
+    
     SingleT=file.Get(categoriy).Get("SingleTop")
     SingleT.Rebin(RB_)
+    SingleT.Scale(_GetSF(channel,"SingleTop"))
+    
     DYS=file.Get(categoriy).Get("ZTT")
     DYS.Rebin(RB_)
 
@@ -272,7 +379,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 
 channelDirectory = ["MuTau", "EleTau"]
 #channelDirectory = ["MuTau"]
-Category = ["_inclusive","_DiJet","_JetBJet"]
+Category = ["_DiJet","_JetBJet"]
 #Category = ["_JetBJet"]
 #Category = ["_inclusive"]
 

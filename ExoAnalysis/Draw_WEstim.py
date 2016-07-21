@@ -3,7 +3,9 @@ import ROOT
 import re
 from array import array
 
+WSCALEFACTOR=0.92
 RB_=10
+
 def add_lumi():
     lowX=0.69
     lowY=0.835
@@ -14,7 +16,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("6.26 fb^{-1} (13 TeV)")
+    lumi.AddText("9.2 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -77,6 +79,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
     QCD.Rebin(RB_)
     print "--> error one qcd=", QCD.GetBinError(1)
     W=file.Get(categoriy).Get("W")
+    W.Scale(WSCALEFACTOR)
     W.Rebin(RB_)
     print "--> error one w=", W.GetBinError(1)
     TT=file.Get(categoriy).Get("TT")
@@ -270,7 +273,8 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
 
 
 
-
+cat = ["_DiNonBJet"]
+#category = ["_inclusive"]
 Category = ["beforeScale"]
 INFO = [" W Control region Scale"]
 Channel=["MuTau"]
@@ -279,16 +283,15 @@ Channel=["MuTau"]
 #TotalRootForLimit_MuTau_ST_MET_HighMT_OS_inclNoBjet.root
 
 FileNamesInfo=[
-               ["_ST_MET","ST_{l#taujjMET}  (GeV)","",10],
-               ["_NumJet","Jet multiplicity","",1],
-               ["_NumBJet","B Jet multiplicity","",1],
-#               ["_tmass"," M_{T}(lep,MET) (GeV)","",10],
-               ["_LepPt","  #mu PT (GeV)","",10],
-               ["_TauPt"," #tau PT (GeV)","",10],
-#               ["_ST_DiJet"," ST_{l#taujj} (GeV)","",10],
-               ["_MET"," MET (GeV)","",20],
-               ["_LepEta","  #eta_{#mu}","",10],
-               ["_TauEta","  #eta_{#tau}","",10]
+               ["_ST_MET_HighMT_OS","ST_{l#taujjMET}  (GeV)","",10],
+               ["_NumJet_HighMT_OS","Jet multiplicity","",1],
+               ["_NumBJet_HighMT_OS","B Jet multiplicity","",1],
+#               ["_tmass_HighMT_OS"," M_{T}(lep,MET) (GeV)","",10],
+               ["_LepPt_HighMT_OS","  #mu PT (GeV)","",10],
+               ["_TauPt_HighMT_OS"," #tau PT (GeV)","",10],
+               ["_MET_HighMT_OS"," MET (GeV)","",20],
+               ["_LepEta_HighMT_OS","  #eta_{#mu}","",10],
+               ["_TauEta_HighMT_OS","  #eta_{#tau}","",10]
 
                
                ]
@@ -303,7 +306,7 @@ for CH in Channel:
 #WEstimation_LepEta_HighMT_OS_DiNonBJetMuTau.root
 #TotalRootForLimit_MuTau_LepPt_HighMT_OS_DiNonBJet.root
 #            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJet.root"
-            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_OS_inclusive.root"
+            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_DiNonBJet.root"
 #            FileName="WEstimation"+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJetMuTau.root"
             MakePlot(FileName,Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],INFO[cat],FileNamesInfo[i][3])
 

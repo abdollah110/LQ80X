@@ -43,7 +43,7 @@ SubRootDir = 'OutFiles_WEstim/'
 
 verbos_ = False
 OS_SS_Ratio=1.00
-RB_=1
+RB_=10
 
 TauScale = [ ""]
 #POSTFIX=["","Up","Down"]
@@ -55,9 +55,9 @@ Wmass = ['1000','1500','2000','2500','3000']
 
 lenghtSig = len(signal) * len(mass) +1
 
-category = ["_inclusive"]
-#category = ["_DiJet","_JetBJet"]
-#category = ["_DiNonBJet"]
+#category = ["_inclusive"]
+#category = ["_DiJet"]
+category = ["_DiNonBJet"]
 #category = ["_inclNoBjet"]
 
 #channelDirectory = [ "MuTau"]
@@ -272,15 +272,17 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,chl,Binning):
                 ShapeFileVV= _FileReturn("VV", channel,NameCat, NormMC.replace("_OS","_SS")+"_LepAntiIso") #for data Shape and Norm should be the same
                 ShapeHistoVV=ShapeFileVV.Get("XXX")
                 
+                print "--> Before subtracting other BG contamination QCD norm is =", ShapeHistoData.Integral()
                 ShapeHistoData.Add(ShapeHistoDY,-1)
                 ShapeHistoData.Add(ShapeHistoW,-1)
                 ShapeHistoData.Add(ShapeHistoTT,-1)
                 ShapeHistoData.Add(ShapeHistoSTop,-1)
                 ShapeHistoData.Add(ShapeHistoVV,-1)
+                print "--> After subtracting other BG contamination QCD norm is =", ShapeHistoData.Integral()
                 
                 
                 RebinedHist= ShapeHistoData.Rebin(RB_)
-                RebinedHist.Scale(168/RebinedHist.Integral())
+                RebinedHist.Scale(107/RebinedHist.Integral())
                 tDirectory.WriteObject(RebinedHist,NameOut)
             
             ################################################
@@ -310,8 +312,9 @@ if __name__ == "__main__":
 #    NormMC="_ST_MET"
 #    MakeTheHistogram("MuTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",0,Binning)
 #    MakeTheHistogram("EleTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",1,Binning)
-    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_ST_MET"]
-    
+    PlotName= ["_tmass"]
+#    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_ST_MET"]
+
     
     for NormMC in PlotName:
     

@@ -175,7 +175,9 @@ int main(int argc, char** argv) {
         //###############################################################################################
         //  Weight Calculation
         //###############################################################################################
-        float WSCALEFACTORE=1.0;  //measured July 4th from WEstimaOutPut/_16_80X
+        float WSCALEFACTORE=1.00;  //measured July 4th from WEstimaOutPut/_16_80X
+        float WSF_mutau=0.92;
+        float WSF_etau=1.04;
         float MuMass= 0.10565837;
         float eleMass= 0.000511;
         float LeptonPtCut_=50;
@@ -598,7 +600,7 @@ int main(int argc, char** argv) {
                                                                         if (ST_category[ist]) {
                                                                             
                                                                             //                                                                        if (isTTJets!= string::npos) NewTotalWeight=TotalWeight * TTScaleFactor[ist];  // Add TT scale factor
-                                                                            //                                                                        if (isWJets!= string::npos) NewTotalWeight=TotalWeight * WSCALEFACTORE;  // Add W scale factor
+                                                                                if (isWJets!= string::npos) WSCALEFACTORE=WSF_mutau;  // Add W scale factor
                                                                             
                                                                             
                                                                             for (int trg = 0; trg < size_trgCat; trg++) {
@@ -607,7 +609,7 @@ int main(int argc, char** argv) {
                                                                                     
                                                                                     
                                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] + trg_Cat[trg] +ST_Cat[ist]+Scale_Cat[scale]  + ScaleJet_Cat[jetScl];
-                                                                                    float FullWeight= TotalWeight * LepCorr * BtagSFLeadBJet;
+                                                                                    float FullWeight= TotalWeight * LepCorr * BtagSFLeadBJet * WSCALEFACTORE;
                                                                                     
                                                                                     //                                                                    plotFill(CHANNEL+AN_Cat[an]+"_TauPt"+FullStringName,tauPt->at(itau),200,0,200,FullWeight);
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,FullWeight);
@@ -1012,7 +1014,7 @@ int main(int argc, char** argv) {
                                                                         if (ST_category[ist]) {
                                                                             
                                                                             //                                                                        if (isTTJets!= string::npos) NewTotalWeight=TotalWeight * TTScaleFactor[ist];  // Add TT scale factor
-                                                                            //                                                                        if (isWJets!= string::npos) NewTotalWeight=TotalWeight * WSCALEFACTORE;  // Add W scale factor
+                                                                            if (isWJets!= string::npos) WSCALEFACTORE=WSF_etau;  // Add W scale factor
                                                                             
                                                                             
                                                                             
@@ -1021,7 +1023,7 @@ int main(int argc, char** argv) {
                                                                                     
                                                                                     
                                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] +trg_Cat[trg]+ST_Cat[ist] + Scale_Cat[scale] + ScaleJet_Cat[jetScl];
-                                                                                    float FullWeight= TotalWeight * LepCorr * BtagSFLeadBJet;
+                                                                                    float FullWeight= TotalWeight * LepCorr * BtagSFLeadBJet * WSCALEFACTORE;
                                                                                     
                                                                                     //                                                                    plotFill(CHANNEL+AN_Cat[an]+"_TauPt"+FullStringName,tauPt->at(itau),500,0,500,FullWeight);
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,FullWeight);

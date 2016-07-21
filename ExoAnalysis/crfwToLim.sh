@@ -1,0 +1,3 @@
+scp TotalRootForLimit_PreSelection_MuTau_ST_MET_OS.root  abdollah@cmslpc-sl6.fnal.gov:/uscms_data/d3/abdollah/Analysis/Limit/CMSSW_7_1_5/src/auxiliaries/shapes/TotalRootForLimit_PreSelection_mt_ST_MET_OS.root
+
+scp TotalRootForLimit_PreSelection_EleTau_ST_MET_OS.root  abdollah@cmslpc-sl6.fnal.gov:/uscms_data/d3/abdollah/Analysis/Limit/CMSSW_7_1_5/src/auxiliaries/shapes/TotalRootForLimit_PreSelection_et_ST_MET_OS.root

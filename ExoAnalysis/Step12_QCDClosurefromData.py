@@ -299,7 +299,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
             DataSampleQCDNormHist.Add(WSampleQCDNormHist, -1)
             
 
-            FR_FitMaram=Make_Tau_FakeRate()
+            FR_FitMaram=Make_Tau_FakeRate(channel)
             QCDEstimation=0
             for bin in xrange(50,400):
                 value=DataSampleQCDNormHist.GetBinContent(bin)

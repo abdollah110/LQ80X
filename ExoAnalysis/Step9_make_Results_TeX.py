@@ -56,7 +56,7 @@ def _getTotBG(channel):
     Error=0
     for Samples in SampleList_BG:
         
-        RootFile="LIMIT/final_lq_"+channel+"_700.root"
+        RootFile="LIMIT/Approval_July20/final_lq_"+channel+"_900.root"
         Category="lq_"+channel+"_1_13TeV_postfit"
         Integral = Integral+ GetTH1Hist(RootFile,Samples,Category)[0]
         Error = Error+ GetTH1Hist(RootFile,Samples,Category)[1]
@@ -68,7 +68,7 @@ for channel in CH:
     text_file.write(channel)
     for Samples in SampleList:
         
-        RootFile="LIMIT/final_lq_"+channel+"_700.root"
+        RootFile="LIMIT/Approval_July20/final_lq_"+channel+"_900.root"
         Category="lq_"+channel+"_1_13TeV_postfit"
         
         if Samples=="TotBG":
@@ -104,7 +104,7 @@ def _getTotBG(channel):
     Error=0
     for Samples in SampleList_BG:
         
-        RootFile="LIMIT/final_rw_"+channel+"_2000.root"
+        RootFile="LIMIT/Approval_July20/final_rhw_"+channel+"_3000.root"
         Category="RHW__"+channel+"_1_13TeV_postfit"
         Integral = Integral+ GetTH1Hist(RootFile,Samples,Category)[0]
         Error = Error+ GetTH1Hist(RootFile,Samples,Category)[1]
@@ -115,7 +115,7 @@ for channel in CH:
     text_file.write(channel)
     for Samples in SampleList:
         
-        RootFile="LIMIT/final_rw_"+channel+"_2000.root"
+        RootFile="LIMIT/Approval_July20/final_rhw_"+channel+"_3000.root"
         Category="RHW__"+channel+"_1_13TeV_postfit"
         
         if Samples=="TotBG":

@@ -43,17 +43,21 @@ SubRootDir = 'OutFiles_PreSelection/'
 verbos_ = False
 #OS_SS_Ratio=1.06
 OS_SS_Ratio=1.00
-RB_=1
+RB_=10
 
 TauScale = [ ""]
 #POSTFIX=["","Up","Down"]
 
-signal = ['RHNu_']
-signalName = ['RHW_']
-mass = ['1000-500','1500-750','2000-1000','2500-1250','3000-1500']
-Wmass = ['1000','1500','2000','2500','3000']
-
+signal = ['LQ_']
+signalName = ['LQ_']
+#mass = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+#TOTMASS = [200,250, 300, 350, 400, 450, 500, 550,  600, 650, 700, 750, 800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500]
+mass = [1000,1100]
+TOTMASS = [1000,1100]
 lenghtSig = len(signal) * len(mass) +1
+category = ["_JetBJet"]
+charge="_OS"
+
 
 #category = ["_inclusive"]
 category = ["_inclusive","_DiJet","_JetBJet"]
@@ -91,7 +95,7 @@ def _FileReturn(Name, channel,cat,HistoName,PostFix,CoMEnergy):
 ####################################################
 ##   Start Making the Datacard Histograms
 ####################################################
-def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
+def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl):
     print "\n\n\n\n\n\n ****** ------------------------------>     Starting for ",NormMC, "in Channel= ",channel
 
     TauScaleOut = [ ""]
@@ -113,25 +117,21 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 #           ################################################
 #           #   Filling Signal
 ##           ################################################
-#            for sig in range(len(signal)):
-#                for m in range(len(mass)):#    for m in range(110, 145, 5):
-#
-#                    print "--------------------------------------------------->     Processing LQ Signal ", signal[sig],mass[m]
-#                    tDirectory.cd()
-#
-#                    Name= str(signal[sig])+str(mass[m])
-#                    NameOut= str(signalName[sig]) +str(Wmass[m])+str(TauScaleOut[tscale])
-#
-#                            
-#                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
-#                    NormHisto=NormFile.Get("XXX")
-#            
-#                    ShapeFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
-#                    ShapeHisto=ShapeFile.Get("XXX")
-#            
-#                    ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-#                    RebinedHist= ShapeHisto.Rebin(RB_)
-#                    tDirectory.WriteObject(RebinedHist,NameOut)
+            for sig in range(len(signal)):
+                for m in range(len(mass)):#    for m in range(110, 145, 5):
+
+                    print "--------------------------------------------------->     Processing LQ Signal ", signal[sig],mass[m]
+                    tDirectory.cd()
+
+                    Name= str(signal[sig])+str(mass[m])
+                    NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(TauScaleOut[tscale])
+
+
+                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+                    NormHisto=NormFile.Get("XXX")
+
+                    RebinedHist= NormHisto.Rebin(RB_)
+                    tDirectory.WriteObject(RebinedHist,NameOut)
 
             ################################################
             #  Filling SingleTop
@@ -271,11 +271,11 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 
             print "\n##########\n DataSampleQCDShapeHist before=",    DataSampleQCDShapeHist.Integral()
             
-            DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
+#            DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
 #            DataSampleQCDShapeHist.Add(VVSampleQCDShapeHist, -1)
-            DataSampleQCDShapeHist.Add(TTSampleQCDShapeHist, -1)
-            DataSampleQCDShapeHist.Add(ZTTSampleQCDShapeHist, -1)
-            DataSampleQCDShapeHist.Add(WSampleQCDShapeHist, -1)
+#            DataSampleQCDShapeHist.Add(TTSampleQCDShapeHist, -1)
+#            DataSampleQCDShapeHist.Add(ZTTSampleQCDShapeHist, -1)
+#            DataSampleQCDShapeHist.Add(WSampleQCDShapeHist, -1)
 
             print "\n##########\n DataSampleQCDShapeHist after=",    DataSampleQCDShapeHist.Integral()
 
@@ -340,9 +340,9 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 
 
 if __name__ == "__main__":
-    Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
+#    Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
 #    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_nVtx","_nVtx_NoPU","_MET","_M_taujet", "_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
-#    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
+    PlotName= ["_tmass","_VisMass"]
 #    PlotName= ["_NumJet"]
     PlotName= ["_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_LeadJetPt","_SubLeadJetPt","_LeadJetEta","_SubLeadJetEta","_ST_MET"]
 
@@ -353,11 +353,11 @@ if __name__ == "__main__":
 
     for NormMC in PlotName:
 
-        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_Total","",0,Binning)
-        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_Total","",1,Binning)
-#        MakeTheHistogram("EleTau",NormMC,"_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0,Binning)
+        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0)
+        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1)
+#        MakeTheHistogram("EleTau",NormMC,"_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0)
 
 ###OS
-#        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0,Binning)
-#        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",1,Binning)
+#        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0)
+#        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",1)
 

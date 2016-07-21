@@ -168,8 +168,8 @@ int main(int argc, char** argv) {
         //  Weight Calculation
         //###############################################################################################
         float WSCALEFACTORE=1.00;  //measured July 4th from WEstimaOutPut/_16_80X
-        float WSCALEFACTORE_Etau=1.0;
-        float WSCALEFACTORE_Mutau=1.0;
+        float WSF_mutau=0.92;
+        float WSF_etau=1.04;
         float MuMass= 0.10565837;
         float eleMass= 0.000511;
         float LeptonPtCut_=50;
@@ -228,10 +228,8 @@ int main(int argc, char** argv) {
                 float PUData_=HistoPUData->GetBinContent(puNUmdata+1);
                 PUWeight= PUData_/PUMC_;
             }
-            float WSF=1;
-            if (isWJets!= string::npos) WSF= WSCALEFACTORE;  // Add W scale factor
             
-            float TotalWeight = LumiWeight * GetGenWeight * PUWeight * TopPtReweighting * WSF;
+            float TotalWeight = LumiWeight * GetGenWeight * PUWeight * TopPtReweighting ;
             //###############################################################################################
             //  Histogram Filling
             //###############################################################################################
@@ -270,8 +268,8 @@ int main(int argc, char** argv) {
                         bool TauIdIso =  taupfTausDiscriminationByDecayModeFinding->at(itau) > 0.5 && tauByTightMuonRejection3->at(itau) > 0 && tauByMVA6LooseElectronRejection->at(itau) > 0 && fabs(tauDxy->at(itau)) < 0.05;
                         
                         
-                        float LepCor=1 * WSCALEFACTORE_Mutau;
-                        LepCor=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
+//                        float LepCor=1 * WSCALEFACTORE;
+                        float LepCor=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
                         
                         
                         TLorentzVector Mu4Momentum, Tau4Momentum, Z4Momentum, Jet4Momentum,ExtraMu4Momentum, ExtraEle4Momentum,KJet4Momentum;
@@ -535,13 +533,13 @@ int main(int argc, char** argv) {
                                                         if (ST_category[ist]) {
                                                             
 //                                                            if (isTTJets!= string::npos) TotalWeight * LepCor=TotalWeight * TTScaleFactor[ist];  // Add TT scale factor
-//                                                            if (isWJets!= string::npos) TotalWeight * LepCor=TotalWeight * WSCALEFACTORE;  // Add W scale factor
+                                                            if (isWJets!= string::npos) WSCALEFACTORE=WSF_mutau;  // Add W scale factor
                                                             
                                                             for (int trg = 0; trg < size_trgCat; trg++) {
                                                                 
                                                                 if (Trigger_category[trg]) {
                                                                     
-                                                                    float FullWeight = TotalWeight * LepCor * BtagSFLeadBJet;
+                                                                    float FullWeight = TotalWeight * LepCor * BtagSFLeadBJet * WSCALEFACTORE;
                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] + trg_Cat[trg] +ST_Cat[ist];
 
                                                                     
@@ -563,7 +561,7 @@ int main(int argc, char** argv) {
                                                                     plotFill(CHL+"_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,FullWeight);
                                                                     plotFill(CHL+"_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,FullWeight);
                                                                     plotFill(CHL+"_SubLeadJetEta"+FullStringName,subLeadJetEta_,100,-2.5,2.5,FullWeight);
-                                                                    plotFill(CHL+"_ST_MET"+FullStringName,ST_MET,100,0,1000,FullWeight);
+                                                                    plotFill(CHL+"_ST_MET"+FullStringName,ST_MET,200,0,2000,FullWeight);
                                                                     
                                                                     
                                                                 }
@@ -616,8 +614,8 @@ int main(int argc, char** argv) {
                         Z4Momentum=Ele4Momentum+Tau4Momentum;
                         
                         
-                        float LepCor=1  * WSCALEFACTORE_Etau;
-                        LepCor=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF0p5,HistoEleSF5);
+//                        float LepCor=1  ;
+                        float LepCor=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF0p5,HistoEleSF5);
                         
                         
                         
@@ -876,12 +874,12 @@ int main(int argc, char** argv) {
                                                         if (ST_category[ist]) {
 
 //                                                            if (isTTJets!= string::npos) TotalWeight * LepCor=TotalWeight * TTScaleFactor[ist];  // Add TT scale factor
-//                                                            if (isWJets!= string::npos) TotalWeight * LepCor=TotalWeight * WSCALEFACTORE;  // Add W scale factor
+                                                            if (isWJets!= string::npos) WSCALEFACTORE = WSF_etau;  // Add W scale factor
                                                             
                                                             for (int trg = 0; trg < size_trgCat; trg++) {
                                                                 if (Trigger_category[trg]) {
                                                                     
-                                                                    float FullWeight = TotalWeight * LepCor * BtagSFLeadBJet;
+                                                                    float FullWeight = TotalWeight * LepCor * BtagSFLeadBJet * WSCALEFACTORE;
                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] +trg_Cat[trg]+ST_Cat[ist];
                                                                     
                                                                     plotFill(CHL+"_tmass"+FullStringName,tmass,500,0,500,FullWeight);
@@ -902,7 +900,7 @@ int main(int argc, char** argv) {
                                                                     plotFill(CHL+"_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,FullWeight);
                                                                     plotFill(CHL+"_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,FullWeight);
                                                                     plotFill(CHL+"_SubLeadJetEta"+FullStringName,subLeadJetEta_,100,-2.5,2.5,FullWeight);
-                                                                    plotFill(CHL+"_ST_MET"+FullStringName,ST_MET,100,0,1000,FullWeight);
+                                                                    plotFill(CHL+"_ST_MET"+FullStringName,ST_MET,200,0,2000,FullWeight);
                                                                     
                                                                     
                                                                 }

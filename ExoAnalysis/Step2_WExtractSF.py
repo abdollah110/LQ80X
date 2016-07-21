@@ -55,9 +55,9 @@ Wmass = ['1000','1500','2000','2500','3000']
 
 lenghtSig = len(signal) * len(mass) +1
 
-category = ["_inclusive"]
+#category = ["_inclusive"]
 #category = ["_DiJet"]
-#category = ["_DiNonBJet"]
+category = ["_DiNonBJet"]
 #category = ["_inclNoBjet"]
 
 #channelDirectory = [ "MuTau"]
@@ -289,8 +289,8 @@ if __name__ == "__main__":
 #    MakeTheHistogram("MuTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",0,Binning)
 #    MakeTheHistogram("EleTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",1,Binning)
     PlotName= ["_LepPt_HighMT","_LepEta_HighMT","_TauPt_HighMT","_TauEta_HighMT","_NumJet_HighMT","_NumBJet_HighMT","_MET_HighMT","_ST_MET_HighMT"]
-    
-    
+#    PlotName= ["_NumBJet_HighMT"]
+
     for NormMC in PlotName:
     
         MakeTheHistogram("MuTau",NormMC+"_OS",NormMC+"_OS",NormMC+"_Total",0,Binning)

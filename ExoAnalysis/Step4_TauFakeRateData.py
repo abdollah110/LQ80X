@@ -52,7 +52,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.03)
     lumi.SetTextFont (   42 )
-    lumi.AddText("6.26 fb^{-1} (13 TeV)")
+    lumi.AddText("9.2 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -228,18 +228,26 @@ if FR_vs_LeptonPT:
 else:
     ObjectPT="_CloseJetTauPt"
     BinningFake = array.array("d",[0,50,70,90,110,140,170,200,240,280,320,360,400])
-#HistoFakeNum=ObjectPT+"_LowMT_SS_TauIsoLepAntiIso"
-#HistoFakeDeNum=ObjectPT+"_LowMT_SS_LepAntiIso"
-#HistoFakeNum=ObjectPT+"_SS_TauIsoLepAntiIso"
-#HistoFakeDeNum=ObjectPT+"_SS_LepAntiIso"
-HistoFakeNum=ObjectPT+"_SS_TauIso"
-HistoFakeDeNum=ObjectPT+"_SS_Total"
-#HistoFakeNum=ObjectPT+"_LowMT_SS_TauIso"
-#HistoFakeDeNum=ObjectPT+"_LowMT_SS_Total"
+
 #############################################################################################################
 ##   Calculating the Fake Rate ---> "Linear Fit, 2 parameters"
 #############################################################################################################
 def Make_Tau_FakeRate(channelName):
+    
+    
+    
+    if channelName=="MuTau":
+        HistoFakeNum=ObjectPT+"_LowMT_SS_TauIsoLepAntiIso"
+        HistoFakeDeNum=ObjectPT+"_LowMT_SS_LepAntiIso"
+        #HistoFakeNum=ObjectPT+"_SS_TauIsoLepAntiIso"
+        #HistoFakeDeNum=ObjectPT+"_SS_LepAntiIso"
+        
+    if channelName=="EleTau":
+        HistoFakeNum=ObjectPT+"_SS_TauIso"
+        HistoFakeDeNum=ObjectPT+"_SS_Total"
+#        HistoFakeNum=ObjectPT+"_LowMT_SS_TauIso"
+#        HistoFakeDeNum=ObjectPT+"_LowMT_SS_Total"
+
     
     
     ShapeNum=MakeTheHistogram(channelName,HistoFakeNum,HistoFakeNum,"",0,BinningFake,1,category_FakeEstim)
