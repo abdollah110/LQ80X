@@ -41,7 +41,7 @@ ROOT.gROOT.SetBatch(True)
 #SubRootDir = 'OutFiles_FullSelection_MediumIso/'
 #SubRootDir = 'OutFiles_FullSelection_TightIso/'
 #SubRootDir = 'OutFiles_FullSelection/'
-SubRootDir = 'OutFiles_FullSelection/'
+SubRootDir = 'OutFiles_FullSelection_NumBJet/'
 
 
 
@@ -456,7 +456,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 
 if __name__ == "__main__":
 #    Binning = array.array("d",[0,100,200,300,400,500,600,700,800,900,1000,1150,1300,1450,1600,1800,2000,2500,3000,4000,5000])
-    Binning = array.array("d",[0,100,200,300,400,500,600,700,800,900,1000,1150,1300,1450,1600,1800,2000,5000])
+    Binning = array.array("d",[0,1,2,3,4,5,6,7,8,9,10])
 #    Binning = array.array("d",[0,50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1075,1150,1225,1300,1375,1450,1525,1600,1700,1800,1900,2000,2250,2500,2750,3000,3500,4000,4500,5000])
 #    Binning = array.array("d",[0,200,400,600,800,1000,1300,1600,2000,3000,5000])
 

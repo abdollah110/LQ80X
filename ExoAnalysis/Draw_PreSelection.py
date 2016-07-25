@@ -61,45 +61,70 @@ from array import array
 
 def _GetSF(Channel,process):
     
-    return 1
+#    return 1
 #    print "----->     Channel,process", Channel,process
 #    
-#    if Channel=="MuTau_DiJet":
-#
-#        #MuTau   DiJet
-#        if  process=="QCD"        :            return 0.97588
-#        if  process=="SingleTop"    :            return 0.89815
-#        if  process=="TT"           :            return 0.85865
-#        if  process=="VV"           :            return 0.89172
-#        if  process=="W"            :            return 0.87075
-#        if  process=="ZTT"          :            return 0.89964
-#
-#    if Channel=="EleTau_DiJet":
-#        #EleTau   DiJet
-#        if  process=="QCD"          :            return 0.97752
-#        if  process=="SingleTop"    :            return 0.90099
-#        if  process=="TT"           :            return 0.86775
-#        if  process=="VV"           :            return 0.90117
-#        if  process=="W"            :            return 0.87998
-#        if  process=="ZTT"          :            return 0.90917
-#
-#    if Channel=="MuTau_JetBJet":
-#        #MuTau   JetBJet
-#        if  process=="QCD"          :            return 0.98603
-#        if  process=="SingleTop"    :            return 0.88067
-#        if  process=="TT"           :            return 0.82611
-#        if  process=="VV"           :            return 0.86442
-#        if  process=="W"            :            return 0.86417
-#        if  process=="ZTT"          :            return 0.87969
-#
-#    if Channel=="EleTau_JetBJet":
-#        #EleTau   JetBJet
-#        if  process=="QCD"          :            return 0.98603
-#        if  process=="SingleTop"    :            return 0.85370
-#        if  process=="TT"           :            return 0.80080
-#        if  process=="VV"           :            return 0.83794
-#        if  process=="W"            :            return 0.83770
-#        if  process=="ZTT"          :            return 0.85275
+    if Channel=="MuTau_DiJet":
+
+        #MuTau   DiJet     BASED ON THE ST Fit
+        if  process=="QCD"        :            return 0.97588
+        if  process=="SingleTop"    :            return 0.89815
+        if  process=="TT"           :            return 0.85865
+        if  process=="VV"           :            return 0.89172
+        if  process=="W"            :            return 0.87075
+        if  process=="ZTT"          :            return 0.89964
+
+#        if  process=="QCD"        :            return 0.98152
+#        if  process=="SingleTop"    :            return 0.86487
+#        if  process=="TT"           :            return 0.83686
+#        if  process=="VV"           :            return 0.87436
+#        if  process=="W"            :            return 1.08430
+#        if  process=="ZTT"          :            return 0.87517
+
+    
+
+    
+    
+    
+
+    if Channel=="EleTau_DiJet":
+        #EleTau   DiJet
+        if  process=="QCD"          :            return 0.97752
+        if  process=="SingleTop"    :            return 0.90099
+        if  process=="TT"           :            return 0.86775
+        if  process=="VV"           :            return 0.90117
+        if  process=="W"            :            return 0.87998
+        if  process=="ZTT"          :            return 0.90917
+
+#EleTau   DiJet
+#        if  process=="QCD"          :            return 0.98152
+#        if  process=="SingleTop"    :            return 0.86728
+#        if  process=="TT"           :            return 0.83919
+#        if  process=="VV"           :            return 0.87679
+#        if  process=="W"            :            return 1.08732
+#        if  process=="ZTT"          :            return 0.87761
+
+
+
+
+
+    if Channel=="MuTau_JetBJet":
+        #MuTau   JetBJet
+        if  process=="QCD"          :            return 0.98603
+        if  process=="SingleTop"    :            return 0.88067
+        if  process=="TT"           :            return 0.82611
+        if  process=="VV"           :            return 0.86442
+        if  process=="W"            :            return 0.86417
+        if  process=="ZTT"          :            return 0.87969
+
+    if Channel=="EleTau_JetBJet":
+        #EleTau   JetBJet
+        if  process=="QCD"          :            return 0.98603
+        if  process=="SingleTop"    :            return 0.85370
+        if  process=="TT"           :            return 0.80080
+        if  process=="VV"           :            return 0.83794
+        if  process=="W"            :            return 0.83770
+        if  process=="ZTT"          :            return 0.85275
 
 
 RB_=10
@@ -412,6 +437,7 @@ for ch in channelDirectory:
     for cat in Category:
         for i in range(0,len(FileNamesInfo)):
 
-            FileName="TotalRootForLimit_PreSelection_"+ch+FileNamesInfo[i][0]+"_OS.root"
+#            FileName="TotalRootForLimit_PreSelection_"+ch+FileNamesInfo[i][0]+"_OS.root"
+            FileName="TotalRootForLimit_PreSelection_"+ch+FileNamesInfo[i][0]+".root"
             MakePlot(FileName,ch+cat,FileNamesInfo[i][0],FileNamesInfo[i][1],FileNamesInfo[i][2],FileNamesInfo[i][3],ch+cat)
 

@@ -170,6 +170,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
 
     Data.GetXaxis().SetLabelSize(0)
     Data.SetMaximum(Data.GetMaximum()*2.5)
+#    Data.SetMaximum(600)
     Data.SetMinimum(0)
     Data.Draw("e")
     stack.Draw("histsame")
@@ -269,7 +270,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
 
     c.Modified()
 #    c.SaveAs("_plot_WEstim"+HistName+"_"+categoriy+".pdf")
-    c.SaveAs("_plot_WEstim"+HistName+"_"+"afterScale"+".pdf")
+    c.SaveAs("_plot_WEstim"+HistName+"_"+"afterScale_DiJetJet"+".pdf")
 
 
 
@@ -306,7 +307,7 @@ for CH in Channel:
 #WEstimation_LepEta_HighMT_OS_DiNonBJetMuTau.root
 #TotalRootForLimit_MuTau_LepPt_HighMT_OS_DiNonBJet.root
 #            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJet.root"
-            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_DiNonBJet.root"
+            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_DiJet.root"
 #            FileName="WEstimation"+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJetMuTau.root"
             MakePlot(FileName,Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],INFO[cat],FileNamesInfo[i][3])
 

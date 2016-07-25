@@ -43,7 +43,7 @@ SubRootDir = 'OutFiles_PreSelection/'
 verbos_ = False
 #OS_SS_Ratio=1.06
 OS_SS_Ratio=1.00
-RB_=10
+RB_=1
 
 TauScale = [ ""]
 #POSTFIX=["","Up","Down"]
@@ -342,9 +342,9 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl):
 if __name__ == "__main__":
 #    Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
 #    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_nVtx","_nVtx_NoPU","_MET","_M_taujet", "_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
-    PlotName= ["_tmass","_VisMass"]
+#    PlotName= []
 #    PlotName= ["_NumJet"]
-    PlotName= ["_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_LeadJetPt","_SubLeadJetPt","_LeadJetEta","_SubLeadJetEta","_ST_MET"]
+    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_LeadJetPt","_SubLeadJetPt","_LeadJetEta","_SubLeadJetEta","_ST_MET"]
 
 #PlotNameQCDNorm= ["_tmass_SS","_VisMass_SS","_LepPt_SS","_LepEta_SS","_TauPt_SS","_TauEta_SS","_NumJet_SS","_NumBJet_SS","_nVtx_SS","_nVtx_NoPU_SS","_MET_SS","_M_taujet_SS", "_LeadJetPt_SS","_SubLeadJetPt_SS","_ST_DiJet_SS","_ST_MET_SS"]
 #
@@ -353,8 +353,8 @@ if __name__ == "__main__":
 
     for NormMC in PlotName:
 
-        MakeTheHistogram("MuTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0)
-        MakeTheHistogram("EleTau",NormMC+"_OS","_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1)
+        MakeTheHistogram("MuTau",NormMC+"","_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0)
+        MakeTheHistogram("EleTau",NormMC+"","_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1)
 #        MakeTheHistogram("EleTau",NormMC,"_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0)
 
 ###OS
