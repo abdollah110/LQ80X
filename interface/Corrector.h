@@ -91,38 +91,132 @@ float LandauFunc(float x){
 
 
 
+
+
+
+//0	 comb	 central	1	-2.4	2.4	30	670	0	1	 "0.931535+(1.40704e-05*x)"  //These two are the same for b and c but uncertaities are different
+//0	 comb	 central	0	-2.4	2.4	30	670	0	1	 "0.931535+(1.40704e-05*x)"
+
+//0	 comb	 down	1	-2.4	2.4	30	50	0	1	 "0.931535+((1.40704e-05*x)-0.01710829883813858)"
+//0	 comb	 down	1	-2.4	2.4	50	70	0	1	 "0.931535+((1.40704e-05*x)-0.020177565515041351)"
+//0	 comb	 down	1	-2.4	2.4	70	100	0	1	 "0.931535+((1.40704e-05*x)-0.019350524991750717)"
+//0	 comb	 down	1	-2.4	2.4	100	140	0	1	 "0.931535+((1.40704e-05*x)-0.027258865535259247)"
+//0	 comb	 down	1	-2.4	2.4	140	200	0	1	 "0.931535+((1.40704e-05*x)-0.027310512959957123)"
+//0	 comb	 down	1	-2.4	2.4	200	300	0	1	 "0.931535+((1.40704e-05*x)-0.039027795195579529)"
+//0	 comb	 down	1	-2.4	2.4	300	670	0	1	 "0.931535+((1.40704e-05*x)-0.089093379676342122)"
+
+//0	 comb	 down	0	-2.4	2.4	30	50	0	1	 "0.931535+((1.40704e-05*x)-0.0085541494190692902)"
+//0	 comb	 down	0	-2.4	2.4	50	70	0	1	 "0.931535+((1.40704e-05*x)-0.010088782757520676)"
+//0	 comb	 down	0	-2.4	2.4	70	100	0	1	 "0.931535+((1.40704e-05*x)-0.0096752624958753586)"
+//0	 comb	 down	0	-2.4	2.4	100	140	0	1	 "0.931535+((1.40704e-05*x)-0.013629432767629623)"
+//0	 comb	 down	0	-2.4	2.4	140	200	0	1	 "0.931535+((1.40704e-05*x)-0.013655256479978561)"
+//0	 comb	 down	0	-2.4	2.4	200	300	0	1	 "0.931535+((1.40704e-05*x)-0.019513897597789764)"
+//0	 comb	 down	0	-2.4	2.4	300	670	0	1	 "0.931535+((1.40704e-05*x)-0.044546689838171005)"
+
+//0	 comb	 up	1	-2.4	2.4	30	50	0	1	 "(0.931535+(1.40704e-05*x))+0.01710829883813858"
+//0	 comb	 up	1	-2.4	2.4	50	70	0	1	 "(0.931535+(1.40704e-05*x))+0.020177565515041351"
+//0	 comb	 up	1	-2.4	2.4	70	100	0	1	 "(0.931535+(1.40704e-05*x))+0.019350524991750717"
+//0	 comb	 up	1	-2.4	2.4	100	140	0	1	 "(0.931535+(1.40704e-05*x))+0.027258865535259247"
+//0	 comb	 up	1	-2.4	2.4	140	200	0	1	 "(0.931535+(1.40704e-05*x))+0.027310512959957123"
+//0	 comb	 up	1	-2.4	2.4	200	300	0	1	 "(0.931535+(1.40704e-05*x))+0.039027795195579529"
+//0	 comb	 up	1	-2.4	2.4	300	670	0	1	 "(0.931535+(1.40704e-05*x))+0.089093379676342122"
+
+//0	 comb	 up	0	-2.4	2.4	30	50	0	1	 "(0.931535+(1.40704e-05*x))+0.0085541494190692902"
+//0	 comb	 up	0	-2.4	2.4	50	70	0	1	 "(0.931535+(1.40704e-05*x))+0.010088782757520676"
+//0	 comb	 up	0	-2.4	2.4	70	100	0	1	 "(0.931535+(1.40704e-05*x))+0.0096752624958753586"
+//0	 comb	 up	0	-2.4	2.4	100	140	0	1	 "(0.931535+(1.40704e-05*x))+0.013629432767629623"
+//0	 comb	 up	0	-2.4	2.4	140	200	0	1	 "(0.931535+(1.40704e-05*x))+0.013655256479978561"
+//0	 comb	 up	0	-2.4	2.4	200	300	0	1	 "(0.931535+(1.40704e-05*x))+0.019513897597789764"
+//0	 comb	 up	0	-2.4	2.4	300	670	0	1	 "(0.931535+(1.40704e-05*x))+0.044546689838171005"
+
+
+
+
+
+
+
+
+//0	 mujets	 central	0	-2.4	2.4	30	670	0	1	 "0.956768*((1.+(0.107522*x))/(1.+(0.110892*x)))"
+
+
+//0	 incl	 central	2	0	2.4	20	1000	0	1	 "1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x"
+//0	 incl	 down	2	0	2.4	20	1000	0	1	 "(1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x)*(1-(0.0539991+-6.29073e-06*x+-3.39895e-09*x*x))"
+//0	 incl	 up	2	0	2.4	20	1000	0	1	 "(1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x)*(1+(0.0539991+-6.29073e-06*x+-3.39895e-09*x*x))"
+
+
+
+
+//The name of the measurements is
+//
+//"incl" for light jets,
+//"mujets" (from QCD methods only) or “comb” (combination of QCD and ttbar methods) for b and c jets for what concerns the pT/eta
+
+//operatingPoint (loose = 0, medium = 1, tight = 2, disriminator reshaping = 3)
+//measurementType (e.g. "ttbar", or "comb" for combination)
+//sysType ("up", "central", "down", but arbitrary strings possible, like "up_generator" or "up_jec")
+//jetFlavor (B = 0, C = 1, UDSG = 2)
+//etaMin, etaMax
+//ptMin, ptMax
+//discrMin, discrMax (only for disriminator reshaping)
+//(formula is the scale factor itself)
+
 // Aplly Btag Scale Factor ----------------------------------------------------------------
 
 float GetBJetSF(float x, float jetEta, float jetHadFlvr){
     
+    //    cout<< "--->Btag    pt= "<<x<<  "   jetHadFlvr" <<jetHadFlvr<< "  SF="<<1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x <<"   "<< 0.931535+(1.40704e-05*x) <<"\n";
+    
     if (jetHadFlvr ==0 )
-        return  1.00317+0.000204778*x+7.49098e-07*x*x+-9.52146e-10*x*x*x;
+        return 1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x ;
+    //        return  1.00317+0.000204778*x+7.49098e-07*x*x+-9.52146e-10*x*x*x;
     else if (jetHadFlvr ==4 || jetHadFlvr ==5 )
-        
-        return 0.747498*((1.+(0.473236*x))/(1.+(0.375778*x)));
+        return 0.931535+(1.40704e-05*x);
+    //        return 0.747498*((1.+(0.473236*x))/(1.+(0.375778*x)));
     else
         return 1;
-        }
+}
 
 
 
 float GetBJetSFUp (float x, float jetEta, float jetHadFlvr){
- 
-    if (jetHadFlvr ==0 )
-        return  1.10884+0.000279575*x+6.77543e-07*x*x+-9.4973e-10*x*x*x;
-    else if (jetHadFlvr ==4 || jetHadFlvr ==5 ){
-        
     
-        if (x >= 	30	 && x <50)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.018585335463285446;
+    if (jetHadFlvr ==0 )
+        return (1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x)*(1+(0.0539991+-6.29073e-06*x+-3.39895e-09*x*x)) ;
+    //        return  1.10884+0.000279575*x+6.77543e-07*x*x+-9.4973e-10*x*x*x;
+    
+    else if (jetHadFlvr ==4  ){
+        
+        
+        
+        
+        
+        if (x >= 	30	 && x <50)  return   (0.931535+(1.40704e-05*x))+0.020177565515041351;
         if (x >= 	50	 && x <70)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.018662562593817711;
-        if (x >= 	70	 && x <100)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.018709532916545868;
-        if (x >= 	100	 && x <140)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.027433760464191437;
-        if (x >= 	140 && x <	200)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.045776486396789551;
-        if (x >= 	200 && x <	300)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.060772690922021866;
-        if (x >= 	300	 && x <670)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.098300635814666748;
-        else return   ((0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))+0.098300635814666748 ) * 2;
-        }
+        if (x >= 	70	 && x <100)  return   (0.931535+(1.40704e-05*x))+0.019350524991750717;
+        if (x >= 	100	 && x <140)  return   (0.931535+(1.40704e-05*x))+0.027258865535259247;
+        if (x >= 	140 && x <	200)  return   (0.931535+(1.40704e-05*x))+0.027310512959957123;
+        if (x >= 	200 && x <	300)  return   (0.931535+(1.40704e-05*x))+0.039027795195579529;
+        if (x >= 	300	 && x <670)  return   (0.931535+(1.40704e-05*x))+0.089093379676342122;
+        else return   (0.931535+(1.40704e-05*x))+0.089093379676342122 * 2;
+    }
+    
+    
+    else if (jetHadFlvr ==5 ){
+        
+        
+        
+        
+        if (x >= 	30	 && x <50)  return   (0.931535+(1.40704e-05*x))+0.0085541494190692902;
+        if (x >= 	50	 && x <70)  return   (0.931535+(1.40704e-05*x))+0.010088782757520676;
+        if (x >= 	70	 && x <100)  return   (0.931535+(1.40704e-05*x))+0.0096752624958753586;
+        if (x >= 	100	 && x <140)  return   (0.931535+(1.40704e-05*x))+0.013629432767629623;
+        if (x >= 	140 && x <	200)  return   (0.931535+(1.40704e-05*x))+0.013655256479978561;
+        if (x >= 	200 && x <	300)  return   (0.931535+(1.40704e-05*x))+0.019513897597789764;
+        if (x >= 	300	 && x <670)  return   (0.931535+(1.40704e-05*x))+0.044546689838171005;
+        else return   (0.931535+(1.40704e-05*x))+0.044546689838171005 * 2;
+    }
     else
+        
         return 1;
 }
 
@@ -130,22 +224,42 @@ float GetBJetSFUp (float x, float jetEta, float jetHadFlvr){
 float GetBJetSFDown (float x, float jetEta, float jetHadFlvr){
     
     if (jetHadFlvr ==0 )
-        return  0.897474+0.000130807*x+8.17188e-07*x*x+-9.52657e-10*x*x*x;
-    else if (jetHadFlvr ==4 || jetHadFlvr ==5 ){
+        return (1.05636+0.000920353*x+-7.85916e-07*x*x+1.92221e-11*x*x*x)*(1-(0.0539991+-6.29073e-06*x+-3.39895e-09*x*x))       ;
+    //        return  0.897474+0.000130807*x+8.17188e-07*x*x+-9.52657e-10*x*x*x;
+    
+    else if (jetHadFlvr ==4 ){
         
         
         
-        if (x >= 	30	 && x <50)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.018585335463285446;
-        if (x >= 	50	 && x <70)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.018662562593817711;
-        if (x >= 	70	 && x <100)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.018709532916545868;
-        if (x >= 	100	 && x <140)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.027433760464191437;
-        if (x >= 	140 && x <	200)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.045776486396789551;
-        if (x >= 	200 && x <	300)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.060772690922021866;
-        if (x >= 	300	 && x <670)  return   (0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.098300635814666748;
-        else return ((0.747498*((1.+(0.473236*x))/(1.+(0.375778*x))))-0.098300635814666748)*2;
+        
+        if (x >= 	30	 && x <50)  return   0.931535+((1.40704e-05*x)-0.01710829883813858);
+        if (x >= 	50	 && x <70)  return   0.931535+((1.40704e-05*x)-0.020177565515041351);
+        if (x >= 	70	 && x <100)  return   0.931535+((1.40704e-05*x)-0.019350524991750717);
+        if (x >= 	100	 && x <140)  return   0.931535+((1.40704e-05*x)-0.027258865535259247);
+        if (x >= 	140 && x <	200)  return   0.931535+((1.40704e-05*x)-0.027310512959957123);
+        if (x >= 	200 && x <	300)  return   0.931535+((1.40704e-05*x)-0.039027795195579529);
+        if (x >= 	300	 && x <670)  return   0.931535+((1.40704e-05*x)-0.089093379676342122);
+        else return 0.931535+((1.40704e-05*x)-0.089093379676342122)*2;
         
     }
+    else if (jetHadFlvr ==5 ){
+        
+        
+        
+        if (x >= 	30	 && x <50)  return   0.931535+((1.40704e-05*x)-0.0085541494190692902);
+        if (x >= 	50	 && x <70)  return   0.931535+((1.40704e-05*x)-0.010088782757520676);
+        if (x >= 	70	 && x <100)  return   0.931535+((1.40704e-05*x)-0.0096752624958753586);
+        if (x >= 	100	 && x <140)  return   0.931535+((1.40704e-05*x)-0.013629432767629623);
+        if (x >= 	140 && x <	200)  return   0.931535+((1.40704e-05*x)-0.013655256479978561);
+        if (x >= 	200 && x <	300)  return   0.931535+((1.40704e-05*x)-0.019513897597789764);
+        if (x >= 	300	 && x <670)  return   0.931535+((1.40704e-05*x)-0.044546689838171005);
+        else return 0.931535+((1.40704e-05*x)-0.044546689838171005) *2;
+        
+    }
+    
+    
     else
+        
         return 1;
 }
 
@@ -157,10 +271,10 @@ float GetBJetSFDown (float x, float jetEta, float jetHadFlvr){
 float WShapeUnc(string InputROOT, float CLoseJetTauPt){
     
     
-//    if  (InputROOT.find("WJets"))
-//        return  LandauFunc(CLoseJetTauPt) ;
-//    else
-//        return 1;
+    //    if  (InputROOT.find("WJets"))
+    //        return  LandauFunc(CLoseJetTauPt) ;
+    //    else
+    //        return 1;
     
     return 1;
 }
@@ -767,7 +881,7 @@ int etaBIN=0;
 /////////////////////////////////////////////////////
 //  Muon TRK Correction 80X
 ////////////////////////////////////////////////////////////
-float Cor74X_TRK_Mu(float eta ) {
+float Cor80X_TRK_Mu(float eta ) {
     
     if (eta >= -2.4 && eta < -2.1 ) return 0.9879;
     else if (eta >= -2.1 && eta < -1.6 ) return 0.9939;
@@ -780,7 +894,7 @@ float Cor74X_TRK_Mu(float eta ) {
     else if (eta >= 1.6 && eta < 2.1 ) return 0.9930;
     else if (eta >= 2.1 && eta < 2.4 ) return 0.9819;
     else return 1;
-
+    
     
     
 }
@@ -788,67 +902,122 @@ float Cor74X_TRK_Mu(float eta ) {
 /////////////////////////////////////////////////////
 //  Muon Id Correction 74X
 ////////////////////////////////////////////////////////////
-float Cor74X_ID_Mu(float pt, float eta , TH2F * HistoId) {
+float Cor80X_ID_Mu(float pt, float eta , TH2F * HistoId) {
     
     if (pt >= 20 && pt < 25 ) ptBIN=1;
     if (pt >= 25 && pt < 30 ) ptBIN=2;
     if (pt >= 30 && pt < 40 ) ptBIN=3;
     if (pt >= 40 && pt < 50 ) ptBIN=4;
     if (pt >= 50 && pt < 60 ) ptBIN=5;
-    if (pt >= 60 && pt < 120000) ptBIN=6;
+    if (pt >= 60 && pt < 100) ptBIN=6;
+    if (pt >= 100 ) ptBIN=7;
     
     if (fabs(eta) <= 0.9) etaBIN=1;
     if (0.9 <= fabs(eta) && fabs(eta) < 1.2) etaBIN=2;
     if (1.2 <= fabs(eta) && fabs(eta) < 2.1) etaBIN=3;
     if (2.1 <= fabs(eta) && fabs(eta) < 2.4) etaBIN=4;
     
+    
+    //    cout<< "--->Muon Id    pt= "<<pt<<  "   eta" <<eta<< "  SF="<<HistoId->GetBinContent(ptBIN,etaBIN)<<"\n";
     return HistoId->GetBinContent(ptBIN,etaBIN);
 }
+
+//float Cor74X_ID_Mu(float pt, float eta , TH2F * HistoId) {
+//
+//    if (pt >= 20 && pt < 25 ) ptBIN=1;
+//    if (pt >= 25 && pt < 30 ) ptBIN=2;
+//    if (pt >= 30 && pt < 40 ) ptBIN=3;
+//    if (pt >= 40 && pt < 50 ) ptBIN=4;
+//    if (pt >= 50 && pt < 60 ) ptBIN=5;
+//    if (pt >= 60 && pt < 120000) ptBIN=6;
+//
+//    if (fabs(eta) <= 0.9) etaBIN=1;
+//    if (0.9 <= fabs(eta) && fabs(eta) < 1.2) etaBIN=2;
+//    if (1.2 <= fabs(eta) && fabs(eta) < 2.1) etaBIN=3;
+//    if (2.1 <= fabs(eta) && fabs(eta) < 2.4) etaBIN=4;
+//
+//    return HistoId->GetBinContent(ptBIN,etaBIN);
+//}
 ////////////////////////////////////////////////////////////
 //  Muon Iso Correction 74X
 ////////////////////////////////////////////////////////////
-float Cor74X_Iso_Mu(float pt,float eta, TH2F* HistoIso){
+//float Cor74X_Iso_Mu(float pt,float eta, TH2F* HistoIso){
+//
+//    if (pt >= 20 && pt < 25 ) ptBIN=1;
+//    if (pt >= 25 && pt < 30 ) ptBIN=2;
+//    if (pt >= 30 && pt < 40 ) ptBIN=3;
+//    if (pt >= 40 && pt < 50 ) ptBIN=4;
+//    if (pt >= 50 && pt < 60 ) ptBIN=5;
+//    if (pt >= 60 && pt < 120000) ptBIN=6;
+//
+//    if (fabs(eta) <= 0.9) etaBIN=1;
+//    if (0.9 <= fabs(eta) && fabs(eta) < 1.2) etaBIN=2;
+//    if (1.2 <= fabs(eta) && fabs(eta) < 2.1) etaBIN=3;
+//    if (2.1 <= fabs(eta) && fabs(eta) < 2.4) etaBIN=4;
+//
+//    return HistoIso->GetBinContent(ptBIN,etaBIN);;
+//}
+
+float Cor80X_Iso_Mu(float pt,float eta, TH2F* HistoIso){
     
     if (pt >= 20 && pt < 25 ) ptBIN=1;
     if (pt >= 25 && pt < 30 ) ptBIN=2;
     if (pt >= 30 && pt < 40 ) ptBIN=3;
     if (pt >= 40 && pt < 50 ) ptBIN=4;
     if (pt >= 50 && pt < 60 ) ptBIN=5;
-    if (pt >= 60 && pt < 120000) ptBIN=6;
+    if (pt >= 60 && pt < 100) ptBIN=6;
+    if (pt >= 100 ) ptBIN=7;
     
     if (fabs(eta) <= 0.9) etaBIN=1;
     if (0.9 <= fabs(eta) && fabs(eta) < 1.2) etaBIN=2;
     if (1.2 <= fabs(eta) && fabs(eta) < 2.1) etaBIN=3;
     if (2.1 <= fabs(eta) && fabs(eta) < 2.4) etaBIN=4;
     
-    return HistoIso->GetBinContent(ptBIN,etaBIN);;
+    //    cout<< "--->Muon Iso    pt= "<<pt<<  "   eta" <<eta<< "  SF="<<HistoIso->GetBinContent(ptBIN,etaBIN)<<"\n";
+    return HistoIso->GetBinContent(ptBIN,etaBIN);
 }
-////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////
 //  Muon Trigger Correction 74X
 ////////////////////////////////////////////////////////////
-float Cor74X_Trigger_Mu(float pt,float eta, TH2F* HistoTrg ){
+float Cor80X_Trigger_Mu(float pt,float eta, TH2F* HistoTrg ){
     
     if (pt >= 45 && pt < 50 ) ptBIN=1;
     if (pt >= 50 && pt < 60 ) ptBIN=2;
-    if (pt >= 60 && pt < 120000) ptBIN=3;
+    if (pt >= 60 && pt < 120) ptBIN=3;
+    if (pt >= 120 && pt < 200) ptBIN=4;
+    if (pt >= 200) ptBIN=5;
     
     if (fabs(eta) <= 0.9) etaBIN=1;
     if (0.9 <= fabs(eta) && fabs(eta) < 1.2) etaBIN=2;
     if (1.2 <= fabs(eta) && fabs(eta) < 2.1) etaBIN=3;
     
-//    cout<< "pt= "<<pt<<  "   eta" <<eta<< "  SF="<<HistoTrg->GetBinContent(ptBIN,etaBIN)<<"\n";
+    //    cout<< "--->Trigger    pt= "<<pt<<  "   eta" <<eta<< "  SF="<<HistoTrg->GetBinContent(ptBIN,etaBIN)<<"\n";
     return HistoTrg->GetBinContent(ptBIN,etaBIN);
     
-    
 }
-
-////////////////////////////////////////////////////////////
+//float Cor74X_Trigger_Mu(float pt,float eta, TH2F* HistoTrg ){
+//
+//    if (pt >= 45 && pt < 50 ) ptBIN=1;
+//    if (pt >= 50 && pt < 60 ) ptBIN=2;
+//    if (pt >= 60 && pt < 120000) ptBIN=3;
+//
+//    if (fabs(eta) <= 0.9) etaBIN=1;
+//    if (0.9 <= fabs(eta) && fabs(eta) < 1.2) etaBIN=2;
+//    if (1.2 <= fabs(eta) && fabs(eta) < 2.1) etaBIN=3;
+//
+//    //    cout<< "pt= "<<pt<<  "   eta" <<eta<< "  SF="<<HistoTrg->GetBinContent(ptBIN,etaBIN)<<"\n";
+//    return HistoTrg->GetBinContent(ptBIN,etaBIN);
+//
+//
+//}
+//////////////////////////////////////////////////////////////
 //  Electron Id/Iso Correction 74X  from HTT group
 ////////////////////////////////////////////////////////////
 
 
-
-float Cor74X_IDIso_Ele(float pt, float eta,  TH2F * HistoEleSF0p5, TH2F * HistoEleSF5 ){
+//float Cor74X_IDIso_Ele(float pt, float eta,  TH2F * HistoEleSF0p5, TH2F * HistoEleSF5 ){
+float Cor80X_IDIso_Ele(float pt, float eta,  TH2F * HistoEleSF){
     
     if (pt >= 10 && pt < 20 ) ptBIN=1;
     if (pt >= 20 && pt < 30 ) ptBIN=2;
@@ -867,19 +1036,109 @@ float Cor74X_IDIso_Ele(float pt, float eta,  TH2F * HistoEleSF0p5, TH2F * HistoE
     if (eta >= 1.566 && eta < 2 ) etaBIN=9;
     if (eta >= 2 && eta < 2.5 ) etaBIN=10;
     
-    float SF_0p5= HistoEleSF0p5->GetBinContent(etaBIN, ptBIN);
-    float SF_5= HistoEleSF5->GetBinContent(etaBIN, ptBIN);
-    float FinalSF= 0.05 * SF_0p5  + 0.95 * SF_5;   //approximation of 10/fb data
+    //    float SF_0p5= HistoEleSF0p5->GetBinContent(etaBIN, ptBIN);
+    //    float SF_5= HistoEleSF5->GetBinContent(etaBIN, ptBIN);
+    //    float FinalSF= 0.05 * SF_0p5  + 0.95 * SF_5;   //approximation of 10/fb data
     
-//    cout << pt << "  " << eta << " "<<SF_0p5<<"  "<<SF_5 << "  "<< FinalSF <<"\n";
-    return FinalSF;
+    //    cout << pt << "  " << eta << " "<<SF_0p5<<"  "<<SF_5 << "  "<< FinalSF <<"\n";
+    //    cout<< "--->Electron    pt= "<<pt<<  "   eta" <<eta<< "  SF="<<HistoEleSF->GetBinContent(etaBIN, ptBIN)<<"\n";
+    return HistoEleSF->GetBinContent(etaBIN, ptBIN);
     
     
-
+    
     
 }
+float Cor80X_Trg_Ele(float pt, float eta){
+    
+    
+    
+    if (pt >= 50 && pt < 55){
+        if (eta >= -2.5 && eta < -2 ) return   .729;
+        if (eta >= -2 && eta < -1.566 ) return   .752;
+        if (eta >= -1.566 && eta < -1.444) return   .684;
+        if (eta >= -1.444 && eta < -0.800) return   .81;
+        if (eta >= -0.800 && eta < 0 ) return  .833 ;
+        if (eta >= 0 && eta < 0.800 ) return   .827;
+        if (eta >= 0.800 && eta < 1.444 ) return   .825;
+        if (eta >= 1.444 && eta < 1.566 ) return   .627;
+        if (eta >= 1.566 && eta < 2 ) return   .755;
+        if (eta >= 2 && eta < 2.5 ) return   .746;
+    }
+    else if (pt >= 55 && pt < 70){
+        if (eta >= -2.5 && eta < -2 ) return  .812 ;
+        if (eta >= -2 && eta < -1.566 ) return   .814;
+        if (eta >= -1.566 && eta < -1.444) return  .781 ;
+        if (eta >= -1.444 && eta < -0.800) return   .802;
+        if (eta >= -0.800 && eta < 0 ) return   .869;
+        if (eta >= 0 && eta < 0.800 ) return   .862;
+        if (eta >= 0.800 && eta < 1.444 ) return   .879;
+        if (eta >= 1.444 && eta < 1.566 ) return   .642;
+        if (eta >= 1.566 && eta < 2 ) return   .843;
+        if (eta >= 2 && eta < 2.5 ) return   .845;
+    }
+    else if (pt >= 70 && pt < 100){
+        if (eta >= -2.5 && eta < -2 ) return   .788;
+        if (eta >= -2 && eta < -1.566 ) return   .809;
+        if (eta >= -1.566 && eta < -1.444) return   .833;
+        if (eta >= -1.444 && eta < -0.800) return   .888;
+        if (eta >= -0.800 && eta < 0 ) return   .883;
+        if (eta >= 0 && eta < 0.800 ) return  .882 ;
+        if (eta >= 0.800 && eta < 1.444 ) return   .884;
+        if (eta >= 1.444 && eta < 1.566 ) return  .808 ;
+        if (eta >= 1.566 && eta < 2 ) return   .833;
+        if (eta >= 2 && eta < 2.5 ) return   .853;
+    }
+    else if (pt >= 100 && pt < 120){
+        if (eta >= -2.5 && eta < -2 ) return  .919 ;
+        if (eta >= -2 && eta < -1.566 ) return  .871 ;
+        if (eta >= -1.566 && eta < -1.444) return   .894;
+        if (eta >= -1.444 && eta < -0.800) return   .908;
+        if (eta >= -0.800 && eta < 0 ) return  .902 ;
+        if (eta >= 0 && eta < 0.800 ) return  .924 ;
+        if (eta >= 0.800 && eta < 1.444 ) return  .927 ;
+        if (eta >= 1.444 && eta < 1.566 ) return  .728 ;
+        if (eta >= 1.566 && eta < 2 ) return  .87 ;
+        if (eta >= 2 && eta < 2.5 ) return  .867 ;
+    }
+    else if (pt >= 120 && pt < 180){
+        if (eta >= -2.5 && eta < -2 ) return  .955 ;
+        if (eta >= -2 && eta < -1.566 ) return   .986;
+        if (eta >= -1.566 && eta < -1.444) return  .887 ;
+        if (eta >= -1.444 && eta < -0.800) return  .924 ;
+        if (eta >= -0.800 && eta < 0 ) return  .941 ;
+        if (eta >= 0 && eta < 0.800 ) return   .934;
+        if (eta >= 0.800 && eta < 1.444 ) return  .956 ;
+        if (eta >= 1.444 && eta < 1.566 ) return  .81 ;
+        if (eta >= 1.566 && eta < 2 ) return  .977 ;
+        if (eta >= 2 && eta < 2.5 ) return  .948 ;
+    }
+    else if (pt >= 180 && pt < 250){
+        if (eta >= -2.5 && eta < -2 ) return  1 ;
+        if (eta >= -2 && eta < -1.566 ) return  .984 ;
+        if (eta >= -1.566 && eta < -1.444) return  .918 ;
+        if (eta >= -1.444 && eta < -0.800) return  .934 ;
+        if (eta >= -0.800 && eta < 0 ) return   .981;
+        if (eta >= 0 && eta < 0.800 ) return   .937;
+        if (eta >= 0.800 && eta < 1.444 ) return  .931 ;
+        if (eta >= 1.444 && eta < 1.566 ) return   .939;
+        if (eta >= 1.566 && eta < 2 ) return   .968;
+        if (eta >= 2 && eta < 2.5 ) return  .954 ;
+    }
+    else if (pt >= 250 ){
+        if (eta >= -2.5 && eta < -2 ) return  1 ;
+        if (eta >= -2 && eta < -1.566 ) return  1 ;
+        if (eta >= -1.566 && eta < -1.444) return 1  ;
+        if (eta >= -1.444 && eta < -0.800) return  .927 ;
+        if (eta >= -0.800 && eta < 0 ) return  .953 ;
+        if (eta >= 0 && eta < 0.800 ) return   .959;
+        if (eta >= 0.800 && eta < 1.444 ) return  .972 ;
+        if (eta >= 1.444 && eta < 1.566 ) return  1 ;
+        if (eta >= 1.566 && eta < 2 ) return  1 ;
+        if (eta >= 2 && eta < 2.5 ) return   1;
+    }
+        return 1;
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+}
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 float getCorrFactorMuon74X(bool isData, float pt, float eta, TH2F * HistoId, TH2F * HistoIso,TH2F * HistoTrg) {
@@ -889,17 +1148,18 @@ float getCorrFactorMuon74X(bool isData, float pt, float eta, TH2F * HistoId, TH2
     else{
         
         //        cout << Cor74X_ID_Mu(pt,eta,HistoId) << "  "<< Cor74X_Iso_Mu(pt,eta,HistoIso) << "  "<< Cor74X_Trigger_Mu(pt,eta,HistoTrg) << "\n";
-//        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) );
-        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) * Cor74X_TRK_Mu(eta)); //TMP for 80X
+        //        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) );
+        //        return (Cor74X_ID_Mu(pt,eta,HistoId) * Cor74X_Iso_Mu(pt,eta,HistoIso) * Cor74X_Trigger_Mu(pt,eta,HistoTrg) * Cor74X_TRK_Mu(eta)); //TMP for 80X
+        return (Cor80X_ID_Mu(pt,eta,HistoId) * Cor80X_Iso_Mu(pt,eta,HistoIso) * Cor80X_Trigger_Mu(pt,eta,HistoTrg) * Cor80X_TRK_Mu(eta)); //TMP for 80X
     }
     
 }
 
-float getCorrFactorElectron74X(bool isData, float pt, float eta,    TH2F * HistoEleSF0p5, TH2F * HistoEleSF5 ){
+float getCorrFactorElectron74X(bool isData, float pt, float eta,    TH2F * HistoEleSF ){
     if (isData)
         return 1;
     else
-        return Cor74X_IDIso_Ele(pt,eta,HistoEleSF0p5,HistoEleSF5);
+        return Cor80X_IDIso_Ele(pt,eta,HistoEleSF)*Cor80X_Trg_Ele(pt,eta);
 }
 
 

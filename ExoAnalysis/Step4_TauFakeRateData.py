@@ -204,8 +204,8 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,doBinning,Na
 def _FIT_Jet(x, p):
     Land = p[2] * TMath.Landau(x[0], p[3], p[4])
     Pol0 = p[0]+p[1]*x[0]
-    return Land + Pol0
-#    return Land
+#    return Land + Pol0
+    return Land
 def _FIT_Jet_Function(x, p):
     Land = p[2] * TMath.Landau(x, p[3], p[4])
     Pol0 = p[0]+p[1]*x
@@ -227,7 +227,8 @@ if FR_vs_LeptonPT:
     BinningFake = array.array("d",[0,20,30,40,50,60,70,80,90,100,120,150,200,300])
 else:
     ObjectPT="_CloseJetTauPt"
-    BinningFake = array.array("d",[0,50,70,90,110,140,170,200,240,280,320,360,400])
+#    BinningFake = array.array("d",[0,50,70,90,110,140,170,200,240,280,320,360,400])
+    BinningFake = array.array("d",[0,50,70,90,110,150,200,250,300,400])
 
 #############################################################################################################
 ##   Calculating the Fake Rate ---> "Linear Fit, 2 parameters"
@@ -243,12 +244,14 @@ def Make_Tau_FakeRate(channelName):
         #HistoFakeDeNum=ObjectPT+"_SS_LepAntiIso"
         
     if channelName=="EleTau":
-        HistoFakeNum=ObjectPT+"_SS_TauIso"
-        HistoFakeDeNum=ObjectPT+"_SS_Total"
+#        HistoFakeNum=ObjectPT+"_SS_TauIso"
+#        HistoFakeDeNum=ObjectPT+"_SS_Total"
 #        HistoFakeNum=ObjectPT+"_LowMT_SS_TauIso"
 #        HistoFakeDeNum=ObjectPT+"_LowMT_SS_Total"
+        HistoFakeNum=ObjectPT+"_SS_TauIsoLepAntiIso"
+        HistoFakeDeNum=ObjectPT+"_SS_LepAntiIso"
 
-    
+
     
     ShapeNum=MakeTheHistogram(channelName,HistoFakeNum,HistoFakeNum,"",0,BinningFake,1,category_FakeEstim)
     HistoNum=ShapeNum.Get("XXX")

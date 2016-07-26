@@ -224,6 +224,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,chl,Binning):
                 jetFRDeNumHist=jetFRDeNum.Get("XXX")
                 print jetFRDeNumHist.Integral()
 
+#                XValu=_FileReturn(Name, channel,"_inclNoBjet", NormMC+"_Total")  #definedabove
                 XValu=_FileReturn(Name, channel,"_inclNoBjet", NormMC+"_Total")  #definedabove
 
                 XValuHist=XValu.Get("XXX")
@@ -282,8 +283,10 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,chl,Binning):
                 
                 
                 RebinedHist= ShapeHistoData.Rebin(RB_)
-                RebinedHist.Scale(107/RebinedHist.Integral())
+                RebinedHist.Scale(110/RebinedHist.Integral())
                 tDirectory.WriteObject(RebinedHist,NameOut)
+                tDirectory.WriteObject(RebinedHist,"QCD120"+str(TauScaleOut[tscale]))
+                tDirectory.WriteObject(RebinedHist,"QCD125"+str(TauScaleOut[tscale]))
             
             ################################################
             #  Filling Data
@@ -312,7 +315,7 @@ if __name__ == "__main__":
 #    NormMC="_ST_MET"
 #    MakeTheHistogram("MuTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",0,Binning)
 #    MakeTheHistogram("EleTau",NormMC+"_SS",NormMC+"_SS",NormMC+"_Total","",1,Binning)
-    PlotName= ["_tmass"]
+    PlotName= ["_tmass_OS"]
 #    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_ST_MET"]
 
     

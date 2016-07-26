@@ -29,11 +29,16 @@ PostFitShapes -d outputLQ/lq3_cards_ST_MET_HighPtLep50/LIMITS/1000/lq_mt_1_13TeV
 
 from cecile:
 [13/04/16 10:57:24] Cécile Caillol: I use combine directly, and not limit.py anymore
+
+
 [13/04/16 10:57:57] Cécile Caillol: text2workspace.py mydatacard.txt
 combine -M MaxLikelihoodFit mydatacard.root --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"  --rMin 0.5 --rMax 1.5
 PostFitShapesFromWorkspace -o ztt_mt_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d mydatacard.txt -w mydatacard.root
 python HiggsAnalysis/CombinedLimit/test/diffNuisances.py mlfit.root -A -a --stol 0.99 --stol 0.99 --vtol 99. --vtol2 99. -f text mlfit.root > mlfit.txt
+
+
 [13/04/16 10:58:03] Cécile Caillol: this is what I do
+
 [13/04/16 10:58:24] Cécile Caillol: PostFitShapesFromWorkspace scales the signal by the signal strength
 
 
@@ -91,43 +96,15 @@ python MakeCompare.py --file=lq.json --file2=../lq15_Mltau200/lq.json --file3=..
 making the plots for lq;
 python ../../../scripts/plotLQ3.py --file=lq.json --y_axis_min .001 --y_axis_max 100
 
-
-hadd     sampleQCD/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-120to170_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-120to170_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-170to300_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-170to300_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-20to30_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-20to30_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-300to470_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-300to470_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-30to50_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-30to50_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-470to600_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-470to600_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-600to800_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-600to800_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-800to1000_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-800to1000_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
-hadd     sampleQCD/QCD_Pt-80to120_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8.root   crab_QCD_Pt-80to120_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8*.root
+%%%%%%%   WSF factor
 
 
 
-1.0814146
+text2workspace.py LIMITS/120/W_et_1_13TeV.txt -m 120 -o myWS.root
 
+PostFitShapesFromWorkspace -o final_W_SF_et.root -m 120 -f LIMITS/120/out/mlfit.root:fit_s --postfit --sampling --print -d LIMITS/120/W_et_1_13TeV.txt --workspace myWS.root
 
-
-
-1.0814146	0.010119907
-1.2580138	0.023863869
-1.749375	0.0051627895
-
-
-
-
-/Data/SingleElectron/crab_SingleElectronRun2016B-PromptReco-v2/160716_030040/0000
-/Data/SingleElectron/crab_SingleElectronRun2016B-PromptReco-v2/160716_030040/0001
-/Data/SingleElectron/crab_SingleElectronRun2016B-PromptReco-v2/160716_030040/0002
-/Data/SingleElectron/crab_SingleElectronRun2016C-PromptReco-v2/160716_030107/0000
-/Data/SingleElectron/crab_SingleElectronRun2016D-PromptReco-v2/160716_030132/0000
-/Data/SingleMuon/crab_SingleMuonRun2016B-PromptReco-v2/160716_030151/0000
-/Data/SingleMuon/crab_SingleMuonRun2016B-PromptReco-v2/160716_030151/0001
-/Data/SingleMuon/crab_SingleMuonRun2016B-PromptReco-v2/160716_030151/0002
-/Data/SingleMuon/crab_SingleMuonRun2016C-PromptReco-v2/160716_030216/0000
-/Data/SingleMuon/crab_SingleMuonRun2016D-PromptReco-v2/160716_030234/0000
+PostFitShapesFromWorkspace -o final_W_SF_mt.root -m 120 -f LIMITS/120/out/mlfit.root:fit_s --postfit --sampling --print -d LIMITS/120/W_et_1_13TeV.txt --workspace myWS.root
 
 
 

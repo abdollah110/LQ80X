@@ -56,8 +56,8 @@ Wmass = ['1000','1500','2000','2500','3000']
 lenghtSig = len(signal) * len(mass) +1
 
 #category = ["_inclusive"]
-category = ["_DiJet"]
-#category = ["_DiNonBJet"]
+#category = ["_DiJet"]
+category = ["_DiNonBJet"]
 #category = ["_inclNoBjet"]
 
 #channelDirectory = [ "MuTau"]

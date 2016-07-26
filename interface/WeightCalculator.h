@@ -115,7 +115,7 @@ float XSection(std::string OutName) {
 //    else if (OutName.find("skimed_0_RHNu_3000-1500") != string::npos) return     6.030E-03;
     
     else if (OutName.find("LQToBTau_M") != string::npos) return     1.0;
-        else if (OutName.find("skimed_Analysisggtree_mc_") != string::npos ) return      1.0;
+        else if (OutName.find("HeavyW") != string::npos ) return      1.0;
     
     
 else if (OutName.find("QCD_Pt-20toInf_MuEnrichedPt15") != string::npos) return     720648000  * 0.00042 ;
@@ -142,7 +142,7 @@ else if (OutName.find("QCD") != string::npos) return     720648000  * 0.00042 ;
     
     else {
         cout<<"Not Listed in XSection menu !!!! Watch cout    "<<OutName<< "\n";
-        return 0;
+        return 1;
     }
 }
 
@@ -223,7 +223,8 @@ float weightCalc(TH1F *Histo,std::string outputName , float genHT, vector<float>
     //    float luminosity=2154;
 //    float luminosity=    3990;
 //    float luminosity=    6260;
-    float luminosity=    9235;
+//    float luminosity=    9235;
+    float luminosity=    12900;
     
     size_t isSingleMu = outputName.find("SingleMu");
     size_t isSingleEle = outputName.find("SingleEle");

@@ -37,7 +37,7 @@ SubRootDir = 'OutFiles_TTEstim/'
 
 
 verbos_ = False
-RBN_=10
+RBN_=1
 
 
 TauScale = [ ""]
@@ -103,24 +103,24 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
         tDirectory.cd()
         for tscale in range(len(TauScale)):
             
-            #           ################################################
-            #           #   Filling Signal
-            ##           ################################################
-            for sig in range(len(signal)):
-                for m in range(len(mass)):#    for m in range(110, 145, 5):
-                    
-                    print "--------------------------------------------------->     Processing LQ Signal ", signal[sig],mass[m]
-                    tDirectory.cd()
-                    
-                    Name= str(signal[sig])+str(mass[m])
-                    NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(TauScaleOut[tscale])
-                    
-                    
-                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
-                    NormHisto=NormFile.Get("XXX")
-                    
-                    RebinedHist= NormHisto.Rebin(RBN_)
-                    tDirectory.WriteObject(RebinedHist,NameOut)
+#            #           ################################################
+#            #           #   Filling Signal
+#            ##           ################################################
+#            for sig in range(len(signal)):
+#                for m in range(len(mass)):#    for m in range(110, 145, 5):
+#                    
+#                    print "--------------------------------------------------->     Processing LQ Signal ", signal[sig],mass[m]
+#                    tDirectory.cd()
+#                    
+#                    Name= str(signal[sig])+str(mass[m])
+#                    NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(TauScaleOut[tscale])
+#                    
+#                    
+#                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+#                    NormHisto=NormFile.Get("XXX")
+#                    
+#                    RebinedHist= NormHisto.Rebin(RBN_)
+#                    tDirectory.WriteObject(RebinedHist,NameOut)
 
 
 

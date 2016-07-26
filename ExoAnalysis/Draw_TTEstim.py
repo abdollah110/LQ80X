@@ -4,7 +4,6 @@ import ROOT
 import re
 from array import array
 
-RB_=10
 def add_lumi():
     lowX=0.69
     lowY=0.835
@@ -15,7 +14,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("9.2 fb^{-1} (13 TeV)")
+    lumi.AddText("12.9 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -147,6 +146,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     errorBand.SetFillColor(16)
     errorBand.SetFillStyle(3001)
     errorBand.SetLineWidth(1)
+#    errorBand.Scale(1.1)
 
     pad1 = ROOT.TPad("pad1","pad1",0,0.35,1,1)
     pad1.Draw()
@@ -167,7 +167,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     pad1.SetFrameBorderSize(10)
 
     Data.GetXaxis().SetLabelSize(0)
-    Data.SetMaximum(Data.GetMaximum()*2)
+    Data.SetMaximum(Data.GetMaximum()*2.5)
     Data.Draw("e")
     stack.Draw("histsame")
     errorBand.Draw("e2same")
@@ -270,9 +270,9 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
 
 channelDirectory = ["MuEle"]
 Category = ["_inclusive","_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
-TitleName = ["#mu e inclusive","#mu e JetBJet","#mu e  DiJet","#mu e JetBJet Final cuts","#mu e DiJet Final cuts"]
+TitleName = ["emu inclusive","emu LQ","emu  RH W","emu LQ Final cuts","emu RH W Final cuts"]
 #Category = ["_inclusive","_JetBJet","_DiJet"]
-#TitleName = ["#mu e inclusive","#mu e JetBJet","#mu e  DiJet"]
+#TitleName = ["emu inclusive","emu JetBJet","emu  DiJet"]
 
 #TTScaleFactor=[0.906953,0.879088,0.938038]
 TTScaleFactor=[1,1,1,1,1]
@@ -281,18 +281,17 @@ TTScaleFactor=[1,1,1,1,1]
 
 FileNamesInfo=[
 #               ["_tmass_OS","M_{T}(lep,MET) (GeV)","",1],
-               ["_VisMass_OS","VisMass (GeV)","",5],
+               ["_VisMass_OS","e#mu VisMass (GeV)","",5],
                ["_MuPt_OS","#mu p_{T} (GeV)","",10],
                ["_ElePt_OS","electron p_{T} (GeV)","",10],
                ["_NumJet_OS","Jet multiplicity","",1],
                ["_NumBJet_OS","B Jet multiplicity","",1],
                ["_ST_MET_OS","ST_{e#mujjMET}  (GeV)","",10],
-#               ["_ST_DiJet_OS","ST_{e#mujj}  (GeV)","",10],
                ["_MET_OS","MET  (GeV)","",5],
                ["_EleEta_OS","#eta_{e}","",5],
                ["_MuEta_OS","#eta_{#mu}","",5],
                ["_LeadJetPt_OS","leading jet p_{T}","",5],
-               ["_SubLeadJetPt_OS","leading jet p_{T}","",5],
+               ["_SubLeadJetPt_OS","sub leading jet p_{T}","",5],
                ["_LeadJetEta_OS","#eta of leading jet","",5],
                ["_SubLeadJetEta_OS","#eta of subleading jet","",5],
                ]

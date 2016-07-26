@@ -32,24 +32,27 @@ int main(int argc, char** argv) {
     TH1F * HistoPUMC= (TH1F *) PUMC->Get("pileup");
     HistoPUMC->Scale(1.0/HistoPUMC->Integral());
     
-    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_2016runB_2p6fb.root");
+    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_RunBCD_prompt80X_7p65.root");
+    //    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_2016runB_2p6fb.root");
     TH2F * HistoMuId= (TH2F *) MuCorrId->Get("MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio");
     
-    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonISO_Z_2016runB_2p6fb.root");
+    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonIso_Z_RunBCD_prompt80X_7p65.root");
+    //    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonISO_Z_2016runB_2p6fb.root");
     TH2F * HistoMuIso= (TH2F *) MuCorrIso->Get("MC_NUM_TightRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio");
     
-    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root");
-    //    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/pt_abseta_ratio");
-    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/efficienciesDATA/pt_abseta_DATA");
+    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root");
+    //    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root");
+    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("Mu45_eta2p1_PtEtaBins_Run274094_to_276097/efficienciesDATA/pt_abseta_DATA");
     
     
-    TFile * ElectronSF0p5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_0p5.root");
-    TH2F * HistoEleSF0p5= (TH2F *) ElectronSF0p5->Get("EGamma_SF2D");
+    //    TFile * ElectronSF0p5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_0p5.root");
+    TFile * ElectronSF= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X.root");
+    TH2F * HistoEleSF= (TH2F *) ElectronSF->Get("EGamma_SF2D");
     
-    TFile * ElectronSF5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_5.root");
-    TH2F * HistoEleSF5= (TH2F *) ElectronSF5->Get("EGamma_SF2D");
+    //    TFile * ElectronSF5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_5.root");
+    //    TH2F * HistoEleSF5= (TH2F *) ElectronSF5->Get("EGamma_SF2D");
     
-    
+        
     for (int k = 0; k < input.size(); k++) {
         
         //std::string input = *(argv + 2);
@@ -639,7 +642,7 @@ int main(int argc, char** argv) {
                         
                         bool GeneralEleTauSelection=  !extraMuonExist && !extraElectronExist && elePtCut && TauPtCut && eleIdIso && TauIdIso  && Ele4Momentum.DeltaR(Tau4Momentum) > 0.5;
                         
-                        float eleCorr=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF0p5,HistoEleSF5);
+                        float eleCorr=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF);
                         
                         
                         //###########      Jet definition   ###########################################################
@@ -739,7 +742,8 @@ int main(int argc, char** argv) {
                         //###############################################################################################
                         const int size_trgCat = 1;
                         bool PassTrigger = 1;
-                        if (isData) PassTrigger = (HLTEleMuX >> 54 & 1) == 1; //   else if (name.find("HLT_Ele45_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
+//                        if (isData) PassTrigger = (HLTEleMuX >> 54 & 1) == 1; //   else if (name.find("HLT_Ele45_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
+                        if (isData) PassTrigger = (HLTEleMuX >> 2 & 1) == 1; //   else if (name.find("HLT_Ele27_ep1_WPLoose_Gsf_v") != string::npos) bitEleMuX =
                         bool NoTrigger = 1;
                         bool Trigger_category[size_trgCat] = {PassTrigger};
                         std::string trg_Cat[size_trgCat] = {""};

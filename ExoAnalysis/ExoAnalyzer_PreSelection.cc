@@ -31,22 +31,26 @@ int main(int argc, char** argv) {
     TH1F * HistoPUMC= (TH1F *) PUMC->Get("pileup");
     HistoPUMC->Scale(1.0/HistoPUMC->Integral());
     
-    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_2016runB_2p6fb.root");
+    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_RunBCD_prompt80X_7p65.root");
+    //    TFile * MuCorrId= TFile::Open("../interface/pileup-hists/MuonID_Z_2016runB_2p6fb.root");
     TH2F * HistoMuId= (TH2F *) MuCorrId->Get("MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio");
     
-    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonISO_Z_2016runB_2p6fb.root");
+    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonIso_Z_RunBCD_prompt80X_7p65.root");
+    //    TFile * MuCorrIso= TFile::Open("../interface/pileup-hists/MuonISO_Z_2016runB_2p6fb.root");
     TH2F * HistoMuIso= (TH2F *) MuCorrIso->Get("MC_NUM_TightRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio");
     
-    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root");
-    //    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/pt_abseta_ratio");
-    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("runD_Mu45_eta2p1_PtEtaBins/efficienciesDATA/pt_abseta_DATA");
+    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root");
+    //    TFile * MuCorrTrg= TFile::Open("../interface/pileup-hists/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root");
+    TH2F * HistoMuTrg= (TH2F *) MuCorrTrg->Get("Mu45_eta2p1_PtEtaBins_Run274094_to_276097/efficienciesDATA/pt_abseta_DATA");
     
     
-    TFile * ElectronSF0p5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_0p5.root");
-    TH2F * HistoEleSF0p5= (TH2F *) ElectronSF0p5->Get("EGamma_SF2D");
+    //    TFile * ElectronSF0p5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_0p5.root");
+    TFile * ElectronSF= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X.root");
+    TH2F * HistoEleSF= (TH2F *) ElectronSF->Get("EGamma_SF2D");
     
-    TFile * ElectronSF5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_5.root");
-    TH2F * HistoEleSF5= (TH2F *) ElectronSF5->Get("EGamma_SF2D");
+    //    TFile * ElectronSF5= TFile::Open("../interface/pileup-hists/egammaEffi.txt_SF2D_80X_5.root");
+    //    TH2F * HistoEleSF5= (TH2F *) ElectronSF5->Get("EGamma_SF2D");
+
     
     
     for (int k = 0; k < input.size(); k++) {
@@ -168,8 +172,8 @@ int main(int argc, char** argv) {
         //  Weight Calculation
         //###############################################################################################
         float WSCALEFACTORE=1.00;  //measured July 4th from WEstimaOutPut/_16_80X
-        float WSF_mutau=0.92;
-        float WSF_etau=1.04;
+        float WSF_mutau=1.0;
+        float WSF_etau=1.0;
         float MuMass= 0.10565837;
         float eleMass= 0.000511;
         float LeptonPtCut_=50;
@@ -553,10 +557,9 @@ int main(int argc, char** argv) {
                                                                     plotFill(CHL+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,FullWeight);
                                                                     plotFill(CHL+"_NumJet"+FullStringName,JetVector.size(),10,0,10,FullWeight);
                                                                     plotFill(CHL+"_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor * SFBJetMultiplicity);
-//                                                                    plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
-//                                                                    plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
+                                                                    plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
+                                                                    plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
                                                                     plotFill(CHL+"_MET"+FullStringName,pfMET,500,0,500,FullWeight);
-//                                                                    plotFill(CHL+"_M_taujet"+FullStringName,M_TauJet,1000,0,1000,FullWeight);
                                                                     plotFill(CHL+"_LeadJetPt"+FullStringName,leadJetPt_,300,0,300,FullWeight);
                                                                     plotFill(CHL+"_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,FullWeight);
                                                                     plotFill(CHL+"_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,FullWeight);
@@ -615,7 +618,7 @@ int main(int argc, char** argv) {
                         
                         
 //                        float LepCor=1  ;
-                        float LepCor=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF0p5,HistoEleSF5);
+                        float LepCor=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF);
                         
                         
                         
@@ -835,8 +838,9 @@ int main(int argc, char** argv) {
                         //                            bool PassTrigger = (HLTEleMuX >> 0 & 1) == 1 || (HLTEleMuX >> 1 & 1) == 1 || (HLTEleMuX >> 6 & 1) == 1|| (HLTEleMuX >> 11 & 1) == 1;
 //                        bool PassTrigger =   ((HLTEleMuX >> 2 & 1) == 1 && isData )|| (1 && !isData );
                         bool PassTrigger = 1;
-                        if (isData) PassTrigger = (HLTEleMuX >> 54 & 1) == 1; //   else if (name.find("HLT_Ele45_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
-                        //                        bool PassTrigger =   ((HLTEleMuX >> 6 & 1) == 1 && isData )|| ((HLTEleMuX >> 11 & 1) == 1 && !isData );
+//                        if (isData) PassTrigger = (HLTEleMuX >> 54 & 1) == 1; //   else if (name.find("HLT_Ele45_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
+                        if (isData) PassTrigger = (HLTEleMuX >> 2 & 1) == 1; //   else if (name.find("HLT_Ele27_ep1_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
+                        
                         
 //                        bool NoTrigger = 1;
                         //                    bool Trigger_category[size_trgCat] = {PassTrigger, NoTrigger};
@@ -892,10 +896,9 @@ int main(int argc, char** argv) {
                                                                     plotFill(CHL+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,FullWeight);
                                                                     plotFill(CHL+"_NumJet"+FullStringName,JetVector.size(),10,0,10,FullWeight);
                                                                     plotFill(CHL+"_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor * SFBJetMultiplicity);
-//                                                                    plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
-//                                                                    plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
+                                                                    plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
+                                                                    plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
                                                                     plotFill(CHL+"_MET"+FullStringName,pfMET,500,0,500,FullWeight);
-//                                                                    plotFill(CHL+"_M_taujet"+FullStringName,M_TauJet,1000,0,1000,FullWeight);
                                                                     plotFill(CHL+"_LeadJetPt"+FullStringName,leadJetPt_,300,0,300,FullWeight);
                                                                     plotFill(CHL+"_SubLeadJetPt"+FullStringName,subLeadJetPt_,300,0,300,FullWeight);
                                                                     plotFill(CHL+"_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,FullWeight);

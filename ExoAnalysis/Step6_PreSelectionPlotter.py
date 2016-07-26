@@ -268,16 +268,17 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl):
             ZTTSampleQCDShapeHist=ZTTSampleQCDShape.Get("XXX")
             WSampleQCDShapeHist=WSampleQCDShape.Get("XXX")
             DataSampleQCDShapeHist=DataSampleQCDShape.Get("XXX")
+#
+#            print "\n##########\n DataSampleQCDShapeHist before=",    DataSampleQCDShapeHist.Integral()
 
-            print "\n##########\n DataSampleQCDShapeHist before=",    DataSampleQCDShapeHist.Integral()
-            
 #            DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
 #            DataSampleQCDShapeHist.Add(VVSampleQCDShapeHist, -1)
 #            DataSampleQCDShapeHist.Add(TTSampleQCDShapeHist, -1)
 #            DataSampleQCDShapeHist.Add(ZTTSampleQCDShapeHist, -1)
 #            DataSampleQCDShapeHist.Add(WSampleQCDShapeHist, -1)
 
-            print "\n##########\n DataSampleQCDShapeHist after=",    DataSampleQCDShapeHist.Integral()
+#            print "\n##########\n DataSampleQCDShapeHist after=",    DataSampleQCDShapeHist.Integral()
+
 
             SingleTSampleQCDNormHist=SingleTSampleQCDNorm.Get("XXX")
             VVSampleQCDNormHist=VVSampleQCDNorm.Get("XXX")
@@ -286,17 +287,18 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl):
             WSampleQCDNormHist=WSampleQCDNorm.Get("XXX")
             DataSampleQCDNormHist=DataSampleQCDNorm.Get("XXX")
             
-
-            if (SingleTSampleQCDNormHist) : DataSampleQCDNormHist.Add(SingleTSampleQCDNormHist, -1)
-            if (VVSampleQCDNormHist): DataSampleQCDNormHist.Add(VVSampleQCDNormHist, -1)
+            print "\n%%%%%%%%%%%%%\n channelDataSampleQCDNormHist before=", channel,   DataSampleQCDNormHist.Integral()
+            DataSampleQCDNormHist.Add(SingleTSampleQCDNormHist, -1)
+            DataSampleQCDNormHist.Add(VVSampleQCDNormHist, -1)
             DataSampleQCDNormHist.Add(TTSampleQCDNormHist, -1)
             DataSampleQCDNormHist.Add(ZTTSampleQCDNormHist, -1)
             DataSampleQCDNormHist.Add(WSampleQCDNormHist, -1)
+            print "\n%%%%%%%%%%%%%\n DataSampleQCDNormHist after=",  channel,  DataSampleQCDNormHist.Integral()
             
 
             FR_FitMaram=Make_Tau_FakeRate(channel)
             QCDEstimation=0
-            for bin in xrange(50,400):
+            for bin in xrange(50,500):
                 value=DataSampleQCDNormHist.GetBinContent(bin)
                 if value < 0 : value=0
                 FR= _FIT_Jet_Function(bin+1.5,FR_FitMaram)

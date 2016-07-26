@@ -110,7 +110,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
         charge="_OS"
 
     if Analysis=="RHW":
-        signal = ['RHNu_']
+        signal = ['RHW_']
         signalName = ['RHW_']
 #        mass = ['2000-1000']
 #        TOTMASS = ['2000']
@@ -414,7 +414,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                     print "\n##########\nlooseQCDNORM after=",    DataSampleQCDShapeHist.Integral()
                     FR_FitMaram=Make_Tau_FakeRate(channel)
                     QCDEstimation=0
-                    for bin in xrange(50,400):
+                    for bin in xrange(50,500):
                         value=DataSampleQCDNormHist.GetBinContent(bin)
                         if value < 0 : value=0
                         FR= _FIT_Jet_Function(bin+1.5,FR_FitMaram)
