@@ -196,7 +196,7 @@ int main(int argc, char** argv) {
             if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
             fflush(stdout);
 //            cout <<metFilters << "\n";
-            if (isData && (metFilters!=0 && metFilters!=64)) continue;
+            if (isData && (metFilters!=0)) continue;
             
             //###############################################################################################
             //  Weight Calculation

@@ -210,7 +210,7 @@ int main(int argc, char** argv) {
             if (i % 10000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
             fflush(stdout);
             
-           if (isData && (metFilters!=0 && metFilters!=64)) continue;
+           if (isData && (metFilters!=0)) continue;
             
             //###############################################################################################
             //  Weight Calculation
@@ -976,8 +976,8 @@ int main(int argc, char** argv) {
                                 //                            bool PassTrigger = (HLTEleMuX >> 0 & 1) == 1 || (HLTEleMuX >> 11 & 1) == 1;
                                 //                            bool PassTrigger = (HLTEleMuX >> 0 & 1) == 1 || (HLTEleMuX >> 1 & 1) == 1 || (HLTEleMuX >> 6 & 1) == 1|| (HLTEleMuX >> 11 & 1) == 1;
                                 bool PassTrigger = 1;
-//                                if (isData) PassTrigger = (HLTEleMuX >> 54 & 1) == 1; //   else if (name.find("HLT_Ele45_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
-                                if (isData) PassTrigger = (HLTEleMuX >> 2 & 1) == 1; //   else if (name.find("HLT_Ele27_ep1_WPLoose_Gsf_v") != string::npos)
+                                if (isData) PassTrigger = (HLTEleMuX >> 54 & 1) == 1; //   else if (name.find("HLT_Ele45_WPLoose_Gsf_v") != string::npos) bitEleMuX = 54;
+//                                if (isData) PassTrigger = (HLTEleMuX >> 2 & 1) == 1; //   else if (name.find("HLT_Ele27_ep1_WPLoose_Gsf_v") != string::npos)
                                 //                        bool PassTrigger =   ((HLTEleMuX >> 6 & 1) == 1 && isData )|| ((HLTEleMuX >> 11 & 1) == 1 && !isData );
                                 
                                 bool NoTrigger = 1;

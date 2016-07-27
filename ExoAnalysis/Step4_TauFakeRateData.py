@@ -52,7 +52,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.03)
     lumi.SetTextFont (   42 )
-    lumi.AddText("9.2 fb^{-1} (13 TeV)")
+    lumi.AddText("12.9 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -208,8 +208,9 @@ def _FIT_Jet(x, p):
     return Land
 def _FIT_Jet_Function(x, p):
     Land = p[2] * TMath.Landau(x, p[3], p[4])
-    Pol0 = p[0]+p[1]*x
-    return Land + Pol0
+#    Pol0 = p[0]+p[1]*x
+#    return Land + Pol0
+    return Land
 
 
 
@@ -321,8 +322,7 @@ def Make_Tau_FakeRate(channelName):
 
     legende=make_legend()
     legende.AddEntry(HistoNum,"Jet#rightarrow#tau fake rate","lp")
-    legende.AddEntry(theFit,"Fit (Landau + Pol1)","lp")
-
+    legende.AddEntry(theFit,"Fit (Landau)","lp")
     
     legende.Draw()
     
@@ -332,6 +332,18 @@ def Make_Tau_FakeRate(channelName):
     l2.Draw("same")
     l3=add_Preliminary()
     l3.Draw("same")
+
+
+    categ  = ROOT.TPaveText(0.51, 0.45+0.013, 0.93, 0.60+0.155, "NDC")
+    categ.SetBorderSize(   0 )
+    categ.SetFillStyle(    0 )
+    categ.SetTextAlign(   12 )
+    categ.SetTextSize ( 0.04 )
+    categ.SetTextColor(    1 )
+    categ.SetTextFont (   41 )
+    categ.AddText(channelName+" channel")
+    categ.Draw()
+
 
     canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".pdf")
     canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".root")

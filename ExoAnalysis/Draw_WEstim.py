@@ -3,7 +3,7 @@ import ROOT
 import re
 from array import array
 
-WSCALEFACTOR=0.92
+WSCALEFACTOR=1.0
 RB_=10
 
 def add_lumi():
@@ -16,7 +16,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("9.2 fb^{-1} (13 TeV)")
+    lumi.AddText("12.9 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -55,7 +55,7 @@ def make_legend():
         return output
 
 
-def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
+def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,Selection):
     ROOT.gStyle.SetFrameLineWidth(3)
     ROOT.gStyle.SetLineWidth(3)
     ROOT.gStyle.SetOptStat(0)
@@ -270,14 +270,15 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_):
 
     c.Modified()
 #    c.SaveAs("_plot_WEstim"+HistName+"_"+categoriy+".pdf")
-    c.SaveAs("_plot_WEstim"+HistName+"_"+"afterScale_DiJetJet"+".pdf")
+    c.SaveAs("_plot_WEstim"+HistName+Selection+".pdf")
 
 
 
-cat = ["_DiNonBJet"]
+#Selection = ["_DiNonBJet"]
+Selection = ["_DiJet"]
 #category = ["_inclusive"]
 Category = ["beforeScale"]
-INFO = [" W Control region Scale"]
+INFO = [" W Control region"]
 Channel=["MuTau"]
 
 #TotalRootForLimit_MuTau_NumJet_HighMT_OS_inclNoBjet.root
@@ -307,7 +308,8 @@ for CH in Channel:
 #WEstimation_LepEta_HighMT_OS_DiNonBJetMuTau.root
 #TotalRootForLimit_MuTau_LepPt_HighMT_OS_DiNonBJet.root
 #            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJet.root"
-            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_DiJet.root"
+#            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+"_DiJet.root"
+            FileName="TotalRootForLimit_"+CH+FileNamesInfo[i][0]+Selection[cat]+".root"
 #            FileName="WEstimation"+FileNamesInfo[i][0]+"_HighMT_OS_DiNonBJetMuTau.root"
-            MakePlot(FileName,Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],INFO[cat],FileNamesInfo[i][3])
+            MakePlot(FileName,Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],INFO[cat],FileNamesInfo[i][3],Selection[cat])
 

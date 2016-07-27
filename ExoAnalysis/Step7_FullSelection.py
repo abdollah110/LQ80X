@@ -116,8 +116,8 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 #        TOTMASS = ['2000']
 #        mass = ['1000-500','1500-750','2000-1000','2500-1250','3000-1500']
 #        TOTMASS = ['1000','1500','2000','2500','3000']
-        mass = ['2000-1000','3000-1500','4000-2000']
-        TOTMASS = ['2000','3000',4000]
+        mass = ['1000-500','2000-1000','3000-1500','4000-2000']
+        TOTMASS = ['1000','2000','3000',4000]
         lenghtSig = len(signal) * len(mass) +1
         category = ["_DiJet"]
         charge=""
@@ -388,13 +388,14 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                     WSampleQCDShapeHist=WSampleQCDShape.Get("XXX")
                     DataSampleQCDShapeHist=DataSampleQCDShape.Get("XXX")
 
-                    print "\n##########\nlooseQCDNORM before=",    DataSampleQCDShapeHist.Integral()
+                    print "\n---->   ##########\nlooseQCDShape before=",    DataSampleQCDShapeHist.Integral()
                     
 #                    if (SingleTSampleQCDShapeHist) : DataSampleQCDShapeHist.Add(SingleTSampleQCDShapeHist, -1)
 #                    if (VVSampleQCDShapeHist): DataSampleQCDShapeHist.Add(VVSampleQCDShapeHist, -1)
 #                    DataSampleQCDShapeHist.Add(TTSampleQCDShapeHist, -1)
 #                    DataSampleQCDShapeHist.Add(ZTTSampleQCDShapeHist, -1)
 #                    DataSampleQCDShapeHist.Add(WSampleQCDShapeHist, -1)
+                    print "\n---->   ##########\nlooseQCDShaoe after=",    DataSampleQCDShapeHist.Integral()
 
 
                     SingleTSampleQCDNormHist=SingleTSampleQCDNorm.Get("XXX")
@@ -411,7 +412,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                     DataSampleQCDNormHist.Add(ZTTSampleQCDNormHist, -1)
                     DataSampleQCDNormHist.Add(WSampleQCDNormHist, -1)
                     
-                    print "\n##########\nlooseQCDNORM after=",    DataSampleQCDShapeHist.Integral()
+                    print "\n##########\nlooseQCDNORM after=",    DataSampleQCDNormHist.Integral()
                     FR_FitMaram=Make_Tau_FakeRate(channel)
                     QCDEstimation=0
                     for bin in xrange(50,500):

@@ -109,4 +109,52 @@ PostFitShapesFromWorkspace -o final_W_SF_mt.root -m 120 -f LIMITS/120/out/mlfit.
 
 
 
+PostFitShapesFromWorkspace -o final_W_SF_et.root -m 120 -f LIMITS/120/out/mlfit.root:fit_s --postfit --sampling --print -d LIMITS/120/W_et_1_13TeV.txt --workspace myWS.root
+
+
+######## This is for LQ
+
+text2workspace.py LIMITS/900/lq_mt_1_13TeV.txt -m 900 -o WS_mt.root
+combine -M MaxLikelihoodFit LIMITS/900/lq_mt_1_13TeV.txt -m 900 --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"
+PostFitShapesFromWorkspace -o final_lq_mt_900.root -m 900 -f mlfit.root:fit_s --postfit --sampling --print -d LIMITS/900/lq_mt_1_13TeV.txt --workspace WS_mt.root
+cp mlfit.root mlfit_mt.root
+
+
+
+text2workspace.py LIMITS/900/lq_et_1_13TeV.txt -m 900 -o WS_et.root
+combine -M MaxLikelihoodFit LIMITS/900/lq_et_1_13TeV.txt -m 900 --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"
+PostFitShapesFromWorkspace -o final_lq_et_900.root -m 900 -f mlfit.root:fit_s --postfit --sampling --print -d LIMITS/900/lq_et_1_13TeV.txt --workspace WS_et.root
+cp mlfit.root mlfit_et.root
+
+
+######## This is for RH W
+
+text2workspace.py LIMITS/3000/RHW__mt_1_13TeV.txt -m 3000 -o WS_mt.root
+combine -M MaxLikelihoodFit LIMITS/3000/RHW__mt_1_13TeV.txt -m 3000 --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"
+PostFitShapesFromWorkspace -o final_rw_mt_3000.root -m 3000 -f mlfit.root:fit_s --postfit --sampling --print -d LIMITS/3000/RHW__mt_1_13TeV.txt --workspace WS_mt.root
+cp mlfit.root mlfit_mt.root
+
+
+
+text2workspace.py LIMITS/3000/RHW__et_1_13TeV.txt -m 3000 -o WS_et.root
+combine -M MaxLikelihoodFit LIMITS/3000/RHW__et_1_13TeV.txt -m 3000 --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"
+PostFitShapesFromWorkspace -o final_rw_et_3000.root -m 3000 -f mlfit.root:fit_s --postfit --sampling --print -d LIMITS/3000/RHW__et_1_13TeV.txt --workspace WS_et.root
+cp mlfit.root mlfit_et.root
+
+
+######## This is for ControPlots
+
+
+text2workspace.py LIMITS/1000/RHW__mt_1_13TeV.txt -m 1000 -o WS_mt.root
+combine -M MaxLikelihoodFit LIMITS/1000/RHW__mt_1_13TeV.txt -m 1000 --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"
+PostFitShapesFromWorkspace -o final_rw_mt_1000.root -m 1000 -f mlfit.root:fit_s --postfit --sampling --print -d LIMITS/1000/RHW__mt_1_13TeV.txt --workspace WS_mt.root
+cp mlfit.root mlfit_mt.root
+
+
+
+text2workspace.py LIMITS/1000/RHW__et_1_13TeV.txt -m 1000 -o WS_et.root
+combine -M MaxLikelihoodFit LIMITS/1000/RHW__et_1_13TeV.txt -m 1000 --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"
+PostFitShapesFromWorkspace -o final_rw_et_1000.root -m 1000 -f mlfit.root:fit_s --postfit --sampling --print -d LIMITS/1000/RHW__et_1_13TeV.txt --workspace WS_et.root
+cp mlfit.root mlfit_et.root
+
 
