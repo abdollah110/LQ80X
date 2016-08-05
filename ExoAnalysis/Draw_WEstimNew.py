@@ -239,7 +239,12 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,Scale_W,NameF):
     h1.SetTitle("")
     
     h1.Divide(errorBand)
-    h3.Divide(errorBand)
+    #######  set the bin errors to zero befive divinig data to that
+    errorBandZeroErr=errorBand.Clone()
+    for ibin in range(errorBandZeroErr.GetXaxis().GetNbins()):
+        errorBandZeroErr.SetBinError(ibin+1,0)
+    #######
+    h3.Divide(errorBandZeroErr)
     
     
     h1.GetXaxis().SetTitle(Xaxis)

@@ -62,6 +62,14 @@ void plotFill(string name, float x, float y, int nx, float nxmin, float nxmax, i
     (*myMap2)[name]->SetDefaultSumw2();
     (*myMap2)[name]->Fill(x, y,weight);
 }
+void plotFill(string name, float x, float y, int nx, double* nxmin, int ny, double * nymin ,double weight=1) {
+    if (myMap2->find(name) == myMap2->end())
+        (*myMap2)[name] = new TH2F(name.c_str(), name.c_str(), nx, nxmin,  ny, nymin);
+    (*myMap2)[name]->SetDefaultSumw2();
+    (*myMap2)[name]->Fill(x, y,weight);
+}
+
+
 //****************************************************
 //Transverse Mass
 //double TMass(double et1,double et2, double px1, double px2, double py1, double py2){

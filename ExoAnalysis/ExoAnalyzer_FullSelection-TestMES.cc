@@ -169,7 +169,10 @@ int main(int argc, char** argv) {
         
         
         /////////////////////////   MET Info
-        Run_Tree->SetBranchAddress("pfMET",&pfMET);
+//        Run_Tree->SetBranchAddress("pfMET",&pfMET);
+//        Run_Tree->SetBranchAddress("pfMET_T1UESUp",&pfMET);
+        Run_Tree->SetBranchAddress("pfMET_T1UESDo",&pfMET);
+        
         Run_Tree->SetBranchAddress("pfMETPhi",&pfMETPhi);
         Run_Tree->SetBranchAddress("genHT",&genHT);
         Run_Tree->SetBranchAddress("metFilters",&metFilters);
@@ -624,7 +627,7 @@ int main(int argc, char** argv) {
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,1000,0,1000,FullWeight);
                                                                                     
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_ST_MET"+FullStringName,ST_MET,nBin,binMin,binMax,FullWeight);
-                                                                                    
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_XXX_MET"+FullStringName,jetMET,nBin,binMin,binMax,FullWeight);
                                                                                     
                                                                                     
                                                                                     //////////////////////////////////////////////////////////////////////
@@ -866,7 +869,7 @@ int main(int argc, char** argv) {
                                 
                                 bool DiJet_Selection=JetVector.size() > 1;
                                 bool DiNonBJet_Selection=JetVector.size() > 1 && BJet20Vector.size() < 1 ;
-                                bool JetBJet_Selection=JetVector.size() > 1&& BJetBVector.size()> 0 && (BJetBVector[0].Pt()== JetVector[0].Pt() || BJetBVector[0].Pt() ==JetVector[1].Pt());
+                                bool JetBJet_Selection=JetVector.size() > 1& BJetBVector.size()> 0 && (BJetBVector[0].Pt()== JetVector[0].Pt() || BJetBVector[0].Pt() ==JetVector[1].Pt());
                                 float BtagSFLeadBJet=1;
                                 float BtagSFLeadBJetUp=1;
                                 float BtagSFLeadBJetDown=1;

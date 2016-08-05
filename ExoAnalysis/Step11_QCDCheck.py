@@ -24,8 +24,8 @@ import ROOT as r
 import array
 
 ##### Get Jet to Tau FR
-from Step7_TauFakeRate import Make_Tau_FakeRate
-from Step7_TauFakeRate import _FIT_Jet_Function
+from Step4_TauFakeRateData import Make_Tau_FakeRate
+from Step4_TauFakeRateData import _FIT_Jet_Function
 ##### Get Jet to Tau FR
 
 gROOT.Reset()
@@ -36,8 +36,8 @@ import os
 
 ROOT.gROOT.SetBatch(True)
 #ROOT.gROOT.ProcessLine('.x rootlogon.C')
-SubRootDir = 'OutFiles_PreSelection/'
-#SubRootDir = 'OutFiles_NikiSelection1/'
+#SubRootDir = 'OutFiles_PreSelection/'
+SubRootDir = 'OutFiles_WEstim/'
 
 
 verbos_ = False
@@ -55,10 +55,10 @@ Wmass = ['1000','1500','2000','2500','3000']
 
 lenghtSig = len(signal) * len(mass) +1
 
-category = ["_NoBJet"]
+#category = ["_NoBJet"]
 #category = ["_DiJet","_JetBJet"]
 #category = ["_DiJet"]
-#category = ["_JetBJet"]
+category = ["_DiNonBJet"]
 
 #channelDirectory = [ "EleTau"]
 channelDirectory = ["MuTau", "EleTau"]
@@ -258,29 +258,29 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
             
             Name= "SingleTop"
             SingleTSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
-            SingleTSampleQCDShape= _FileReturn(Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy)
+            SingleTSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
             
             Name= "VV"
             VVSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
-            VVSampleQCDShape= _FileReturn(Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy)
+            VVSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
 
             Name= "TTJets"
             TTSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
-            TTSampleQCDShape= _FileReturn(Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy)
+            TTSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
 
             Name= "DYJetsToLL"
             ZTTSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
-            ZTTSampleQCDShape= _FileReturn(Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy)
+            ZTTSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
 
             Name= "WJetsToLNu"
             WSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
-            WSampleQCDShape= _FileReturn(Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy)
+            WSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
                         
             Name="Data"
             DataSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
-            DataSampleQCDShape= _FileReturn(Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy)
+            DataSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
             print  " norm  @@@@@@@", Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy
-            print  " shape @@@@@@@", Name, channel,"_NoBJet", ShapeQCD, TauScale[tscale],CoMEnergy
+            print  " shape @@@@@@@", Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy
 
 
 
@@ -316,9 +316,9 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 #            DataSampleQCDNormHist.Add(WSampleQCDNormHist, -1)
 
 
-            FR_FitMaram=Make_Tau_FakeRate()
+            FR_FitMaram=Make_Tau_FakeRate(channel)
             QCDEstimation=0
-            for bin in xrange(50,400):
+            for bin in xrange(50,1000):
                 value=DataSampleQCDNormHist.GetBinContent(bin)
                 print bin ," is value= ", value
         
@@ -345,12 +345,16 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 
 
 
+
+
+
+
 if __name__ == "__main__":
     Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
 #    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_nVtx","_nVtx_NoPU","_MET","_M_taujet", "_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
 #    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
-#    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET"]
-    PlotName= ["_TauPt_LowMT_OS_TauIso"]
+    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_ST_MET"]
+#    PlotName= ["_TauPt_LowMT_OS_TauIso"]
 
 #PlotNameQCDNorm= ["_tmass_SS","_VisMass_SS","_LepPt_SS","_LepEta_SS","_TauPt_SS","_TauEta_SS","_NumJet_SS","_NumBJet_SS","_nVtx_SS","_nVtx_NoPU_SS","_MET_SS","_M_taujet_SS", "_LeadJetPt_SS","_SubLeadJetPt_SS","_ST_DiJet_SS","_ST_MET_SS"]
 #

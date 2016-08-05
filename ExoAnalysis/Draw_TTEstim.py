@@ -1,6 +1,7 @@
 #Test
 #!/usr/bin/env python
 import ROOT
+import math
 import re
 from array import array
 
@@ -169,7 +170,14 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     Data.GetXaxis().SetLabelSize(0)
     Data.SetMaximum(Data.GetMaximum()*2.5)
     Data.Draw("e")
+#    for jbin in range(errorBand.GetXaxis().GetNbins()):
+#        stack.SetBinError(jbin+1,math.sqrt(math.pow(stack.GetBinError(jbin+1),2)+ math.pow(0.11,2)))
+
     stack.Draw("histsame")
+
+    for jbin in range(errorBand.GetXaxis().GetNbins()):
+        errorBand.SetBinError(jbin+1,math.sqrt(math.pow(errorBand.GetBinError(jbin+1),2)+ math.pow(.10*errorBand.GetBinContent(jbin+1),2)))
+
     errorBand.Draw("e2same")
     Data.Draw("esame")
 
@@ -200,8 +208,8 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     categ.SetTextAlign(   12 )
     categ.SetTextSize ( 0.06 )
     categ.SetTextColor(    1 )
-    categ.SetTextFont (   41 )
-    #       if i==1 or i==3: 
+#    categ.SetTextFont (   41 )
+    #       if i==1 or i==3:
     categ.AddText(TitleName_)
     #       else :
     #        categ.AddText("SS")
@@ -237,7 +245,12 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     h1.SetTitle("")
     
     h1.Divide(errorBand)
-    h3.Divide(errorBand)
+    #######  set the bin errors to zero befive divinig data to that
+    errorBandZeroErr=errorBand.Clone()
+    for ibin in range(errorBandZeroErr.GetXaxis().GetNbins()):
+        errorBandZeroErr.SetBinError(ibin+1,0)
+    #######
+    h3.Divide(errorBandZeroErr)
     
 
     h1.GetXaxis().SetTitle(Xaxis)
@@ -256,7 +269,14 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     h1.GetYaxis().SetTitleFont(42)
 
     h1.Draw("e2")
-    h3.Draw("epsame")
+    print "--->h1.GetBinError(3)   ",h1.GetBinError(3)
+
+    # Add systematic bins
+#    for jbin in range(h1.GetXaxis().GetNbins()):
+#        h1.SetBinError(jbin+1,math.sqrt(math.pow(h1.GetBinError(jbin+1),2)+ math.pow(0.11,2)))
+
+
+    h3.Draw("E0psame")
 
     c.cd()
     pad1.Draw()
@@ -269,13 +289,17 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
 
 
 channelDirectory = ["MuEle"]
-Category = ["_inclusive","_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
-TitleName = ["emu inclusive","emu LQ","emu  RH W","emu LQ Final cuts","emu RH W Final cuts"]
+#Category = ["_inclusive","_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
+Category = ["_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
+TitleName = ["e#mu LQ","e#mu  RH W","e#mu LQ Final cuts","e#mu RH W Final cuts"]
 #Category = ["_inclusive","_JetBJet","_DiJet"]
 #TitleName = ["emu inclusive","emu JetBJet","emu  DiJet"]
 
 #TTScaleFactor=[0.906953,0.879088,0.938038]
 TTScaleFactor=[1,1,1,1,1]
+
+
+
 
 
 
@@ -294,6 +318,8 @@ FileNamesInfo=[
                ["_SubLeadJetPt_OS","sub leading jet p_{T}","",5],
                ["_LeadJetEta_OS","#eta of leading jet","",5],
                ["_SubLeadJetEta_OS","#eta of subleading jet","",5],
+#               ["_NumBJet_noBCor","B Jet multiplicity noBCor","",1],
+#               ["_NumBJet_usualBCor","B Jet multiplicity usualBCor","",1],
                ]
 
 

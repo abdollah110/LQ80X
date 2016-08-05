@@ -36,7 +36,7 @@ import os
 
 ROOT.gROOT.SetBatch(True)
 #ROOT.gROOT.ProcessLine('.x rootlogon.C')
-SubRootDir = './'
+SubRootDir = 'OutFiles_WEstim/'
 #SubRootDir = 'OutFiles_NikiSelection1/'
 
 
@@ -120,7 +120,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
             
 
 
-            Name="qcdForValdation"
+            Name="QCDFR"
             DataSampleQCDNorm= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
             DataSampleQCDShape= _FileReturn(Name, channel,NameCat, ShapeQCD, TauScale[tscale],CoMEnergy)
 
@@ -128,13 +128,15 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 
             DataSampleQCDShapeHist=DataSampleQCDShape.Get("XXX")
             DataSampleQCDNormHist=DataSampleQCDNorm.Get("XXX")
-            FR_FitMaram=Make_Tau_FakeRate()
+            FR_FitMaram=Make_Tau_FakeRate(channel)
             QCDEstimation=0
-            for bin in xrange(50,400):
+            for bin in xrange(50,1000):
                 value=DataSampleQCDNormHist.GetBinContent(bin)
 #                if value < 0 : value=0
 
                 FR= _FIT_Jet_Function(bin+.5,FR_FitMaram)
+#                FR= _FIT_Jet_Function(bin+.5)
+#                FR=TMath.Landau(bin+.5)
                 print  "--->  value is ", value , "  & FR= ", FR
 #                QCDEstimation += value * FR/(1-FR)
                 QCDEstimation += value * FR
@@ -154,7 +156,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
             print "--------------------------------------------------->     Processing Data"
             tDirectory.cd()
 
-            Name='qcdForValdation'
+            Name='QCDFR'
             NameOut='qcd_obs'
 
             NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
@@ -181,7 +183,7 @@ if __name__ == "__main__":
     Binning = array.array("d",[0,5,10,15,20,25,30])
 #    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_nVtx","_nVtx_NoPU","_MET","_M_taujet", "_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
 #    PlotName= ["_tmass","_VisMass","_LepPt","_LepEta","_TauPt","_TauEta","_NumJet","_NumBJet","_MET","_LeadJetPt","_SubLeadJetPt","_ST_DiJet","_ST_MET"]
-    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_MET"]
+    PlotName= ["_tmass","_LepPt","_LepEta","_TauPt","_TauEta","_MET","_VisMass"]
 #    PlotName= ["_MET"]
 #    QCDShape="_tmass_LowMT_Total"
 

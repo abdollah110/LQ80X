@@ -157,7 +157,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
             tDirectory.cd()
         
 #            Name= "VV"
-            Name= "SingleTop"
+            Name= "VV"
             NameOut= "VV"+str(TauScaleOut[tscale])
             
             NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
@@ -301,7 +301,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning):
 
             FR_FitMaram=Make_Tau_FakeRate(channel)
             QCDEstimation=0
-            for bin in xrange(50,400):
+            for bin in xrange(50,500):
                 value=DataSampleQCDNormHist.GetBinContent(bin)
 #                if value < 0 : value=0
                 FR= _FIT_Jet_Function(bin+1.5,FR_FitMaram)
@@ -361,7 +361,11 @@ if __name__ == "__main__":
 
     for NormMC in PlotName:
 
-        MakeTheHistogram("MuTau",NormMC+"_LowMT_OS_TauIsoLepAntiIso","_CloseJetTauPt_LowMT_OS_AntiIso",NormMC+"_LowMT_TauIsoLepAntiIso","",0,Binning)
+#        MakeTheHistogram("MuTau",NormMC+"_LowMT_OS_TauIsoLepAntiIso","_CloseJetTauPt_LowMT_OS_AntiIso",NormMC+"_LowMT_SS_LepAntiIso","",0,Binning)
+#        MakeTheHistogram("EleTau",NormMC+"_LowMT_OS_TauIsoLepAntiIso","_CloseJetTauPt_LowMT_OS_AntiIso",NormMC+"_LowMT_SS_LepAntiIso","",1,Binning)
+        MakeTheHistogram("MuTau",NormMC+"_LowMT_OS_TauIsoLepAntiIso","_CloseJetTauPt_LowMT_OS_AntiIso",NormMC+"_LowMT_SS","",0,Binning)
+        MakeTheHistogram("EleTau",NormMC+"_LowMT_OS_TauIsoLepAntiIso","_CloseJetTauPt_LowMT_OS_AntiIso",NormMC+"_LowMT_SS","",1,Binning)
+
 #        MakeTheHistogram("EleTau",NormMC+"_LowMT_OS_TauIsoLepAntiIso","_CloseJetTauPt_LowMT_OS_AntiIso",NormMC+"_LowMT_TauIsoLepAntiIso","",1,Binning)
 #        MakeTheHistogram("EleTau",NormMC,"_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",1,Binning)
 #        MakeTheHistogram("EleTau",NormMC,"_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_SS_AntiIso","",0,Binning)

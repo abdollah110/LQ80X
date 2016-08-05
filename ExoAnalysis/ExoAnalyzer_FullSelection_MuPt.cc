@@ -182,6 +182,8 @@ int main(int argc, char** argv) {
         Int_t nBin=500;
         Int_t binMin=0;
         Int_t binMax= 5000;
+        double xbins[7]={45,50,60,120,200,500,2000};
+        double ybins[4]={0,.9,1.2,2.1};
         
         
         float WSCALEFACTORE=1.00;  //measured July 4th from WEstimaOutPut/_16_80X
@@ -195,10 +197,14 @@ int main(int argc, char** argv) {
         float BJetPtCut=20;
         float LooseCSV= 0.460 ;                    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation74X
         float LeptonIsoCut=0.15;
-        float tauES[3]={0.97,1.00,1.03};
-        std::string Scale_Cat[3] = {"Down", "", "Up"};
-        float jetES[3]={-1,0,1};
-        std::string ScaleJet_Cat[3] = {"JetDown", "", "JetUp"};
+//        float tauES[3]={0.97,1.00,1.03};
+//        std::string Scale_Cat[3] = {"Down", "", "Up"};
+//        float jetES[3]={-1,0,1};
+//        std::string ScaleJet_Cat[3] = {"JetDown", "", "JetUp"};
+        float tauES[1]={1.00,};
+        std::string Scale_Cat[1] = { ""};
+        float jetES[1]={0};
+        std::string ScaleJet_Cat[1] = {""};
         
         
         
@@ -273,10 +279,10 @@ int main(int argc, char** argv) {
                 //Loop over MuTau events
                 for  (int imu=0 ; imu < nMu; imu++){
                     for  (int itau=0 ; itau < nTau; itau++){
-                        for (int scale=0;scale < 3;scale++){
-                            for (int jetScl=0;jetScl<3;jetScl++){
+                        for (int scale=0;scale < 1;scale++){
+                            for (int jetScl=0;jetScl<1;jetScl++){
                                 
-                                if (scale !=1 && jetScl !=1 ) continue;
+//                                if (scale !=1 && jetScl !=1 ) continue;
                                 
                                 
                                 TLorentzVector Tau4Momentum;
@@ -627,6 +633,17 @@ int main(int argc, char** argv) {
                                                                                     
                                                                                     
                                                                                     
+                                                                                    
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPt"+FullStringName,muPt->at(imu),1000,0,1000,FullWeight);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepEta"+FullStringName,muEta->at(imu),50,-2.5,2.5,FullWeight);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPtEta"+FullStringName,muPt->at(imu),fabs(muEta->at(imu)),6,xbins,3,ybins,FullWeight);
+                                                                                    
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPt_NoWeight"+FullStringName,muPt->at(imu),1000,0,1000);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepEta_NoWeight"+FullStringName,muEta->at(imu),50,-2.5,2.5);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPtEta_NoWeight"+FullStringName,muPt->at(imu),fabs(muEta->at(imu)),6,xbins,3,ybins);
+                                                                                    
+                                                                                    
+                                                                                    
                                                                                     //////////////////////////////////////////////////////////////////////
                                                                                     /////Uncertainty on Btag Eff. and Mistag Rate
                                                                                     //////////////////////////////////////////////////////////////////////
@@ -678,10 +695,10 @@ int main(int argc, char** argv) {
                     for  (int itau=0 ; itau < nTau; itau++){
                         
                         
-                        for (int scale=0;scale < 3;scale++){
-                            for (int jetScl=0;jetScl<3;jetScl++){
+                        for (int scale=0;scale < 1;scale++){
+                            for (int jetScl=0;jetScl<1;jetScl++){
                                 
-                                if (scale !=1 && jetScl !=1 ) continue;
+//                                if (scale !=1 && jetScl !=1 ) continue;
                                 
                                 TLorentzVector Tau4Momentum;
                                 Tau4Momentum.SetPtEtaPhiM(tauPt->at(itau)*tauES[scale],tauEta->at(itau),tauPhi->at(itau),tauMass->at(itau));
@@ -866,7 +883,7 @@ int main(int argc, char** argv) {
                                 
                                 bool DiJet_Selection=JetVector.size() > 1;
                                 bool DiNonBJet_Selection=JetVector.size() > 1 && BJet20Vector.size() < 1 ;
-                                bool JetBJet_Selection=JetVector.size() > 1&& BJetBVector.size()> 0 && (BJetBVector[0].Pt()== JetVector[0].Pt() || BJetBVector[0].Pt() ==JetVector[1].Pt());
+                                bool JetBJet_Selection=JetVector.size() > 1& BJetBVector.size()> 0 && (BJetBVector[0].Pt()== JetVector[0].Pt() || BJetBVector[0].Pt() ==JetVector[1].Pt());
                                 float BtagSFLeadBJet=1;
                                 float BtagSFLeadBJetUp=1;
                                 float BtagSFLeadBJetDown=1;
@@ -1038,6 +1055,13 @@ int main(int argc, char** argv) {
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,1000,0,1000,FullWeight);
                                                                                     
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_ST_MET"+FullStringName,ST_MET,nBin,binMin,binMax,FullWeight);
+                                                                                    
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPt"+FullStringName,elePt->at(iele),1000,0,1000,FullWeight);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepEta"+FullStringName,eleEta->at(iele),50,-2.5,2.5,FullWeight);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPtEta"+FullStringName,elePt->at(iele),eleEta->at(iele),1000,0,1000,50,-2.5,2.5,FullWeight);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPt_NoWeight"+FullStringName,elePt->at(iele),1000,0,1000);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepEta_NoWeight"+FullStringName,eleEta->at(iele),50,-2.5,2.5);
+                                                                                    plotFill(CHANNEL+AN_Cat[an]+"_LepPtEta_NoWeight"+FullStringName,elePt->at(iele),eleEta->at(iele),1000,0,1000,50,-2.5,2.5);
                                                                                     
                                                                                     //////////////////////////////////////////////////////////////////////
                                                                                     /////Uncertainty on Btag Eff. and Mistag Rate

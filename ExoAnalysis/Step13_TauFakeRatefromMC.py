@@ -76,7 +76,7 @@ def add_Preliminary():
     lumi.SetFillStyle(    0 )
     lumi.SetTextAlign(   12 )
     lumi.SetTextColor(    1 )
-    lumi.AddText("Preliminary")
+    lumi.AddText("Simulation")
     return lumi
 
 def make_legend():
@@ -184,7 +184,7 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,doBinning,Na
 #            else : RebinedHist= DataSampleQCDShapeHist
 #            #            tDirectory.WriteObject(RebinedHist,NameOut)
 #
-            Name= "QCD"
+            Name= "QCDFR"
             QCD= _FileReturn(Name, channel,NameCat, NormQCD, TauScale[tscale],CoMEnergy)
             QCDSHape= QCD.Get("XXX")
             print "integral=", QCDSHape.Integral()
@@ -207,14 +207,15 @@ def MakeTheHistogram(channel,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,doBinning,Na
 #############################################################################################################
 ##   Fit Functions
 #############################################################################################################
-#def _FIT_Jet(x, p):
-#    Land = p[2] * TMath.Landau(x[0], p[3], p[4])
-#    Pol0 = p[0]+p[1]*x[0]
-#    return Land + Pol0
 def _FIT_Jet(x, p):
-#    Land = p[2] * TMath.Landau(x[0], p[3], p[4])
-    Pol5 = p[0]+p[1]*x[0]+p[2]*pow(x[0],2)+p[3]*pow(x[0],3)+p[4]*pow(x[0],4)+p[5]*pow(x[0],5)
-    return Pol5
+    Land =  TMath.Landau(x[0], p[3], p[4])
+#    Pol0 = p[0]+p[1]*x[0]
+    return Land
+#    return p[0]*x[0] + p[0] / (p[0]+ p[1]*math.exp(p[2] * x[0]))
+#def _FIT_Jet(x, p):
+##    Land = p[2] * TMath.Landau(x[0], p[3], p[4])
+#    Pol5 = p[0]+p[1]*x[0]+p[2]*pow(x[0],2)+p[3]*pow(x[0],3)+p[4]*pow(x[0],4)+p[5]*pow(x[0],5)
+#    return Pol5
 
 #    return Land
 #def _FIT_Jet_Function(x, p):
@@ -222,11 +223,11 @@ def _FIT_Jet(x, p):
 #    Pol0 = p[0]+p[1]*x
 #    return Land + Pol0
 ##    return Land
-def _FIT_Jet_Function(x, p):
-    
-    Pol5 = p[0]+p[1]*x+p[2]*pow(x,2)+p[3]*pow(x,3)+p[4]*pow(x,4)+p[5]*pow(x,5)
-    return Pol5
-#    return Land
+def _FIT_Jet_Function(x,p ):
+#    Pol5 = p[0]+p[1]*x
+#    Pol5 = p[0]+p[1]*x+p[2]*pow(x,2)+p[3]*pow(x,3)+p[4]*pow(x,4)+p[5]*pow(x,5)
+    Land= TMath.Landau(x, p[3], p[4])
+    return Land
 
 
 def _FIT_Lepton( x,  par) :
@@ -240,7 +241,7 @@ channelName="MuTau"
 FR_vs_LeptonPT=0
 if FR_vs_LeptonPT:
     ObjectPT="_TauPt"
-    BinningFake = array.array("d",[0,20,50,70,90,110,140,200,300])
+    BinningFake = array.array("d",[0,20,50,70,90,110,140,200,300,400])
 #    BinningFake = array.array("d",[0,20,40,60,80,100,130,160,200,250,300])
 else:
     ObjectPT="_CloseJetTauPt"
@@ -281,7 +282,7 @@ def Make_Tau_FakeRate(Channel):
     else: HistoNum.GetXaxis().SetTitle("Jet p_{T} [GeV]")
     HistoNum.GetYaxis().SetTitle("Tau Fake Rate  (Tight Iso / Loose Iso)")
     HistoNum.GetYaxis().SetTitleOffset(1.3)
-    HistoNum.GetYaxis().SetRangeUser(0.005,1)
+    HistoNum.GetYaxis().SetRangeUser(0.0005,1)
     HistoNum.SetStats(0)
     HistoNum.SetMarkerStyle(20)
     
@@ -292,7 +293,7 @@ def Make_Tau_FakeRate(Channel):
     # number of parameters in the fit
     if FR_vs_LeptonPT:
         nPar = 3
-        theFit=TF1("theFit", _FIT_Lepton, 50, 300,nPar)
+        theFit=TF1("theFit", _FIT_Lepton, 50, 400,nPar)
         theFit.SetParameter(0, .2)
         theFit.SetParLimits(0, 0.1, 0.4)
         theFit.SetParameter(1, 4)
@@ -341,7 +342,7 @@ def Make_Tau_FakeRate(Channel):
 
     legende=make_legend()
     legende.AddEntry(HistoNum,"Jet#rightarrow#tau fake rate","lp")
-    legende.AddEntry(theFit,"Fit (Pol5)","lp")
+    legende.AddEntry(theFit,"Fit (Landau)","lp")
 
     
     legende.Draw()
@@ -353,8 +354,8 @@ def Make_Tau_FakeRate(Channel):
     l3=add_Preliminary()
     l3.Draw("same")
 
-    canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".pdf")
-    canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".root")
+    canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+"_MC.pdf")
+    canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+"_MC.root")
     
     
     if FR_vs_LeptonPT:

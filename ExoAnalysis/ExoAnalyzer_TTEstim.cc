@@ -285,7 +285,8 @@ int main(int argc, char** argv) {
                     
                     
                     float muCorr=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
-                    float eleCorr=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF);
+//                    float eleCorr=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF);
+                    float eleCorr=getCorrFactorElectron74X_IDOnly(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF);
                     
                     plotFill("Weight_Mu",muCorr,200,0,2);
                     plotFill("Weight_Ele",eleCorr,200,0,2);
@@ -441,8 +442,10 @@ int main(int argc, char** argv) {
                                                                 plotFill("MuEle_EleEta"+FullStringName,eleEta->at(iele),100,-2.5,2.5,FullWeight);
                                                                 plotFill("MuEle_NumJet"+FullStringName,JetVector.size(),10,0,10,FullWeight);
                                                                 plotFill("MuEle_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * muCorr * eleCorr* SFBJetMultiplicity);
-                                                                plotFill("MuEle_ST_MET"+FullStringName,ST_MET,100,0,1000,FullWeight);
-                                                                plotFill("MuEle_ST_MET_NoTOP"+FullStringName,ST_MET,100,0,1000,FullWeight/TopPtReweighting);
+                                                                plotFill("MuEle_NumBJet_noBCor"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * muCorr * eleCorr);
+                                                                plotFill("MuEle_NumBJet_usualBCor"+FullStringName,BJetBVector.size(),10,0,10,FullWeight);
+                                                                plotFill("MuEle_ST_MET"+FullStringName,ST_MET,500,0,5000,FullWeight);
+                                                                plotFill("MuEle_ST_MET_NoTOP"+FullStringName,ST_MET,500,0,5000,FullWeight/TopPtReweighting);
                                                                 plotFill("MuEle_LeadJetPt"+FullStringName,leadJetPt_,50,0,500,FullWeight);
                                                                 plotFill("MuEle_SubLeadJetPt"+FullStringName,subLeadJetPt_,50,0,500,FullWeight);
                                                                 plotFill("MuEle_LeadJetEta"+FullStringName,leadJetEta_,100,-2.5,2.5,FullWeight);

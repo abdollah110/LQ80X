@@ -79,7 +79,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     
     
     Data.GetXaxis().SetTitle("")
-    Data.GetXaxis().SetRangeUser(0,200)
+#    Data.GetXaxis().SetRangeUser(0,200)
 #    Data.GetXaxis().SetTitleSize(0)
 #    Data.GetXaxis().SetNdivisions(505)
 #    Data.GetYaxis().SetLabelFont(42)
@@ -255,7 +255,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
 #    ROOT.gPad.RedrawAxis()
 #
 #    c.Modified()
-    c.SaveAs("_plot"+HistName+"_"+categoriy+".pdf")
+    c.SaveAs("_plot"+HistName+"_"+categoriy+"_MC.pdf")
 #       c.SaveAs("mvis"+categoriy+".png")
 
 
@@ -283,6 +283,7 @@ FileNamesInfo=[
                ##               ["_nVtx","# of vertex","",1],
                ##               ["_nVtx_NoPU","# of vertex before PU reweighting","",1],
                               ["_MET","MET  (GeV)","",20],
+                            ["_VisMass","#mu#tau Visible Mass  (GeV)","",20],
                #               ["_M_taujet","M_{#tauj}   (GeV)","",40],
                #               ["_LeadJetPt","Leading Jet PT  (GeV)","",20],
                #               ["_SubLeadJetPt","subLeading Jet PT  (GeV)","",20],

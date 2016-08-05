@@ -111,6 +111,7 @@ int main(int argc, char** argv) {
         Run_Tree->SetBranchAddress("tauDxy",&tauDxy);
         Run_Tree->SetBranchAddress("tauDecayMode",&tauDecayMode);
         Run_Tree->SetBranchAddress("tauByLooseIsolationMVArun2v1DBoldDMwLT",&tauByLooseIsolationMVArun2v1DBoldDMwLT);
+        Run_Tree->SetBranchAddress("tauByIsolationMVArun2v1DBoldDMwLTraw",&tauByIsolationMVArun2v1DBoldDMwLTraw);
         
         /////////////////////////   Mu Info
         Run_Tree->SetBranchAddress("nMu", &nMu);
@@ -462,7 +463,8 @@ int main(int argc, char** argv) {
                         //###############################################################################################
                         //###############################################################################################
 //                        bool TauPassIsolation= tauByLooseCombinedIsolationDeltaBetaCorr3Hits->at(itau) > 0.5 ;
-                        bool TauPassIsolation= tauByLooseIsolationMVArun2v1DBoldDMwLT->at(itau) > 0.5 ;
+//                        bool TauPassIsolation= tauByLooseIsolationMVArun2v1DBoldDMwLT->at(itau) > 0.5 ;
+                        bool TauPassIsolation= tauByIsolationMVArun2v1DBoldDMwLTraw->at(itau) > 0.3;
                         bool LepPassIsolation= IsoMu < LeptonIsoCut;
                         
                         const int size_isoCat = 9;
@@ -543,7 +545,7 @@ int main(int argc, char** argv) {
                                                                 
                                                                 if (Trigger_category[trg]) {
                                                                     
-                                                                    float FullWeight = TotalWeight * LepCor * BtagSFLeadBJet * WSCALEFACTORE;
+                                                                    float FullWeight = 1;
                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] + trg_Cat[trg] +ST_Cat[ist];
 
                                                                     
@@ -556,7 +558,7 @@ int main(int argc, char** argv) {
                                                                     plotFill(CHL+"_TauEta"+FullStringName,tauEta->at(itau),100,-2.5,2.5,FullWeight);
                                                                     plotFill(CHL+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,500,0,500,FullWeight);
                                                                     plotFill(CHL+"_NumJet"+FullStringName,JetVector.size(),10,0,10,FullWeight);
-                                                                    plotFill(CHL+"_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,TotalWeight * LepCor * SFBJetMultiplicity);
+                                                                    plotFill(CHL+"_NumBJet"+FullStringName,BJetBVector.size(),10,0,10,FullWeight);
                                                                     plotFill(CHL+"_nVtx"+FullStringName,nVtx,50,0,50,FullWeight);
                                                                     plotFill(CHL+"_nVtx_NoPU"+FullStringName,nVtx,50,0,50,TotalWeight * LepCor / PUWeight);
                                                                     plotFill(CHL+"_MET"+FullStringName,pfMET,500,0,500,FullWeight);
@@ -585,7 +587,7 @@ int main(int argc, char** argv) {
             //###############################################################################################
             //  Doing EleTau Analysis
             //###############################################################################################
-            bool DoEleTauAnalysis=1;
+            bool DoEleTauAnalysis=0;
             if (DoEleTauAnalysis  &&   isSingleMu== string::npos) {
                 
                 

@@ -14,7 +14,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("9.2 fb^{-1} (13 TeV)")
+    lumi.AddText("12.9 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -174,6 +174,8 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     errorBand.Draw("e2same")
     Data.Draw("esame")
     
+    print "Data.GetBinContent(3), Data.GetBinError(3) TOP", Data.GetBinContent(2),"  +-   ", Data.GetBinError(2)
+    
     legende=make_legend()
     legende.AddEntry(Data,"Observed","elp")
     legende.AddEntry(TT,"t#bar{t}+jets","f")
@@ -237,10 +239,15 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     h3.SetStats(0)
     h1.SetTitle("")
     
+
     h1.Divide(errorBand)
-    h3.Divide(errorBand)
-    
-    
+    #######  set the bin errors to zero befive divinig data to that
+    errorBandZeroErr=errorBand.Clone()
+    for ibin in range(errorBandZeroErr.GetXaxis().GetNbins()):
+        errorBandZeroErr.SetBinError(ibin+1,0)
+    #######
+    h3.Divide(errorBandZeroErr)
+
     h1.GetXaxis().SetTitle(Xaxis)
     h1.GetXaxis().SetLabelSize(0.08)
     h1.GetYaxis().SetLabelSize(0.08)
@@ -265,12 +272,12 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel):
     ROOT.gPad.RedrawAxis()
     
     c.Modified()
-    c.SaveAs("_plot"+HistName+"_"+categoriy+".pdf")
+    c.SaveAs("_plot_qcdValidation"+HistName+"_"+categoriy+".pdf")
 #       c.SaveAs("mvis"+categoriy+".png")
 
 
-#channelDirectory = ["MuTau", "EleTau"]
-channelDirectory = ["MuTau"]
+channelDirectory = ["MuTau", "EleTau"]
+#channelDirectory = ["MuTau"]
 #Category = ["_DiJet","_JetBJet"]
 #Category = ["_NoBJet"]
 Category = ["_inclusive"]
@@ -278,16 +285,18 @@ Category = ["_inclusive"]
 
 FileNamesInfo=[
                               ["_tmass","M_{T}(lep,MET) (GeV)","",5],
-                              ["_VisMass","M_{l#tau} (GeV)","",20],
-                              ["_LepPt","lep PT (GeV)","",10],
+                              ["_VisMass","M_{l#tau} (GeV)","",40],
+                              ["_LepPt","lep PT (GeV)","",20],
                               ["_LepEta","lep #eta ","",10],
-                              ["_TauPt","#tau PT (GeV)","",10],
+                              ["_TauPt","#tau PT (GeV)","",20],
                               ["_TauEta","#tau #eta ","",10],
                               ["_NumJet","Jet multiplicity","",1],
                               ["_NumBJet","B Jet multiplicity","",1],
-               ##               ["_nVtx","# of vertex","",1],
-               ##               ["_nVtx_NoPU","# of vertex before PU reweighting","",1],
-                              ["_MET","MET  (GeV)","",20],
+                              ["_MET","MET  (GeV)","",40],
+               
+               
+               
+               
                #               ["_M_taujet","M_{#tauj}   (GeV)","",40],
                #               ["_LeadJetPt","Leading Jet PT  (GeV)","",20],
                #               ["_SubLeadJetPt","subLeading Jet PT  (GeV)","",20],

@@ -116,8 +116,10 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 #        TOTMASS = ['2000']
 #        mass = ['1000-500','1500-750','2000-1000','2500-1250','3000-1500']
 #        TOTMASS = ['1000','1500','2000','2500','3000']
-        mass = ['1000-500','2000-1000','3000-1500','4000-2000']
-        TOTMASS = ['1000','2000','3000',4000]
+#        mass = ['1000-500','2000-1000','3000-1500','4000-2000','5000-2500','6000-3000']
+#        TOTMASS = ['1000','2000','3000',4000,5000,6000]
+        mass = ['1000-500', '1500-750' ,'2000-1000','2500-1250' ,'3000-1500','3500-1750' ,'4000-2000']
+        TOTMASS = ['1000','1500','2000','2500','3000','3500',4000]
         lenghtSig = len(signal) * len(mass) +1
         category = ["_DiJet"]
         charge=""
@@ -126,9 +128,9 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 #    print "\n\n\n\n\n\n ****** ------------------------------>     Starting for ",NormMC, "in Channel= ",channel
 
     TauScaleOut = ["_CMS_scale_t_"+channel+CoMEnergy+"Down", "", "_CMS_scale_t_"+channel+CoMEnergy+"Up"]
-    JetScaleOut = ["_CMS_scale_j_"+channel+CoMEnergy+"Down", "", "_CMS_scale_j_"+channel+CoMEnergy+"Up"]
+    JetScaleOut = ["_CMS_scale_j"+CoMEnergy+"Down", "", "_CMS_scale_j"+CoMEnergy+"Up"]
     Signal_Unc_HighPtTau = ["_CMS_eff_t_HighPtTau_"+channel+CoMEnergy+"Up","_CMS_eff_t_HighPtTau_"+channel+CoMEnergy+"Down"]
-    Signal_Unc_TopPTRW = ["_CMS_top_pt_Reweighting_"+channel+CoMEnergy+"Up","_CMS_top_pt_Reweighting_"+channel+CoMEnergy+"Down"]
+    Signal_Unc_TopPTRW = ["_CMS_top_pt_Reweighting"+CoMEnergy+"Up","_CMS_top_pt_Reweighting"+CoMEnergy+"Down"]
     Signal_Unc_WShape = ["_CMS_W_Shape_"+channel+CoMEnergy+"Up","_CMS_W_Shape_"+channel+CoMEnergy+"Down"]
 
     myOut = TFile(Analysis+FinalName[chl]+".inputs-sm-13TeV.root" , 'RECREATE') # Name Of the output file

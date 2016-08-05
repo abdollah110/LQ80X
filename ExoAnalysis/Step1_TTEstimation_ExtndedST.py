@@ -31,8 +31,8 @@ import os
 
 ROOT.gROOT.SetBatch(True)
 #ROOT.gROOT.ProcessLine('.x rootlogon.C')
-#SubRootDir = 'OutFiles_TTEstim/'
-SubRootDir = 'OutFiles_TTEstim_Approval/'
+SubRootDir = 'OutFiles_TTEstim/'
+#SubRootDir = 'OutFiles_TTEstimOnSkim/'
 
 
 
@@ -55,8 +55,7 @@ charge="_OS"
 
 #category = ["_inclusive", "_nobtag", "_btag", "_btagLoose"]
 #category = ["_inclusive"]
-#category = ["_inclusive","_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
-category = ["_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
+category = ["_inclusive","_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
 
 channelDirectory = ["MuEle"]
 
@@ -120,10 +119,48 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
 #                    NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
 #                    NormHisto=NormFile.Get("XXX")
 #                    
-#                    RebinedHist= NormHisto.Rebin(RBN_)
+#                    RebinedHist= NormHisto.Rebin(len(Binning)-1,"",Binning)
 #                    tDirectory.WriteObject(RebinedHist,NameOut)
 
 
+            ################################################
+            #  Filling RHW
+            ################################################
+            print "--------------------------------------------------->     Processing SingleTop"
+            tDirectory.cd()
+
+            Name= "RHW_3000-1500"
+            NameOut= "RHW_3000"+str(TauScaleOut[tscale])
+
+            NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+            NormHisto=NormFile.Get("XXX")
+
+            ShapeFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+            ShapeHisto=ShapeFile.Get("XXX")
+
+            ShapeHisto.Scale( 6.030E-03 * NormHisto.Integral()/ShapeHisto.Integral())
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
+            tDirectory.WriteObject(RebinedHist,NameOut)
+
+
+            ################################################
+            #  Filling LQ
+            ################################################
+            print "--------------------------------------------------->     Processing SingleTop"
+            tDirectory.cd()
+
+            Name= "LQ_900"
+            NameOut= "LQ_900"+str(TauScaleOut[tscale])
+
+            NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+            NormHisto=NormFile.Get("XXX")
+
+            ShapeFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],CoMEnergy)
+            ShapeHisto=ShapeFile.Get("XXX")
+
+            ShapeHisto.Scale(1.23E-02 * NormHisto.Integral()/ShapeHisto.Integral())
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
+            tDirectory.WriteObject(RebinedHist,NameOut)
 
 
 
@@ -143,7 +180,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
             ShapeHisto=ShapeFile.Get("XXX")
             
             ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-            RebinedHist= ShapeHisto.Rebin(RBN_)
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
             tDirectory.WriteObject(RebinedHist,NameOut)
             ################################################
             #  Filling VV
@@ -162,7 +199,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
 
             if  ShapeHisto:
                 ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-                RebinedHist= ShapeHisto.Rebin(RBN_)
+                RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
                 tDirectory.WriteObject(RebinedHist,NameOut)
             
 
@@ -183,7 +220,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
             ShapeHisto=ShapeFile.Get("XXX")
 
             ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-            RebinedHist= ShapeHisto.Rebin(RBN_)
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
             tDirectory.WriteObject(RebinedHist,NameOut)
             
             ################################################
@@ -203,7 +240,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
             ShapeHisto=ShapeFile.Get("XXX")
             
             ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-            RebinedHist= ShapeHisto.Rebin(RBN_)
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
             tDirectory.WriteObject(RebinedHist,NameOut)
 
 
@@ -224,7 +261,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
             ShapeHisto=ShapeFile.Get("XXX")
             
             ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-            RebinedHist= ShapeHisto.Rebin(RBN_)
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
             tDirectory.WriteObject(RebinedHist,NameOut)
 
 #            ################################################
@@ -271,7 +308,7 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
 #
 #            NameOut= "QCD"+str(TauScaleOut[tscale])
 #            DataSampleQCDShapeHist.Scale(QCDEstimation/DataSampleQCDShapeHist.Integral())  # The shape is from btag-Loose Need get back norm
-#            RebinedHist= DataSampleQCDShapeHist.Rebin(RBN_)
+#            RebinedHist= DataSampleQCDShapeHist.Rebin(len(Binning)-1,"",Binning)
 #            tDirectory.WriteObject(RebinedHist,NameOut)
 
             ################################################
@@ -291,8 +328,9 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
             ShapeHisto=ShapeFile.Get("XXX")
             
 #            ShapeHisto.Scale(NormHisto.Integral()/ShapeHisto.Integral())
-            RebinedHist= ShapeHisto.Rebin(RBN_)
+            RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
             tDirectory.WriteObject(RebinedHist,NameOut)
+
 
 
 
@@ -301,8 +339,8 @@ def MakeTheHistogram(channel,NormMC,CoMEnergy,chl,Binning):
 
 
 if __name__ == "__main__":
-    Binning = array.array("d",[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,160,180,200,250,300,400,500])
-    PlotName= ["_VisMass_OS","_NumJet_OS","_NumBJet_OS","_MET_OS","_ST_MET_OS","_ElePt_OS","_MuPt_OS","_EleEta_OS","_MuEta_OS", "_LeadJetPt_OS", "_SubLeadJetPt_OS", "_LeadJetEta_OS","_SubLeadJetEta_OS"]
+    Binning = array.array("d",[0,100,200,300,400,500,600,700,800,900,1000,1150,1300,1450,1600,1800,2000,5000])
+    PlotName= ["_ST_MET_OS"]
 #    PlotName= ["_VisMass_OS","_NumJet_OS","_NumBJet_OS","_MET_OS","_ST_MET_OS","_ST_DiJet_OS","_ElePt_OS","_MuPt_OS","_EleEta_OS","_MuEta_OS", "_LeadJetPt_OS", "_SubLeadJetPt_OS", "_LeadJetEta_OS","_SubLeadJetEta_OS"]
 #    
 

@@ -55,21 +55,27 @@ def make_legend():
     return output
 
 
-OutFile1=TFile("TotalRootForLimit_tauFREtau_MuTau_ST_MET_OS.root")
-HistoF1=OutFile1.Get("MuTau_DiJet/QCD")
+OutFile1=TFile("RHW_3000_ConstTrg.root")
+HistoF1=OutFile1.Get("MuTau_RW_LepPt_JetBJet")
 HistoF1.SetMarkerStyle(20)
 HistoF1.SetMarkerSize(1)
 HistoF1.SetMarkerColor(3)
 HistoF1= HistoF1.Rebin(10)
 
-OutFile2=TFile("TotalRootForLimit_MuTau_ST_MET_OS.root")
-HistoF2=OutFile2.Get("MuTau_DiJet/QCD")
+OutFile2=TFile("RHW_3000_FitTrg.root")
+HistoF2=OutFile2.Get("MuTau_RW_LepPt_JetBJet")
 HistoF2.SetMarkerStyle(23)
 HistoF2.SetMarkerColor(2)
 HistoF2.SetMarkerSize(1)
 
 HistoF2= HistoF2.Rebin(10)
 
+
+
+
+print OutFile1,HistoF1, HistoF1.Integral()
+
+print OutFile2,HistoF2, HistoF2.Integral()
 
 
 HistoF2.GetXaxis().SetTitle("")
