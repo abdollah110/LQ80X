@@ -301,11 +301,6 @@ int main(int argc, char** argv) {
                                 
                                 
                                 
-                                float LepCorr=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
-                                plotFill("Weight_Mu",LepCorr,200,0,2);
-                                
-                                
-                                
                                 TLorentzVector Mu4Momentum, Z4Momentum, NewJet4Collection,ExtraMu4Momentum, ExtraEle4Momentum,Close4JetFinder,JetRaw4Momentum,Jet4Momentum;
                                 Mu4Momentum.SetPtEtaPhiM(muPt->at(imu),muEta->at(imu),muPhi->at(imu),MuMass);
                                 
@@ -398,6 +393,18 @@ int main(int argc, char** argv) {
                                 bool  GeneralMuTauSelection=  !extraMuonExist && !extraElectronExist && MuPtCut && TauPtCut && MuIdIso && TauIdIso && Mu4Momentum.DeltaR(Tau4Momentum) > 0.5;
                                 
                                 if (!GeneralMuTauSelection) continue;
+                                
+                                float LepCorr=getCorrFactorMuon74X(isData,  muPt->at(imu), muEta->at(imu) , HistoMuId,HistoMuIso,HistoMuTrg);
+                                plotFill("Weight_Mu",LepCorr,200,0,2);
+                                
+                                float HighPtTauSF=1;
+                                for (int igen=0;igen < nMC; igen++){
+                                    if (fabs(mcPID->at(igen) == 15  &&  dR_(mcEta->at(igen), mcPhi->at(igen), tauEta->at(itau), tauPhi->at(itau)) < 0.5 )){
+                                        HighPtTauSF=0.83;
+                                        plotFill("Weight_ptRatio_mutau",tauPt->at(itau)/mcPt->at(igen),20,0,2);
+                                    }
+                                }
+                                plotFill("Weight_HighPtTau_mutau",HighPtTauSF,20,0,2);
                                 
                                 //###########      Jet definition   ###########################################################
                                 vector<TLorentzVector> CentralJetVector;
@@ -510,8 +517,10 @@ int main(int argc, char** argv) {
                                 //###############################################################################################
                                 // Tau Pt Reweighting
                                 //###############################################################################################
-                                float tauPtReweightingUp = 1 + 0.2 * (Tau4Momentum.Pt() / 1000);
-                                float tauPtReweightingDown = 1 - 0.2 * (Tau4Momentum.Pt() / 1000);
+                                float tauPtReweightingUp = 1 + 1.0 * (Tau4Momentum.Pt() / 1000);
+                                if (tauPtReweightingUp > 1.4) tauPtReweightingUp=1.4;
+                                float tauPtReweightingDown = 1 - 1.0 * (Tau4Momentum.Pt() / 1000);
+                                if (tauPtReweightingDown < 0) tauPtReweightingDown=0;
                                 //###############################################################################################
                                 //  Tau Lep Charge Categorization
                                 //###############################################################################################
@@ -618,7 +627,7 @@ int main(int argc, char** argv) {
                                                                                     
                                                                                     
                                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] + trg_Cat[trg] +ST_Cat[ist]+Scale_Cat[scale]  + ScaleJet_Cat[jetScl];
-                                                                                    float FullWeight= TotalWeight * LepCorr * BtagSFLeadBJet * WSCALEFACTORE;
+                                                                                    float FullWeight= TotalWeight * LepCorr * HighPtTauSF  * BtagSFLeadBJet * WSCALEFACTORE;
                                                                                     
                                                                                     //                                                                    plotFill(CHANNEL+AN_Cat[an]+"_TauPt"+FullStringName,tauPt->at(itau),200,0,200,FullWeight);
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,1000,0,1000,FullWeight);
@@ -808,7 +817,14 @@ int main(int argc, char** argv) {
                                 float LepCorr=getCorrFactorElectron74X(isData,  elePt->at(iele), eleSCEta->at(iele) , HistoEleSF);
                                 plotFill("Weight_Ele",LepCorr,200,0,2);
                                 
-                                
+                                float HighPtTauSF=1;
+                                for (int igen=0;igen < nMC; igen++){
+                                    if (fabs(mcPID->at(igen) == 15  &&  dR_(mcEta->at(igen), mcPhi->at(igen), tauEta->at(itau), tauPhi->at(itau)) < 0.5 )){
+                                            HighPtTauSF=0.83;
+                                        plotFill("Weight_ptRatio_etau",tauPt->at(itau)/mcPt->at(igen),20,0,2);
+                                    }
+                                }
+                                plotFill("Weight_HighPtTau_etau",HighPtTauSF,20,0,2);
                                 
                                 //###########      Jet definition   ###########################################################
                                 vector<TLorentzVector> CentralJetVector;
@@ -921,8 +937,8 @@ int main(int argc, char** argv) {
                                 //###############################################################################################
                                 // Tau Pt Reweighting
                                 //###############################################################################################
-                                float tauPtReweightingUp = 1 + 0.2 * (Tau4Momentum.Pt() / 1000);
-                                float tauPtReweightingDown = 1 - 0.2 * (Tau4Momentum.Pt() / 1000);
+                                float tauPtReweightingUp = 1 + 1.0 * (Tau4Momentum.Pt() / 1000);
+                                float tauPtReweightingDown = 1 - 1.0 * (Tau4Momentum.Pt() / 1000);
                                 //###############################################################################################
                                 //  Tau Lep Charge Categorization
                                 //###############################################################################################
@@ -1033,7 +1049,7 @@ int main(int argc, char** argv) {
                                                                                     
                                                                                     
                                                                                     std::string FullStringName = MT_Cat[imt] +q_Cat[qcat] + iso_Cat[iso] +trg_Cat[trg]+ST_Cat[ist] + Scale_Cat[scale] + ScaleJet_Cat[jetScl];
-                                                                                    float FullWeight= TotalWeight * LepCorr * BtagSFLeadBJet * WSCALEFACTORE;
+                                                                                    float FullWeight= TotalWeight * LepCorr * HighPtTauSF  * BtagSFLeadBJet * WSCALEFACTORE;
                                                                                     
                                                                                     plotFill(CHANNEL+AN_Cat[an]+"_CloseJetTauPt"+FullStringName,CLoseJetTauPt,1000,0,1000,FullWeight);
                                                                                     

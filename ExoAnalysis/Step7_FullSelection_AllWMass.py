@@ -118,19 +118,68 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 #        TOTMASS = ['1000','1500','2000','2500','3000']
 #        mass = ['1000-500','2000-1000','3000-1500','4000-2000','5000-2500','6000-3000']
 #        TOTMASS = ['1000','2000','3000',4000,5000,6000]
-#        mass = ['1000-500', '1500-750' ,'2000-1000','2500-1250' ,'3000-1500','3500-1750' ,'4000-2000']
-
+        mass = ['1000-500', '1500-750' ,'2000-1000','2500-1250' ,'3000-1500','3500-1750' ,'4000-2000']
+        
         mass = [
-        '1000_MNu-500',
-        '1500_MNu-750',
-        '2000_MNu-1000',
-        '2500_MNu-1250',
-        '3000_MNu-1500',
-        '3500_MNu-1750',
-        '4000_MNu-2000',
-        ]
-    
-    
+        
+'1000_MNu-250',
+'1000_MNu-500',
+'1000_MNu-750',
+'1500_MNu-1000',
+'1500_MNu-1250',
+'1500_MNu-250',
+'1500_MNu-500',
+'1500_MNu-750',
+'2000_MNu-1000',
+'2000_MNu-1250',
+'2000_MNu-1500',
+'2000_MNu-1750',
+'2000_MNu-500',
+'2000_MNu-750',
+'2500_MNu-1000',
+'2500_MNu-1250',
+'2500_MNu-1500',
+'2500_MNu-1750',
+'2500_MNu-2000',
+'2500_MNu-2250',
+'2500_MNu-500',
+'2500_MNu-750',
+'3000_MNu-1000',
+'3000_MNu-1250',
+'3000_MNu-1500',
+'3000_MNu-1750',
+'3000_MNu-2000',
+'3000_MNu-2250',
+'3000_MNu-2500',
+'3000_MNu-2750',
+'3000_MNu-750',
+'3500_MNu-1000',
+'3500_MNu-1250',
+'3500_MNu-1500',
+'3500_MNu-1750',
+'3500_MNu-2000',
+'3500_MNu-2250',
+'3500_MNu-2500',
+'3500_MNu-2750',
+'3500_MNu-3000',
+'3500_MNu-3250',
+'3500_MNu-750',
+'4000_MNu-1000',
+'4000_MNu-1250',
+'4000_MNu-1500',
+'4000_MNu-1750',
+'4000_MNu-2000',
+'4000_MNu-2250',
+'4000_MNu-2500',
+'4000_MNu-2750',
+'4000_MNu-3000',
+'4000_MNu-3250',
+'4000_MNu-3500',
+'4000_MNu-3750'
+]
+        
+        
+        
         TOTMASS = ['1000','1500','2000','2500','3000','3500',4000]
         lenghtSig = len(signal) * len(mass) +1
         category = ["_DiJet"]
@@ -145,7 +194,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
     Signal_Unc_TopPTRW = ["_CMS_top_pt_Reweighting"+CoMEnergy+"Up","_CMS_top_pt_Reweighting"+CoMEnergy+"Down"]
     Signal_Unc_WShape = ["_CMS_W_Shape_"+channel+CoMEnergy+"Up","_CMS_W_Shape_"+channel+CoMEnergy+"Down"]
 
-    myOut = TFile(Analysis+FinalName[chl]+".inputs-sm-13TeV.root" , 'RECREATE') # Name Of the output file
+    myOut = TFile(Analysis+FinalName[chl]+"_AllMass.inputs-sm-13TeV.root" , 'RECREATE') # Name Of the output file
 
 
     icat=-1
@@ -168,8 +217,8 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                         tDirectory.cd()
 
                         Name= str(signal[sig])+str(mass[m])
-                        NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(TauScaleOut[tscale])+str(JetScaleOut[jscale])
-
+                        if Analysis=="lq": NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(TauScaleOut[tscale])+str(JetScaleOut[jscale])
+                        if Analysis=="RHW": NameOut= str(signalName[sig]) +str(m+1)+str(TauScaleOut[tscale])+str(JetScaleOut[jscale])
                                 
                         NormFile= _FileReturn(Name, channel,NameCat, NormMC, TauScale[tscale],JetScale[jscale],CoMEnergy)
                         NormHisto=NormFile.Get("XXX")
@@ -182,7 +231,8 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                             for systHighpt in range(len(SystematicHighPtTau)):
                                 tDirectory.cd()
                                 Histogram = NormMC.replace("_OS","")+SystematicHighPtTau[systHighpt]+charge
-                                NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(Signal_Unc_HighPtTau[systHighpt])
+                                if Analysis=="lq": NameOut= str(signalName[sig]) +str(TOTMASS[m])+str(Signal_Unc_HighPtTau[systHighpt])
+                                if Analysis=="RHW": NameOut= str(signalName[sig]) +str(m+1)+str(Signal_Unc_HighPtTau[systHighpt])
                                 
                                 NormFile= _FileReturn(Name, channel,NameCat, Histogram, TauScale[tscale],JetScale[jscale],CoMEnergy)
                                 NormHisto=NormFile.Get("XXX")
@@ -465,19 +515,9 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
 
     myOut.Close()
 
-
-
-#                    RebinedHist= ShapeHisto.Rebin(len(Binning)-1,"",Binning)
-
 if __name__ == "__main__":
-#    Binning = array.array("d",[0,100,200,300,400,500,600,700,800,900,1000,1150,1300,1450,1600,1800,2000,2500,3000,4000,5000])
-    Binning = array.array("d",[0,100,200,300,400,500,600,700,800,900,1000,1150,1300,1450,1600,1800,2000,5000])
-#    Binning = array.array("d",[0,50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1075,1150,1225,1300,1375,1450,1525,1600,1700,1800,1900,2000,2250,2500,2750,3000,3500,4000,4500,5000])
-#    Binning = array.array("d",[0,200,400,600,800,1000,1300,1600,2000,3000,5000])
 
-    NormMC="_LQ_ST_MET"
-    MakeTheHistogram("MuTau",NormMC+"_OS","_LQ_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0,Binning,"lq")
-    MakeTheHistogram("EleTau",NormMC+"_OS","_LQ_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1,Binning,"lq")
+    Binning = array.array("d",[0,100,200,300,400,500,600,700,800,900,1000,1150,1300,1450,1600,1800,2000,5000])
 
     NormMC="_RW_ST_MET"
     MakeTheHistogram("MuTau",NormMC,"_RW_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0,Binning,"RHW")

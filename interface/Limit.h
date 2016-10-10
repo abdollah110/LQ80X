@@ -31,7 +31,7 @@ from cecile:
 [13/04/16 10:57:24] Cécile Caillol: I use combine directly, and not limit.py anymore
 
 
-[13/04/16 10:57:57] Cécile Caillol: text2workspace.py mydatacard.txt
+text2workspace.py mydatacard.txt
 combine -M MaxLikelihoodFit mydatacard.root --robustFit=1 --preFitValue=1. --X-rtd FITTER_NEW_CROSSING_ALGO --minimizerAlgoForMinos=Minuit2 --minimizerToleranceForMinos=0.1 --X-rtd FITTER_NEVER_GIVE_UP --X-rtd FITTER_BOUND --minimizerAlgo=Minuit2 --minimizerStrategy=0 --minimizerTolerance=0.1 --cminFallbackAlgo \"Minuit2,0:1.\"  --rMin 0.5 --rMax 1.5
 PostFitShapesFromWorkspace -o ztt_mt_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d mydatacard.txt -w mydatacard.root
 python HiggsAnalysis/CombinedLimit/test/diffNuisances.py mlfit.root -A -a --stol 0.99 --stol 0.99 --vtol 99. --vtol2 99. -f text mlfit.root > mlfit.txt

@@ -116,6 +116,7 @@ float XSection(std::string OutName) {
     
     else if (OutName.find("LQToBTau_M") != string::npos) return     1.0;
         else if (OutName.find("HeavyW") != string::npos ) return      1.0;
+    else if (OutName.find("_MNu-") != string::npos ) return      1.0;
     
     
 else if (OutName.find("QCD_Pt-20toInf_MuEnrichedPt15") != string::npos) return     720648000  * 0.00042 ;

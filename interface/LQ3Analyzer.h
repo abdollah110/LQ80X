@@ -44,6 +44,13 @@ float deltaPhi(float a, float b) {
     return fabs(result);
 }
 
+float dR_(float ieta, float iphi, float jeta, float jphi){
+    
+    float deta=ieta-jeta;
+    float dphi=deltaPhi(iphi,jphi);
+    return sqrt(pow(deta,2)+pow(dphi,2));    
+}
+
 
 
 // Declaration of leaf types
