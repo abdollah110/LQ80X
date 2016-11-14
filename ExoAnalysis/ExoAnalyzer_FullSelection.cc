@@ -182,6 +182,8 @@ int main(int argc, char** argv) {
         Int_t nBin=500;
         Int_t binMin=0;
         Int_t binMax= 5000;
+//        float TauIdSF=0.9;  // Latest recommendation from tau POG  https://twiki.cern.ch/twiki/bin/viewauth/CMS/TauIDRecommendation13TeV#Measurement_in_Z_tautau_events
+        float TauIdSF=0.83;  // Latest recommendation from tau POG  https://twiki.cern.ch/twiki/bin/viewauth/CMS/TauIDRecommendation13TeV#Measurement_in_Z_tautau_events
         
         
         float WSCALEFACTORE=1.00;  //measured July 4th from WEstimaOutPut/_16_80X
@@ -400,7 +402,7 @@ int main(int argc, char** argv) {
                                 float HighPtTauSF=1;
                                 for (int igen=0;igen < nMC; igen++){
                                     if (fabs(mcPID->at(igen) == 15  &&  dR_(mcEta->at(igen), mcPhi->at(igen), tauEta->at(itau), tauPhi->at(itau)) < 0.5 )){
-                                        HighPtTauSF=0.83;
+                                        HighPtTauSF=TauIdSF;
                                         plotFill("Weight_ptRatio_mutau",tauPt->at(itau)/mcPt->at(igen),20,0,2);
                                     }
                                 }
@@ -820,7 +822,7 @@ int main(int argc, char** argv) {
                                 float HighPtTauSF=1;
                                 for (int igen=0;igen < nMC; igen++){
                                     if (fabs(mcPID->at(igen) == 15  &&  dR_(mcEta->at(igen), mcPhi->at(igen), tauEta->at(itau), tauPhi->at(itau)) < 0.5 )){
-                                            HighPtTauSF=0.83;
+                                            HighPtTauSF=TauIdSF;
                                         plotFill("Weight_ptRatio_etau",tauPt->at(itau)/mcPt->at(igen),20,0,2);
                                     }
                                 }

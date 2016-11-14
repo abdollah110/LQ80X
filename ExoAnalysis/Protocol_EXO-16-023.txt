@@ -1,0 +1,215 @@
+Protocl to do the EXO-16-023 analysis:
+Cadi line: http://cms.cern.ch/iCMS/analysisadmin/cadilines?id=1668&ancode=EXO-16-023&tp=an&line=EXO-16-023
+Twiki:  https://twiki.cern.ch/twiki/bin/view/CMS/EXO16023
+
+The analysis is using 2 channels (mutau & etau) and 2 different analyses (LQ3LQ3–>taub,taub  & W—>Nutau—>JJtautau)
+
+All the root files are located in : 
+/Users/abdollah1/GIT_abdollah110/LQ80X/ROOT80X/
+rootTT directory is for ttbar control region 
+rootSkim is for the rest of the analysis (including QCD BG estimation/W BG estimation)
+the /Users/abdollah1/GIT_abdollah110/LQ80X/ROOT80X/rootSkim/allMW/ directory is for the latest official samples for 2D scan of WR analysis
+
+ExoAnalyzer_PreSelection.cc
+is for preselection and baseline selection studies
+
+ExoAnalyzer_FullSelection.cc
+is for the final selection. It only has the very final distributions including the tauES & JES shape uncertainties
+several files are included in this code:
+#include "../interface/LQ3Analyzer.h” —> this is the deader file which all the variables are introduced there, some functions like TMass_F are there
+#include "../interface/WeightCalculator.h" —> the weight for each background is introduced there as well as Luminosity/XSection/Stitching technique
+#include "../interface/Corrector.h"  —> the trigger/id/iso SF are introduced there as well as Btag SF
+
+
+ExoAnalyzer_WEstim.cc
+is for W estimation
+
+ExoAnalyzer_TTEstim.cc
+is for finsing the ttbar data-to-MC scale factor
+
+ExoAnalyzer_QCD.cc
+is used for the performing the closure test on QCD
+
+ExoAnalyzer_FullSelection-TestMES.cc 
+is used for testing the MES. It is finally found that that is negligible
+
+Step11_QCDCheck.py
+That’s used for checking the QCD
+
+
+Step1_TTEstimation.py
+This is for estimating the ttbar data-to-MC scale factor
+
+
+Step3_WApplySF.py
+That’s used for applying the W-Scale factor
+
+
+               Step7_FullSelection_AllWMass.py
+Step12_QCDClosurefromData.py    Step1_TTEstimation_ExtndedST.py Step4_TauFakeRateData.py        Step7_FullSelection_NumJet.py
+Step13_TauFakeRatefromMC.py     Step2_WExtractSF.py             Step6_PreSelectionPlotter.py    Step8_BtagSF_MistagRate.py
+Step14_QCDClosurefromMC.py      Step2_WExtractSF_TMASS.py       Step7_FullSelection.py          Step9_make_Results_TeX.py
+
+
+
+//To run the code to get the final datacards:
+1)source RunFullSamples_FullSelection.txt
+2)source RunFullSignal.txt
+3)./Step7_FullSelection.py
+4)./Step7_FullSelection_AllWMass.py
+5)sh fwToLim.sh  //(This copy the datacard rootfiles to LPC (for Asymptotic limit computation) and in Lxplus (for Full CLs using Lxbatch system)
+
+framework location in the CMSLPC:
+/uscms_data/d3/abdollah/Analysis/Limit/CMSSW_7_4_7/src/CombineHarvester/CombineTools/bin
+framework location in the Lxplus:
+/afs/cern.ch/work/a/abdollah/scratch1/HTTLimitCalc/CMSSW_7_4_7/src/CombineHarvester/CombineTools/bin
+
+
+
+#############
+//limits for LQ  (1D and 2D): 
+
+//First need to compute the limit using Asymptotic CLs.
+//To do so, compute the limit. update the ExampleLQFull.cpp for systematic uncertainty and outFile Directory
+//Then compile the code 
+scam b -j 8
+
+//The run the executable using:
+ExampleLQFull
+
+//The  above command will create datacards directory. The we need to cd to the relevant directory and compute the Asymptotic CLs limit:
+cd outputLQ/lq50_RHW54_SF0p9_Unc10/
+combineTool.py -M T2W -i LIMITS/* -o workspace.root --parallel 8
+combineTool.py -M Asymptotic -d */*/workspace.root --there -n .limit --parallel 8   --rAbsAcc 0 --rRelAcc 0.001
+combineTool.py -M CollectLimits */*/*.limit.* --use-dirs -o limits.json
+
+// The limits.json would be used as an input and estimate for Full CLs limit
+python FullCLs_CreateSubmitLxBatch_LQ.py > submitAll.txt
+source submitAll.txt
+
+//The above commands submit many jobs to LXBatch in 8nh queue. Some of the files will be fail, so we need to remove them first using following command:
+find . -size -50k -exec ls -ls {} \+ | sort -n | grep higgsCombine
+find . -size -50k -exec ls {} \+ | sort -n | grep higgsCombine > FailedFitFiles.txt
+cat FailedFitFiles.txt | xargs -n 1 -I {} echo "rm {}" > toRemove.txt
+source toRemove.txt
+
+//The next step is collecting and hadding all files using 
+python FullCLs_CollectLxBatch_LQ.py
+
+//To kill the remaining jobs:
+bkill ` bjobs -u abdollah |grep RUN |cut -f1 -d" "`
+
+
+//Obtaining the shape:
+plotLimits.py limits_Hybrid_updated_LIMITS_LQ.json --auto-style
+
+
+
+#############
+//limits for RHW (1D): 
+
+
+//First need to compute the limit using Asymptotic CLs.
+//To do so, compute the limit. update the ExampleRHW.cpp for systematic uncertainty and outFile Directory
+//Then compile the code 
+scam b -j 8
+
+//The run the executable using:
+ExampleRHW
+
+//The  above command will create datacards directory. The we need to cd to the relevant directory and compute the Asymptotic CLs limit:
+cd outputLQ/RHW55_SF0p9_Unc10_1Dlimit/
+combineTool.py -M T2W -i LIMITS/* -o workspace.root --parallel 8
+combineTool.py -M Asymptotic -d */*/workspace.root --there -n .limit --parallel 8   --rAbsAcc 0 --rRelAcc 0.001
+combineTool.py -M CollectLimits */*/*.limit.* --use-dirs -o limits.json
+
+// The limits.json would be used as an input and estimate for Full CLs limit  (change the mass to 1000-4000:500)
+python FullCLs_CreateSubmitLxBatch_RHW.py > submitAll.txt
+source submitAll.txt
+
+//The above commands submit many jobs to LXBatch in 8nh queue. Some of the files will be fail, so we need to remove them first using following command:
+find . -size -50k -exec ls -ls {} \+ | sort -n | grep higgsCombine
+find . -size -50k -exec ls {} \+ | sort -n | grep higgsCombine > FailedFitFiles.txt
+cat FailedFitFiles.txt | xargs -n 1 -I {} echo "rm {}" > toRemove.txt
+source toRemove.txt
+
+//The next step is collecting and hadding all files using 
+python FullCLs_CollectLxBatch_RHW.py
+
+//To kill the remaining jobs:
+bkill ` bjobs -u abdollah |grep RUN |cut -f1 -d" "`
+
+
+//Obtaining the shape:
+plotLimits.py limits_Hybrid_updated_LIMITS_RHW_1D.json --auto-style
+
+
+
+
+#############
+//limits for RHW (2D): 
+
+//First need to compute the limit using Asymptotic CLs.
+//To do so, compute the limit. update the ExampleRHW_All.cpp for systematic uncertainty and outFile Directory
+//Then compile the code 
+scam b -j 8
+
+//The run the executable using:
+ExampleRHW_All
+
+//The  above command will create datacards directory. The we need to cd to the relevant directory and compute the Asymptotic CLs limit:
+cd outputRHW/RHW54_SF0p9_Unc10
+combineTool.py -M T2W -i LIMITS/* -o workspace.root --parallel 8
+combineTool.py -M Asymptotic -d */*/workspace.root --there -n .limit --parallel 8   --rAbsAcc 0 --rRelAcc 0.001
+combineTool.py -M CollectLimits */*/*.limit.* --use-dirs -o limits.json
+
+// The limits.json would be used as an input and estimate for Full CLs limit
+python FullCLs_CreateSubmitLxBatch_RHW.py > submitAll.txt
+source submitAll.txt
+
+//The above commands submit many jobs to LXBatch in 8nh queue. Some of the files will be fail, so we need to remove them first using following command:
+find . -size -50k -exec ls -ls {} \+ | sort -n | grep higgsCombine
+find . -size -50k -exec ls {} \+ | sort -n | grep higgsCombine > FailedFitFiles.txt
+cat FailedFitFiles.txt | xargs -n 1 -I {} echo "rm {}" > toRemove.txt
+source toRemove.txt
+
+//The next step is collecting and hadding all files using 
+python FullCLs_CollectLxBatch_RHW.py
+
+
+#############
+//copy the json files and the ROOT.C files to the local area /Users/abdollah1/GIT_abdollah110/LQ80X/ExoAnalysis/EXO1623Paper_AddTauSF/ForCWR
+#############
+
+//1D limit for LQ:
+//Copy the limit.C from lxplus to the hope directory. Replace the “expected”, “observed”, “1sigma” and “2sigma” values from limit.C to Limit_1D_LQ.C and run the code:
+root Limit_1D_LQ.C
+
+
+//2D limit for LQ:
+//Replace the “expected” and  “observed” from limit.C to Limit_2D_LQ.C and run the code:
+root Limit_2D_LQ.C
+
+
+//1D limit for RHW:
+//Copy the limit.C from lxplus to the hope directory. Replace the “expected”, “observed”, “1sigma” and “2sigma” values from limit.C to Limit_1D_RHW.Cand run the code:
+root Limit_1D_RHW.C
+
+
+
+//2D limit for RHW:
+//run the JSOnReader file to get the limit for various mass ranges:
+//The output would be three bunch of limits. One would be used as limit for each bin,, one is for expected and one for observed
+python JSONReader_RHW_2D.py
+
+//Then put these bunch of numbers to the Limit_2D_RHW.C and run this code to get the pdf limit file:
+root Limit_2D_RHW.C
+
+
+
+
+
+
+
+
+
