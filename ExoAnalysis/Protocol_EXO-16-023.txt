@@ -1,4 +1,4 @@
-Protocl to do the EXO-16-023 analysis:
+Protocol to do the EXO-16-023 analysis:
 Cadi line: http://cms.cern.ch/iCMS/analysisadmin/cadilines?id=1668&ancode=EXO-16-023&tp=an&line=EXO-16-023
 Twiki:  https://twiki.cern.ch/twiki/bin/view/CMS/EXO16023
 

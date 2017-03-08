@@ -2,10 +2,11 @@
 import ROOT
 import re
 from array import array
+import ROOT as rt
 
 def add_lumi():
-    lowX=0.69
-    lowY=0.835
+    lowX=0.65
+    lowY=0.82
     lumi  = ROOT.TPaveText(lowX, lowY+0.06, lowX+0.30, lowY+0.16, "NDC")
     lumi.SetBorderSize(   0 )
     lumi.SetFillStyle(    0 )
@@ -101,17 +102,32 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,MaxRange,sig,sigLeg,XSection, Sta
     #    Signal.SetLineColor(kBlue)
     
 
+
+#    ##### Garwood Method to assign error bar to bins with zero content https://twiki.cern.ch/twiki/bin/view/CMS/PoissonErrorBars
+#    ALLSample=[Data]
+#    for sample in ALLSample:
+#        for ibin in range(sample.GetXaxis().GetNbins()):
+#            if sample.GetBinContent(ibin)==0:
+#                #                sample.SetBinErrorUp(ibin, 1.8)
+#                sample.SetBinErrorOption(rt.TH1.kPoisson)
+##                sample.GetBinError(ibin,1.8)
+#                print "sample.GetBinErrorLow( ",ibin," )", sample.GetBinErrorLow(ibin)
+#                print "sample.GetBinErrorUp( ",ibin," )", sample.GetBinErrorUp(ibin)
+
+
+##### chnage binning content
     ALLSample=[Data,QCD,W,TT,SingleT,Signal]
     for sample in ALLSample:
         for ibin in range(sample.GetXaxis().GetNbins()):
 #            print ibin+1, sample.GetBinWidth(ibin+1)
+
             sample.SetBinContent(ibin+1,1.0*sample.GetBinContent(ibin+1)/sample.GetBinWidth(ibin+1))
             sample.SetBinError(ibin+1,1.0*sample.GetBinError(ibin+1)/sample.GetBinWidth(ibin+1))
-    
+
+            if sample==Data and sample.GetBinContent(ibin+1)==0: #https://twiki.cern.ch/twiki/bin/view/CMS/PoissonErrorBars
+                sample.SetBinError(ibin+1,1.0*1.8/sample.GetBinWidth(ibin+1))
     
 
-
-    
     
 
     Data.GetXaxis().SetTitle("")
@@ -208,11 +224,11 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,MaxRange,sig,sigLeg,XSection, Sta
 
     Data.GetXaxis().SetRangeUser(200,MaxRange)
     
-
-    Data.Draw("e")
+    Data.SetBinErrorOption(rt.TH1.kPoisson)
+    Data.Draw("e0")
     stack.Draw("histsame")
     errorBand.Draw("e2same")
-    Data.Draw("esame")
+    Data.Draw("e0same")
     Signal.Draw("histsame")
 
     legende=make_legend()
@@ -337,20 +353,20 @@ Category=["lq_et_1_13TeV_prefit","lq_et_1_13TeV_postfit"]
 
 
 FileNamesInfo=[
-#               ["final_rw_mt_3000.root","RHW__mt_1_13TeV_prefit","ST_{l#taujjE_{T}^{miss}}  [GeV]","#mu#tau Prefit",3000,"RHW_","RH W 3TeV",6.030E-03],
-               ["rootPaper/final_rw_mt_3000.root","RHW__mt_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","#mu#tau_{h} ",3000,"RHW_","RH W 3TeV",6.030E-03],
-#               ["final_lq_mt_900.root","lq_mt_1_13TeV_prefit","ST_{l#taujjE_{T}^{miss}}  [GeV]","#mu#tau Prefit",3000,"LQ_","LQ 900 GeV",1.23E-02],
-               ["rootPaper/final_lq_mt_900.root","lq_mt_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","#mu#tau_{h} ",3000,"LQ_","LQ 900 GeV",1.23E-02],
+#               ["final_rw_mt_3000.root","RHW__mt_1_13TeV_prefit","S_{T} [GeV]","#mu#tau Prefit",3000,"RHW_","RH W 3TeV",6.030E-03],
+               ["rootPaper/final_rw_mt_3000.root","RHW__mt_1_13TeV_postfit","#it{S}_{T} [GeV]","#mu#tau_{h} ",3000,"RHW_","RH W 3TeV",6.030E-03],
+#               ["final_lq_mt_900.root","lq_mt_1_13TeV_prefit","S_{T} [GeV]","#mu#tau Prefit",3000,"LQ_","LQ 900 GeV",1.23E-02],
+               ["rootPaper/final_lq_mt_900.root","lq_mt_1_13TeV_postfit","#it{S}_{T} [GeV]","#mu#tau_{h} ",3000,"LQ_","LQ 900 GeV",1.23E-02],
                
-#               ["final_rw_et_3000.root","RHW__et_1_13TeV_prefit","ST_{l#taujjE_{T}^{miss}}  [GeV]","e#tau Prefit",3000,"RHW_","RH W 3TeV",6.030E-03],
-               ["rootPaper/final_rw_et_3000.root","RHW__et_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","e#tau_{h} ",3000,"RHW_","RH W 3TeV",6.030E-03],
-#               ["final_lq_et_900.root","lq_et_1_13TeV_prefit","ST_{l#taujjE_{T}^{miss}}  [GeV]","e#tau Prefit",3000,"LQ_","LQ 900 GeV",1.23E-02],
-               ["rootPaper/final_lq_et_900.root","lq_et_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","e#tau_{h} ",3000,"LQ_","LQ 900 GeV",1.23E-02],
+#               ["final_rw_et_3000.root","RHW__et_1_13TeV_prefit","S_{T} [GeV]","e#tau Prefit",3000,"RHW_","RH W 3TeV",6.030E-03],
+               ["rootPaper/final_rw_et_3000.root","RHW__et_1_13TeV_postfit","#it{S}_{T} [GeV]","e#tau_{h} ",3000,"RHW_","RH W 3TeV",6.030E-03],
+#               ["final_lq_et_900.root","lq_et_1_13TeV_prefit","S_{T} [GeV]","e#tau Prefit",3000,"LQ_","LQ 900 GeV",1.23E-02],
+               ["rootPaper/final_lq_et_900.root","lq_et_1_13TeV_postfit","#it{S}_{T} [GeV]","e#tau_{h} ",3000,"LQ_","LQ 900 GeV",1.23E-02],
                
-#               ["final_rw_mt_3000.root","RHW__mt_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","#mu#tau Postfit",3000,"RHW_","RH W 3TeV",6.030E-03],
-#               ["final_lq_mt_900.root","lq_mt_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","#mu#tau Postfit",3000,"LQ_","LQ 900 GeV",1.23E-02],
-#               ["final_rw_et_3000.root","RHW__et_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","e#tau Postfit",3000,"RHW_","RH W 3TeV",6.030E-03],
-#               ["final_lq_et_900.root","lq_et_1_13TeV_postfit","ST_{l#taujjE_{T}^{miss}}  [GeV]","e#tau Postfit",3000,"LQ_","LQ 900 GeV",1.23E-02],
+#               ["final_rw_mt_3000.root","RHW__mt_1_13TeV_postfit","S_{T} [GeV]","#mu#tau Postfit",3000,"RHW_","RH W 3TeV",6.030E-03],
+#               ["final_lq_mt_900.root","lq_mt_1_13TeV_postfit","S_{T} [GeV]","#mu#tau Postfit",3000,"LQ_","LQ 900 GeV",1.23E-02],
+#               ["final_rw_et_3000.root","RHW__et_1_13TeV_postfit","S_{T} [GeV]","e#tau Postfit",3000,"RHW_","RH W 3TeV",6.030E-03],
+#               ["final_lq_et_900.root","lq_et_1_13TeV_postfit","S_{T} [GeV]","e#tau Postfit",3000,"LQ_","LQ 900 GeV",1.23E-02],
                
 #               ["_VisMass_OS","VisMass [GeV]","",20],
 #               ["_LepPt_OS","lep PT [GeV]","",10],
@@ -366,7 +382,7 @@ FileNamesInfo=[
 #               ["_LeadJetPt_OS","Leading Jet PT  [GeV]","",20],
 #               ["_SubLeadJetPt_OS","subLeading Jet PT  [GeV]","",20],
 #               ["_ST_DiJet_OS","ST_{l#taujj}  [GeV] ","",10],
-#               ["e#tau fit","ST_{l#taujjE_{T}^{miss}}  [GeV]","",1,2000],
+#               ["e#tau fit","S_{T} [GeV]","",1,2000],
                
                
                ]

@@ -35,7 +35,7 @@ void Limit_1D_RHW()
     pad_leg->SetFrameLineWidth(2);
     pad_leg->SetFrameBorderMode(0);
     
-    TLegend *leg = new TLegend(0.29,0.01,0.79,0.91,NULL,"NBNDC");
+    TLegend *leg = new TLegend(0.25,0.01,0.75,0.91,NULL,"NBNDC");
     leg->SetBorderSize(0);
     leg->SetTextFont(62);
     leg->SetTextSize(0.15);
@@ -54,9 +54,9 @@ void Limit_1D_RHW()
     //   entry->SetMarkerSize(1);
     //   entry->SetTextFont(62);
     
-    TLegendEntry * entry=leg->AddEntry("Graph1","Theory (M_{N}=M_{W}/2)","L");
+    TLegendEntry * entry=leg->AddEntry("Graph1","Theory (M_{N} = M_{W}/2)","L");
     entry->SetLineColor(4);
-    entry->SetLineStyle(1);
+    entry->SetLineStyle(2);
     entry->SetLineWidth(3);
     entry->SetMarkerColor(4);
     entry->SetMarkerStyle(21);
@@ -87,7 +87,8 @@ void Limit_1D_RHW()
     entry->SetTextFont(62);
     
     
-    entry=leg->AddEntry("","#pm 1#sigma Expected","F");
+//    entry=leg->AddEntry("","#pm 1#sigma Expected","F");
+    entry=leg->AddEntry("","68% expected","F");
     
     
     ci = TColor::GetColor("#00ff00");
@@ -102,7 +103,7 @@ void Limit_1D_RHW()
     entry->SetTextFont(62);
     
     
-    entry=leg->AddEntry("","#pm 2#sigma Expected","F");
+    entry=leg->AddEntry("","95% expected","F");
     
     ci = TColor::GetColor("#fcf10f");
     entry->SetFillColor(ci);
@@ -146,7 +147,7 @@ void Limit_1D_RHW()
   
    
    TH1F *hist1d__1 = new TH1F("hist1d__1","",4,1000,4000);
-   hist1d__1->SetMinimum(0.0001);
+   hist1d__1->SetMinimum(0.00011);
    hist1d__1->SetMaximum(10);
    hist1d__1->SetDirectory(0);
    hist1d__1->SetLineStyle(0);
@@ -161,7 +162,7 @@ void Limit_1D_RHW()
    hist1d__1->GetXaxis()->SetTickLength(0.02);
    hist1d__1->GetXaxis()->SetTitleOffset(1.13);
    hist1d__1->GetXaxis()->SetTitleFont(42);
-   hist1d__1->GetYaxis()->SetTitle("95% CL limit on #sigma#font[42]{}(pp#rightarrowW)#timesB(W#rightarrow#tau#taujj)[pb]");
+   hist1d__1->GetYaxis()->SetTitle("#sigma#font[42]{}(pp#rightarrowW_{R})#times#bf{#it{#Beta}}(W_{R}#rightarrow#tau#taujj)[pb]");
    hist1d__1->GetYaxis()->SetNdivisions(506);
    hist1d__1->GetYaxis()->SetLabelFont(42);
    hist1d__1->GetYaxis()->SetLabelOffset(0.007);
@@ -475,6 +476,8 @@ void Limit_1D_RHW()
     
     xsTh_vs_m->SetLineWidth(2);
     
+    xsTh_vs_m->SetLineStyle(2);
+    
     xsTh_vs_m->SetLineColor(kBlue);
     
     xsTh_vs_m->SetFillColor(kCyan-6);
@@ -558,7 +561,7 @@ void Limit_1D_RHW()
     
    
     TH1F *hist1d__2 = new TH1F("hist1d__2","",3,2000,4000);
-    hist1d__2->SetMinimum(0.0001);
+    hist1d__2->SetMinimum(0.00011);
     hist1d__2->SetMaximum(10);
     hist1d__2->SetDirectory(0);
     
@@ -589,7 +592,7 @@ void Limit_1D_RHW()
     hist1d__2->GetXaxis()->SetTickLength(0.02);
     hist1d__2->GetXaxis()->SetTitleOffset(1.08);
     hist1d__2->GetXaxis()->SetTitleFont(42);
-    hist1d__2->GetYaxis()->SetTitle("95% CL limit on #sigma#font[42]{}(pp#rightarrowW)#timesB(W#rightarrow#tau#taujj)[pb]");
+    hist1d__2->GetYaxis()->SetTitle("#sigma#font[42]{}(pp#rightarrowW_{R})#times#bf{#it{#Beta}}(W_{R}#rightarrow#tau#taujj)[pb]");
     hist1d__2->GetYaxis()->SetNdivisions(506);
     hist1d__2->GetYaxis()->SetLabelFont(42);
     hist1d__2->GetYaxis()->SetLabelOffset(0.007);

@@ -40,9 +40,8 @@ ROOT.gROOT.SetBatch(True)
 #SubRootDir = 'OutFiles_FullSelection/'
 #SubRootDir = 'OutFiles_FullSelection_MediumIso/'
 #SubRootDir = 'OutFiles_FullSelection_TightIso/'
-#SubRootDir = 'OutFiles_FullSelection/'
-SubRootDir = 'OutFiles_FullSelection/'
-
+SubRootDir = 'OutFiles_FullSelection/' #  current version of the paper Feb14
+#SubRootDir = 'OutFiles_FullSelection_PaperV2/'
 
 
 verbos_ = False

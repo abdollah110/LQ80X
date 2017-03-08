@@ -117,138 +117,16 @@ void Limit_2D_LQ() {
         1400,
 //        1450,
         1500};
-    //
-    //
-    //
-    //    Double_t limit_expected[] = {
-    //        4.390625/XS_200,
-    //        1.992188/XS_250,
-    //        0.6269531 / XS_300,
-    //        0.3388672 / XS_350,
-    //        0.175293 / XS_400,
-    //        0.09814453 / XS_450,
-    //        0.06005859 / XS_500,
-    //        0.04345703 / XS_550,
-    //        0.03271484 / XS_600,
-    //        0.02490234 / XS_650,
-    //        0.02001953 / XS_700,
-    //        0.01611328 / XS_750,
-    //        0.01318359 / XS_800,
-    //        0.01123047 / XS_850,
-    //        0.01025391 / XS_900,
-    //        0.008300781 / XS_950,
-    //        0.007324219 / XS_1000,
-    //        0.006347656 / XS_1050,
-    //        0.006347656 / XS_1100,
-    //        0.005371094 / XS_1150,
-    //        0.005371094 / XS_1200,
-    //        0.004394531 / XS_1250,
-    //        0.004394531 / XS_1300,
-    //        0.004394531 / XS_1350,
-    //        0.004394531 / XS_1400,
-    //        0.003417969 / XS_1450,
-    //        0.003417969 / XS_1500};
-    //    //
-    //    //
-    //    Double_t limit_observed[] = {
-    //        4.290325 / XS_200,
-    //        1.529551 / XS_250,
-    //        0.7555034 / XS_300,
-    //        0.4360767 / XS_350,
-    //        0.217999 / XS_400,
-    //        0.1353539 / XS_450,
-    //        0.08324244 / XS_500,
-    //        0.05594456 / XS_550,
-    //        0.04043446 / XS_600,
-    //        0.03101383 / XS_650,
-    //        0.02521476 / XS_700,
-    //        0.0196628 / XS_750,
-    //        0.0164327 / XS_800,
-    //        0.0139788 / XS_850,
-    //        0.01262523 / XS_900,
-    //        0.01021711 / XS_950,
-    //        0.008648229 / XS_1000,
-    //        0.007460774 / XS_1050,
-    //        0.006675119 / XS_1100,
-    //        0.005865333 / XS_1150,
-    //        0.005098765 / XS_1200,
-    //        0.004850521 / XS_1250,
-    //        0.004428081 / XS_1300,
-    //        0.003886634 / XS_1350,
-    //        0.00387614 / XS_1400,
-    //        0.003507627 / XS_1450,
-    //        0.003459288 / XS_1500};
     
     
     
-//    Double_t limit_expected[27] = {
-//        4.660156  / XS_200,
-//        2.107422 / XS_250  ,
-//        0.6635742/ XS_300  ,
-//        0.359375/ XS_350  ,
-//        0.1878662/ XS_400  ,
-//        0.1047974/ XS_450  ,
-//        0.06365967/ XS_500  ,
-//        0.04620361/ XS_550  ,
-//        0.03482056/ XS_600  ,
-//        0.02653503/ XS_650  ,
-//        0.02177429/ XS_700  ,
-//        0.01741028/ XS_750  ,
-//        0.01441193/ XS_800  ,
-//        0.01195526/ XS_850  ,
-//        0.01096344/ XS_900  ,
-//        0.009208679/ XS_950  ,
-//        0.008171082/ XS_1000  ,
-//        0.007282257/ XS_1050  ,
-//        0.006504059/ XS_1100  ,
-//        0.006076813/ XS_1150  ,
-//        0.005500793/ XS_1200  ,
-//        0.005153656/ XS_1250  ,
-//        0.004734039/ XS_1300  ,
-//        0.004360199/ XS_1350  ,
-//        0.004306793/ XS_1400  ,
-//        0.003917694/ XS_1450  ,
-//        0.003768921 / XS_1500};
-//    
-//    Double_t limit_observed[27] = {
-//        4.897356/ XS_200  ,
-//        1.736906/ XS_250  ,
-//        0.8553133/ XS_300  ,
-//        0.4909815/ XS_350  ,
-//        0.2427986/ XS_400  ,
-//        0.1493765/ XS_450  ,
-//        0.09137079/ XS_500  ,
-//        0.06151823/ XS_550  ,
-//        0.04423407/ XS_600  ,
-//        0.03407756/ XS_650  ,
-//        0.02722579/ XS_700  ,
-//        0.02120224/ XS_750  ,
-//        0.0176565/ XS_800  ,
-//        0.01492857/ XS_850  ,
-//        0.01362902/ XS_900  ,
-//        0.01111717/ XS_950  ,
-//        0.009396371/ XS_1000  ,
-//        0.008171989/ XS_1050  ,
-//        0.007117235/ XS_1100  ,
-//        0.006258398/ XS_1150  ,
-//        0.005599985/ XS_1200  ,
-//        0.005159819/ XS_1250  ,
-//        0.004678842/ XS_1300  ,
-//        0.004264956/ XS_1350  ,
-//        0.004238203/ XS_1400  ,
-//        0.003797164/ XS_1400  ,
-//        0.00364262 / XS_1500};
+    // Observed!!!!!!!
     
-    
-    
-    
-    
-    
-    
-    Double_t Graph3_fy2[27] = {
+    Double_t ObservedLimitValues[27] = {
+        
         5.169031,
         2.127156,
-        0.9710715,
+        1.119, // new
         0.554736,
         0.279327,
         0.164877,
@@ -275,323 +153,748 @@ void Limit_2D_LQ() {
         0.00458145};
     
     
+    // Expected !!!!!
     
-    Double_t Graph2_fy1[27] = {
-    5.212884,
-    2.624342,
-    0.7600144,
-    0.39624,
-    0.206909,
-    0.113708,
-    0.0687866,
-    0.0496826,
-    0.0375671,
-    0.028656,
-    0.0247536,
-    0.0197548,
-    0.0155945,
-    0.0136745,
-    0.0126492,
-    0.0102158,
-    0.00997849,
-    0.0089798,
-    0.00806923,
-    0.00694275,
-    0.00632095,
-    0.00601959,
-    0.00557327,
-    0.0051651,
-    0.00517654,
-    0.00471878,
-    0.00458145};
+    Double_t ExpectedLimitValues[27] = {
+        5.212884,
+        2.624342,
+        1.0423, //new
+        0.39624,
+        0.206909,
+        0.113708,
+        0.0687866,
+        0.0496826,
+        0.0375671,
+        0.028656,
+        0.0247536,
+        0.0197548,
+        0.0155945,
+        0.0136745,
+        0.0126492,
+        0.0102158,
+        0.00997849,
+        0.0089798,
+        0.00806923,
+        0.00694275,
+        0.00632095,
+        0.00601959,
+        0.00557327,
+        0.0051651,
+        0.00517654,
+        0.00471878,
+        0.00458145};
+    
+    
+    //Plus One sigma
+    Double_t PlusOneSigmaLimitValues[27] = {
+        2.541088,
+        1.288593,
+        0.502809,
+        0.1918498,
+        0.103455,
+        0.051169,
+        0.0343934,
+        0.0248413,
+        0.0187836,
+        0.014328,
+        0.0106086,
+        0.0103477,
+        0.0077972,
+        0.0058606,
+        0.005421,
+        0.0061294,
+        0.00362851,
+        0.0040817,
+        0.00366787,
+        0.00485995,
+        0.00379255,
+        0.00361176,
+        0.00334397,
+        0.00361557,
+        0.00258828,
+        0.00377502,
+        0.00320702};
+    
+    
+    
+    
+    ////////////////////////////////////////////////////////////////
+    //   -1 sigma
+    ////////////////////////////////////////////////////////////////
+    Double_t MinusOneSigmaLimitValues[27] = {
+        1.480962,
+        0.7831655,
+        0.2920889,
+        0.09906,
+        0.051727,
+        0.0341121,
+        0.0171966,
+        0.0149048,
+        0.0093917,
+        0.007164,
+        0.0082512,
+        0.0056442,
+        0.0046784,
+        0.0032558,
+        0.00421643,
+        0.00306477,
+        0.00362854,
+        0.00326538,
+        0.0022007,
+        0.00208283,
+        0.00126419,
+        0.00180588,
+        0.00167198,
+        0.00154953,
+        0.0010353,
+        0.00094376,
+        0.00091629};
 
+    
+    
+    
+    //
+    Double_t limit_expected[26];
+    Double_t limit_plusOneSigma[26];
+    Double_t limit_MinusOneSigma[26];
+    Double_t limit_observed[26];
+    
+    for (int i=0; i < 26; i++){
+        limit_expected[i]=ExpectedLimitValues[i]/XS[mData[i]];
+        limit_plusOneSigma[i]=(ExpectedLimitValues[i]+PlusOneSigmaLimitValues[i])/XS[mData[i]];
+        limit_MinusOneSigma[i]=(ExpectedLimitValues[i]-MinusOneSigmaLimitValues[i])/XS[mData[i]];
+        limit_observed[i]=ObservedLimitValues[i]/XS[mData[i]];
+    }
+    
+    
+    
+    /* //Asympt CLs
+     Double_t limit_observed[] = {0.0594621, 0.0843084, 0.0609738, 0.0718055, 0.110206, 0.147462, 0.217648, 0.294432, 0.367942, 0.525929, 0.739963, 1.01469, 1.45093, 2.07904, 3.25821};
+     Double_t limit_expected[] = {0.074707, 0.103027, 0.0668945, 0.0737305, 0.0942383, 0.130371, 0.175293, 0.250977, 0.338867, 0.482422, 0.689453, 0.964844, 1.37109, 1.94531, 2.99219};
+     */
+    
+    std::vector<double> limExp;
+    std::vector<double> betaExp;
+    
+    std::vector<double> limPlusSigma;
+    std::vector<double> betaPlusSigma;
+    
+    std::vector<double> limMinusSigma;
+    std::vector<double> betaMinusSigma;
+    
+    std::vector<double> limObs;
+    std::vector<double> betaObs;
+    
+    
+    
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Expected limit
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    for(int i = 0; i != 1; ++i) {
+        double lim1 = limit_expected[i];
+        double lim2 = limit_expected[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            
+//            cout << m1 <<" "<< m2 <<" "<< 1<<" "<< 1<<" "<< lim1/beta/beta<<" "<<  lim2/beta/beta <<" "<< "  --->  "<< result<<"\n";
+            
+            
+            if ( result != 0 ) {
+                limExp.push_back(result);
+                betaExp.push_back(beta);
+//                cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    for(int i = 1; i != 2; ++i) {
+        double lim1 = limit_expected[i];
+        double lim2 = limit_expected[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 1.001; beta >= 0; beta -= 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limExp.push_back(result);
+                betaExp.push_back(beta);
+                //	cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    for(int i = 2; i != nMass; ++i) {
+        double lim1 = limit_expected[i];
+        double lim2 = limit_expected[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limExp.push_back(result);
+                betaExp.push_back(beta);
+                //	cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
 
+    
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Expected +1 sigma  limit
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    for(int i = 0; i != 1; ++i) {
+        double lim1 = limit_plusOneSigma[i];
+        double lim2 = limit_plusOneSigma[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            
+//            cout << m1 <<" "<< m2 <<" "<< 1<<" "<< 1<<" "<< lim1/beta/beta<<" "<<  lim2/beta/beta <<" "<< "  --->  "<< result<<"\n";
+            
+            
+            if ( result != 0 ) {
+                limPlusSigma.push_back(result);
+                betaPlusSigma.push_back(beta);
+//                cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    for(int i = 1; i != 2; ++i) {
+        double lim1 = limit_plusOneSigma[i];
+        double lim2 = limit_plusOneSigma[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 1.001; beta >= 0; beta -= 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limPlusSigma.push_back(result);
+                betaPlusSigma.push_back(beta);
+                //	cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    for(int i = 2; i != nMass; ++i) {
+        double lim1 = limit_plusOneSigma[i];
+        double lim2 = limit_plusOneSigma[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limPlusSigma.push_back(result);
+                betaPlusSigma.push_back(beta);
+                //	cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+  
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Expected -1 sigma  limit
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    for(int i = 0; i != 1; ++i) {
+        double lim1 = limit_MinusOneSigma[i];
+        double lim2 = limit_MinusOneSigma[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            
+//            cout << m1 <<" "<< m2 <<" "<< 1<<" "<< 1<<" "<< lim1/beta/beta<<" "<<  lim2/beta/beta <<" "<< "  --->  "<< result<<"\n";
+            
+            
+            if ( result != 0 ) {
+                limMinusSigma.push_back(result);
+                betaMinusSigma.push_back(beta);
+//                cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    for(int i = 1; i != 2; ++i) {
+        double lim1 = limit_MinusOneSigma[i];
+        double lim2 = limit_MinusOneSigma[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 1.001; beta >= 0; beta -= 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limMinusSigma.push_back(result);
+                betaMinusSigma.push_back(beta);
+                //	cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    for(int i = 2; i != nMass; ++i) {
+        double lim1 = limit_MinusOneSigma[i];
+        double lim2 = limit_MinusOneSigma[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limMinusSigma.push_back(result);
+                betaMinusSigma.push_back(beta);
+                //	cout << beta << '\t' << result << endl; //KK
+                
+            }
+        }
+    }
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // observed limit
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    for(int i = 0; i != 1; ++i) {
+        double lim1 = limit_observed[i];
+        double lim2 = limit_observed[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limObs.push_back(result);
+                betaObs.push_back(beta);
+            }
+        }
+    }
+    for(int i = 1; i != 2; ++i) {
+        double lim1 = limit_observed[i];
+        double lim2 = limit_observed[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 1.001; beta >= 0; beta -= 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limObs.push_back(result);
+                betaObs.push_back(beta);
+            }
+        }
+    }
+    for(int i = 2; i != nMass; ++i) {
+        double lim1 = limit_observed[i];
+        double lim2 = limit_observed[i+1];
+        double m1 = mData[i];
+        double m2 = mData[i+1];
+        
+        for(double beta = 0.001; beta < 1.001; beta += 0.001) {
+            double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
+            if ( result != 0 ) {
+                limObs.push_back(result);
+                betaObs.push_back(beta);
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //////////////////////////////////////////////////////////////////
+    // Expected
+    //////////////////////////////////////////////////////////////////
+    const int nexp = limExp.size();
+    
+//    cout <<"-------------------->   "<<nexp <<"\n\n\n\n";
+    
+    Double_t massExp[nexp+4];
+    Double_t bExp[nexp+4];
+    for(int i = 0; i != nexp; ++i) {
+        massExp[i] = limExp[i];
+        bExp[i] = betaExp[i];
+//        cout <<"###### exp massExp[i] "<<massExp[i] << "   bExp[i] "<<bExp[i]<<"\n";
+    }
+    
+    massExp[nexp] = massExp[nexp-1];
+    bExp[nexp]    = 1;
 
+    massExp[nexp+1] = 200;
+    bExp[nexp+1]    = 1;
+    
+    massExp[nexp+2] = 200;
+    bExp[nexp+2] = bExp[0];
+    
+    massExp[nexp+3] = massExp[0];
+    bExp[nexp+3] = bExp[0];
+    
+    
+    //////////////////////////////////////////////////////////////////
+    // Plus One Sigma
+    //////////////////////////////////////////////////////////////////
+    const int nplusSig = limPlusSigma.size();
+    
+//    cout <<"-------------------->   "<<nplusSig <<"\n\n\n\n";
+    
+    Double_t massPlusOneSigma[nplusSig+4];
+    Double_t bPlusOneSigma[nplusSig+4];
+    for(int i = 0; i != nplusSig; ++i) {
+        massPlusOneSigma[i] = limPlusSigma[i];
+        bPlusOneSigma[i] = betaPlusSigma[i];
+//        cout <<"###### exp massPlusOneSigma[i] "<<massPlusOneSigma[i] << "   bPlusOneSigma[i] "<<bPlusOneSigma[i]<<"\n";
+    }
+    
+    massPlusOneSigma[nplusSig] = massPlusOneSigma[nplusSig-1];
+    bPlusOneSigma[nplusSig]    = 1;
+    
+    massPlusOneSigma[nplusSig+1] = 200;
+    bPlusOneSigma[nplusSig+1]    = 1;
+    
+    massPlusOneSigma[nplusSig+2] = 200;
+    bPlusOneSigma[nplusSig+2] = bPlusOneSigma[0];
+    
+    massPlusOneSigma[nplusSig+3] = massPlusOneSigma[0];
+    bPlusOneSigma[nplusSig+3] = bPlusOneSigma[0];
+    
+    Double_t NewbPlusOneSigma[nexp+4];
+    for(int i = 0; i != nexp+4; ++i) {
+        NewbPlusOneSigma[i]=bPlusOneSigma[i]-bExp[i];
+    }
+    
+    //////////////////////////////////////////////////////////////////
+    // Minus One Sigma
+    //////////////////////////////////////////////////////////////////
+    const int nMinusSig = limMinusSigma.size();
+    
+//    cout <<"-------------------->   "<<nMinusSig <<"\n\n\n\n";
+    
+    Double_t massMinusOneSigma[nMinusSig+4];
+    Double_t bMinusOneSigma[nMinusSig+4];
+    for(int i = 0; i != nMinusSig; ++i) {
+        massMinusOneSigma[i] = limMinusSigma[i];
+        bMinusOneSigma[i] = betaMinusSigma[i];
+//        cout <<"###### exp massMinusOneSigma[i] "<<massMinusOneSigma[i] << "   bMinusOneSigma[i] "<<bMinusOneSigma[i]<<"\n";
+    }
+    
+    massMinusOneSigma[nMinusSig] = massMinusOneSigma[nMinusSig-1];
+    bMinusOneSigma[nMinusSig]    = 1;
+    
+    massMinusOneSigma[nMinusSig+1] = 200;
+    bMinusOneSigma[nMinusSig+1]    = 1;
+    
+    massMinusOneSigma[nMinusSig+2] = 200;
+    bMinusOneSigma[nMinusSig+2] = bMinusOneSigma[0];
+    
+    massMinusOneSigma[nMinusSig+3] = massMinusOneSigma[0];
+    bMinusOneSigma[nMinusSig+3] = bMinusOneSigma[0];
+    
+    
+    Double_t NewbMinusOneSigma[nexp+4];
+    for(int i = 0; i != nexp+4; ++i) {
+        NewbMinusOneSigma[i]=bExp[i]-bMinusOneSigma[i];
+        
+//        cout<<"  mas comaprison "<<massExp[i]<<"  "<<massMinusOneSigma[i]<<"  "<<massPlusOneSigma[i]<<"\n";
+        
+    }
+    
+    //////////////////////////////////////////////////////////////////
+    // Observed
+    //////////////////////////////////////////////////////////////////
+    const int nobs = limObs.size();
+    float massObs[nobs+4];
+    float bObs[nobs+4];
+    for(int i = 0; i != nobs; ++i) {
+        massObs[i] = limObs[i];
+        bObs[i] = betaObs[i];
+//        cout <<"###### obs massObs[i] "<<massObs[i] << "   bObs[i] "<<bObs[i]<<"\n";
+    }
+    
+    massObs[nobs] = massObs[nobs-1];
+    bObs[nobs]    = 1;
+    
+    massObs[nobs+1] = 200;
+    bObs[nobs+1]    = 1;
 
+    massObs[nobs+2] = 200;
+    bObs[nobs+2] = bObs[0];
 
+    massObs[nobs+3] = massObs[0];
+    bObs[nobs+3] = bObs[0];
+    
+    
+    //////////////////////////////////////////////////////////////////
+    // TGRAPH
+    //////////////////////////////////////////////////////////////////
+//    massExp.sort()
+    TGraph* grExp = new TGraph(nexp+4, massExp, bExp);
+    grExp->Sort(&TGraph::CompareX, 0, 0,-1111);
+    
+    TGraph* gPlusOneSigma = new TGraph(nplusSig+4, massPlusOneSigma, bPlusOneSigma);
+    gPlusOneSigma->Sort(&TGraph::CompareX, 0, 0,-1111);
+    
+    TGraph* gMinusOneSigma = new TGraph(nMinusSig+4, massMinusOneSigma, bMinusOneSigma);
+    gMinusOneSigma->Sort(&TGraph::CompareX, 0, 0,-1111);
+
+    TGraph* grObs = new TGraph(nobs+4, massObs, bObs);
+//    grObs->Sort();
+    //  for(int i = 0; i < nexp+3; ++i) {
+    //    cout << i << "\t" << massExp[i] << "\t" << bExp[i] << endl;
+    //  }
+    
+    
+    
+    // ------------>Primitives in pad: pad_plot
+    TPad *pad_plot = new TPad("pad_plot", "pad_plot",0,0,1,1);
+    pad_plot->Draw();
+    pad_plot->cd();
+    pad_plot->Range(10.71429,-5.02439,1500,3.512195);
+    pad_plot->SetFillColor(0);
+    pad_plot->SetFillStyle(4000);
+    pad_plot->SetBorderMode(0);
+    pad_plot->SetBorderSize(2);
+    //    pad_plot->SetLogy();
+    //    pad_plot->SetGridx();
+    //    pad_plot->SetGridy();
+    pad_plot->SetLeftMargin(0.12);
+    pad_plot->SetRightMargin(0.04);
+    pad_plot->SetTopMargin(0.06);
+    pad_plot->SetBottomMargin(0.12);
+    pad_plot->SetFrameFillStyle(0);
+    pad_plot->SetFrameLineWidth(2);
+    pad_plot->SetFrameBorderMode(0);
+    pad_plot->SetFrameFillStyle(0);
+    pad_plot->SetFrameLineWidth(2);
+    pad_plot->SetFrameBorderMode(0);
+    
+    
+    
+    TH2F* frame = new TH2F("frame", "", 100, 200, 1000, 100, 0.001, 1);
+    TAxis* ax = frame->GetXaxis();
+    TAxis* ay = frame->GetYaxis();
+    ax->SetTitle("M_{LQ} [GeV]");
+    //  ax->SetLabelOffset(0.01);
+    ay->SetTitle("#beta");
+    //ay->SetTitle("#Beta(LQ#rightarrow#tau b)");
+    //    ax->SetTitleFont(132);
+    ax->SetTitleSize(0.05);
+    //    ay->SetTitleFont(132);
+    ay->SetTitleSize(0.05);
+    ay->SetRangeUser(0.,1);
+    frame->Draw();
+    
+//    grExp->SetLineColor(TColor::GetColor(0, 0, 333));
+//    grExp->SetFillColorAlpha(TColor::GetColor(200, 222, 285), 0.65);
+    
+    
+//    grObs->SetLineColor(TColor::GetColor(0, 0, 333));
+    grObs->SetFillColorAlpha(TColor::GetColor(200, 222, 285), 0.65);
+//    grObs->SetLineColor(kBlack);
+    grObs->SetLineWidth(3);
+    
+    grExp->SetLineColor(kBlack);
+    grExp->SetLineWidth(2);
+    grExp->SetLineStyle(7);
+    //    grObs->SetFillStyle(3005);
+    //  grExp->SetLineWidth(2);
+    //  grObs->SetLineWidth(2);
+    //  grObs->SetFillStyle(3005);
+//    grObs->Draw("F");
+    
+    grExp->Draw("L");
+    
+//    grExp->Draw("Lsame");
+    
+    
+    
+
+//    gMinusOneSigma->SetLineColor(kBlue);
+    gMinusOneSigma->SetLineWidth(0);
+//    gMinusOneSigma->SetLineStyle(2);
+    ci = TColor::GetColor("#fcf10f");
+    gMinusOneSigma->SetFillColorAlpha(15, 0.65);
+    gMinusOneSigma->Draw("f");
+    
+    
+//    gPlusOneSigma->SetLineColor(kBlue);
+    gPlusOneSigma->SetLineWidth(0);
+//    gPlusOneSigma->SetLineStyle(2);
+//    ci = TColor::GetColor("#fcf10f");
+    gPlusOneSigma->SetFillColor(0);
+    gPlusOneSigma->Draw("fsame");
+    
+    
+
+    
+//    gMinusOneSigma->Draw("Lsame");
+    grObs->Draw("LSame");
+    grObs->Draw("fsame");
+//    grExp->Draw("same");
+//    frame->Draw("same");
+    frame->Draw("sameaxis");
+
+//        grExp->Draw("Lsame");
+//    grObs->Draw("fsame");
 //
-Double_t limit_expected[26];
-Double_t limit_observed[26];
-for (int i=0; i < 26; i++){
-    limit_expected[i]=Graph2_fy1[i]/XS[mData[i]];
-    limit_observed[i]=Graph3_fy2[i]/XS[mData[i]];
-}
-
-
-
-/* //Asympt CLs
- Double_t limit_observed[] = {0.0594621, 0.0843084, 0.0609738, 0.0718055, 0.110206, 0.147462, 0.217648, 0.294432, 0.367942, 0.525929, 0.739963, 1.01469, 1.45093, 2.07904, 3.25821};
- Double_t limit_expected[] = {0.074707, 0.103027, 0.0668945, 0.0737305, 0.0942383, 0.130371, 0.175293, 0.250977, 0.338867, 0.482422, 0.689453, 0.964844, 1.37109, 1.94531, 2.99219};
- */
-
-std::vector<double> limExp;
-std::vector<double> betaExp;
-
-std::vector<double> limObs;
-std::vector<double> betaObs;
-// find intersection
-
-for(int i = 0; i != 1; ++i) {
-    double lim1 = limit_expected[i];
-    double lim2 = limit_expected[i+1];
-    double m1 = mData[i];
-    double m2 = mData[i+1];
+//    Double_t x[5] = {200,300,400,500,600};
+//    Double_t y[5] = {5,.1,.9,.7,.5};
+//    TPolyLine *pline = new TPolyLine(nexp+4,massExp,bExp);
+//    pline->SetFillColor(38);
+//    pline->SetLineColor(2);
+//    pline->SetLineWidth(4);
+//    pline->Draw("f");
+//    pline->Draw();
+//
     
-    for(double beta = 0.001; beta < 1.001; beta += 0.001) {
-        double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
-        
-        cout << m1 <<" "<< m2 <<" "<< 1<<" "<< 1<<" "<< lim1/beta/beta<<" "<<  lim2/beta/beta <<" "<< "  --->  "<< result<<"\n";
-        
-        
-        if ( result != 0 ) {
-            limExp.push_back(result);
-            betaExp.push_back(beta);
-            cout << beta << '\t' << result << endl; //KK
-            
-        }
-    }
-}
-for(int i = 1; i != 2; ++i) {
-    double lim1 = limit_expected[i];
-    double lim2 = limit_expected[i+1];
-    double m1 = mData[i];
-    double m2 = mData[i+1];
+    //    TLatex* tx = new TLatex(250,0.93,"CMS");
+    //    tx->SetTextFont(61);
+    //    tx->SetTextSize(0.05);
+    //    tx->Draw("SAME");
+    //    TLatex* tx2 = new TLatex(1000,1.03101,"12.9 fb^{-1} (13 TeV)");
+    //    tx2->SetTextSize(0.04);
+    //    tx2->SetTextAlign(   12 );
+    //    tx2->SetTextColor(    1 );
+    //    tx2->SetTextFont (   42 );
+    //    tx2->Draw("SAME");
     
-    for(double beta = 1.001; beta >= 0; beta -= 0.001) {
-        double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
-        if ( result != 0 ) {
-            limExp.push_back(result);
-            betaExp.push_back(beta);
-            //	cout << beta << '\t' << result << endl; //KK
-            
-        }
-    }
-}
-for(int i = 2; i != nMass; ++i) {
-    double lim1 = limit_expected[i];
-    double lim2 = limit_expected[i+1];
-    double m1 = mData[i];
-    double m2 = mData[i+1];
     
-    for(double beta = 0.001; beta < 1.001; beta += 0.001) {
-        double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
-        if ( result != 0 ) {
-            limExp.push_back(result);
-            betaExp.push_back(beta);
-            //	cout << beta << '\t' << result << endl; //KK
-            
-        }
-    }
-}
-
-
-
-// observed limit
-for(int i = 0; i != 1; ++i) {
-    double lim1 = limit_observed[i];
-    double lim2 = limit_observed[i+1];
-    double m1 = mData[i];
-    double m2 = mData[i+1];
     
-    for(double beta = 0.001; beta < 1.001; beta += 0.001) {
-        double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
-        if ( result != 0 ) {
-            limObs.push_back(result);
-            betaObs.push_back(beta);
-        }
-    }
-}
-for(int i = 1; i != 2; ++i) {
-    double lim1 = limit_observed[i];
-    double lim2 = limit_observed[i+1];
-    double m1 = mData[i];
-    double m2 = mData[i+1];
+    float lowX=0.65;
+    float lowY=0.85;
+    TPaveText * lumi  = new TPaveText(lowX, lowY+0.06, lowX+0.30, lowY+0.16, "NDC");
+    lumi->SetBorderSize(   0 );
+    lumi->SetFillStyle(    0 );
+    lumi->SetTextAlign(   12 );
+    lumi->SetTextColor(    1 );
+    lumi->SetTextSize(0.04);
+    lumi->SetTextFont (   42 );
+    lumi->AddText("12.9 fb^{-1} (13 TeV)");
+    lumi->Draw();
     
-    for(double beta = 1.001; beta >= 0; beta -= 0.001) {
-        double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
-        if ( result != 0 ) {
-            limObs.push_back(result);
-            betaObs.push_back(beta);
-        }
-    }
-}
-for(int i = 2; i != nMass; ++i) {
-    double lim1 = limit_observed[i];
-    double lim2 = limit_observed[i+1];
-    double m1 = mData[i];
-    double m2 = mData[i+1];
+    lowX=0.15;
+    lowY=0.75;
+    TPaveText * lumi1  = new TPaveText(lowX, lowY+0.06, lowX+0.15, lowY+0.16, "NDC");
+    lumi1->SetTextFont(61);
+    lumi1->SetTextSize(0.05);
+    lumi1->SetBorderSize(   0 );
+    lumi1->SetFillStyle(    0 );
+    lumi1->SetTextAlign(   12 );
+    lumi1->SetTextColor(    1 );
+    lumi1->AddText("CMS");
+    lumi1->Draw();
     
-    for(double beta = 0.001; beta < 1.001; beta += 0.001) {
-        double result = intersection(m1, m2, 1, 1, lim1/beta/beta, lim2/beta/beta);
-        if ( result != 0 ) {
-            limObs.push_back(result);
-            betaObs.push_back(beta);
-        }
-    }
-}
+    
+    
+    
+    
+    
 
-const int nexp = limExp.size();
-float massExp[nexp+4];
-float bExp[nexp+4];
-for(int i = 0; i != nexp; ++i) {
-    massExp[i] = limExp[i];
-    bExp[i] = betaExp[i];
-}
-massExp[nexp] = massExp[nexp-1];
-bExp[nexp]    = 1;
+    Double_t Graph0_felx3001[1000] = {0};
+    
+    Double_t Graph0_fehx3001[1000] = {0};
+    
+    
+    
+    
+//    for (int i=0;i < 100; i++){
+//        
+//        cout << "check--->>>>>"<<massExp[i]<<" "<<bExp[i]<<" "<<Graph0_felx3001[i]<<" "<<Graph0_fehx3001[i]<<" "<<NewbMinusOneSigma[i]<<" "<<NewbPlusOneSigma[i]<<"\n";
+//    }
+    
+    
+//    const Int_t n = 5;
+//    Double_t x[n]   = {200, 250, 300, 350, 400};
+//    Double_t y[n]   = {.2,.3,.4,.5,.6};
+//    Double_t exl[n] = {0};
+//    Double_t exh[n] = {0};
+//    Double_t eyl[n] = {.1,.2,.3,.4,.5};
+//    Double_t eyh[n] = {.3,.4,.5,.6,.7};
+//    TGraphAsymmErrors *grae = new TGraphAsymmErrors(n,x,y,exl,exh,eyl,eyh);
+    
+    
+    
+    TGraphAsymmErrors *grae = new TGraphAsymmErrors(700,massExp,bExp,Graph0_felx3001,Graph0_fehx3001,NewbMinusOneSigma,NewbPlusOneSigma);
+    grae->Sort(&TGraph::CompareX, 0, 0,-1111);
+    grae->SetName("");
+    grae->SetTitle("");
+    
+    ci = TColor::GetColor("#fcf10f");
+    grae->SetFillColorAlpha(ci, 0.65);
 
-massExp[nexp+1] = 200;
-bExp[nexp+1]    = 1;
-
-massExp[nexp+2] = 200;
-bExp[nexp+2] = bExp[0];
-massExp[nexp+3] = massExp[0];
-bExp[nexp+3] = bExp[0];
-
-const int nobs = limObs.size();
-float massObs[nobs+4];
-float bObs[nobs+4];
-for(int i = 0; i != nobs; ++i) {
-    massObs[i] = limObs[i];
-    bObs[i] = betaObs[i];
-}
-massObs[nobs] = massObs[nobs-1];
-bObs[nobs]    = 1;
-
-massObs[nobs+1] = 200;
-bObs[nobs+1]    = 1;
-
-massObs[nobs+2] = 200;
-bObs[nobs+2] = bObs[0];
-massObs[nobs+3] = massObs[0];
-bObs[nobs+3] = bObs[0];
-
-TGraph* grExp = new TGraph(nexp+4, massExp, bExp);
-TGraph* grObs = new TGraph(nobs+4, massObs, bObs);
-
-//  for(int i = 0; i < nexp+3; ++i) {
-//    cout << i << "\t" << massExp[i] << "\t" << bExp[i] << endl;
-//  }
-
-
-
-// ------------>Primitives in pad: pad_plot
-TPad *pad_plot = new TPad("pad_plot", "pad_plot",0,0,1,1);
-pad_plot->Draw();
-pad_plot->cd();
-pad_plot->Range(10.71429,-5.02439,1500,3.512195);
-pad_plot->SetFillColor(0);
-pad_plot->SetFillStyle(4000);
-pad_plot->SetBorderMode(0);
-pad_plot->SetBorderSize(2);
-//    pad_plot->SetLogy();
-//    pad_plot->SetGridx();
-//    pad_plot->SetGridy();
-pad_plot->SetLeftMargin(0.12);
-pad_plot->SetRightMargin(0.04);
-pad_plot->SetTopMargin(0.06);
-pad_plot->SetBottomMargin(0.12);
-pad_plot->SetFrameFillStyle(0);
-pad_plot->SetFrameLineWidth(2);
-pad_plot->SetFrameBorderMode(0);
-pad_plot->SetFrameFillStyle(0);
-pad_plot->SetFrameLineWidth(2);
-pad_plot->SetFrameBorderMode(0);
-
-
-
-TH2F* frame = new TH2F("frame", "", 100, 200, 1500, 100, 0.2, 1);
-TAxis* ax = frame->GetXaxis();
-TAxis* ay = frame->GetYaxis();
-ax->SetTitle("M_{LQ} [GeV]");
-//  ax->SetLabelOffset(0.01);
-ay->SetTitle("#Beta(LQ#rightarrow#tau b)");
-//    ax->SetTitleFont(132);
-ax->SetTitleSize(0.05);
-//    ay->SetTitleFont(132);
-ay->SetTitleSize(0.05);
-ay->SetRangeUser(0.21,1);
-frame->Draw();
-
-grExp->SetLineColor(TColor::GetColor(0, 0, 333));
-grExp->SetFillColor(TColor::GetColor(200, 222, 285));
-
-//  grObs->SetFillColor(kBlack);
-grObs->SetLineColor(kBlack);
-grObs->SetLineWidth(2);
-grExp->SetLineStyle(7);
-//    grObs->SetFillStyle(3005);
-//  grExp->SetLineWidth(2);
-//  grObs->SetLineWidth(2);
-//  grObs->SetFillStyle(3005);
-grExp->Draw("F");
-grObs->Draw("L");
-grExp->Draw("L");
-grObs->Draw("Lsame");
-
-//    TLatex* tx = new TLatex(250,0.93,"CMS");
-//    tx->SetTextFont(61);
-//    tx->SetTextSize(0.05);
-//    tx->Draw("SAME");
-//    TLatex* tx2 = new TLatex(1000,1.03101,"12.9 fb^{-1} (13 TeV)");
-//    tx2->SetTextSize(0.04);
-//    tx2->SetTextAlign(   12 );
-//    tx2->SetTextColor(    1 );
-//    tx2->SetTextFont (   42 );
-//    tx2->Draw("SAME");
-
-
-
-float lowX=0.65;
-float lowY=0.85;
-TPaveText * lumi  = new TPaveText(lowX, lowY+0.06, lowX+0.30, lowY+0.16, "NDC");
-lumi->SetBorderSize(   0 );
-lumi->SetFillStyle(    0 );
-lumi->SetTextAlign(   12 );
-lumi->SetTextColor(    1 );
-lumi->SetTextSize(0.04);
-lumi->SetTextFont (   42 );
-lumi->AddText("12.9 fb^{-1} (13 TeV)");
-lumi->Draw();
-
-lowX=0.15;
-lowY=0.75;
-TPaveText * lumi1  = new TPaveText(lowX, lowY+0.06, lowX+0.15, lowY+0.16, "NDC");
-lumi1->SetTextFont(61);
-lumi1->SetTextSize(0.05);
-lumi1->SetBorderSize(   0 );
-lumi1->SetFillStyle(    0 );
-lumi1->SetTextAlign(   12 );
-lumi1->SetTextColor(    1 );
-lumi1->AddText("CMS");
-lumi1->Draw();
-
-
-
-
-
-
-//  TLegend* leg = new TLegend(0.50, 0.14, 0.90, 0.35,"CMS 19.7 fb^{-1}, #sqrt{s} = 8 TeV", "brNDC");
-//  TLegend* leg = new TLegend(0.50, 0.14, 0.90, 0.35,"19.7 fb^{-1}, #sqrt{s} = 8 TeV", "brNDC");
-TLegend* leg = new TLegend(0.6, 0.50, 0.90, 0.70,"", "brNDC");
-leg->SetTextFont(42);
-leg->SetTextSize(0.04);
-leg->SetMargin(0.15);
-leg->SetFillColor(0);
-leg->SetBorderSize(0);
-leg->AddEntry(grExp, "Expected exclusion","f");
-leg->AddEntry(grObs, "Observed exclusion","L");
-leg->Draw();
-
-//gPad->RedrawAxis();
-//    c->RedrawAxis();
-//    pad_plot->Modified();
-pad_plot->Draw();
-c->cd();
-c->Modified();
-//    c->Print("limit_beta_vs_mass.eps");
-c->Print("limit_2D_LQ.pdf");
-//  c->Print("limit_beta_vs_mass.png");
-
-
+//    grae->SetMarkerStyle(20);
+    
+    
+//    TH1F *Graph_Graph3002 = new TH1F("Graph_Graph3002","",100,70,1630);
+//    Graph_Graph3002->SetMinimum(0);
+//    Graph_Graph3002->SetMaximum(7.043383);
+//    Graph_Graph3002->SetDirectory(0);
+//    Graph_Graph3002->SetStats(0);
+//    Graph_Graph3002->SetLineStyle(0);
+//    Graph_Graph3002->SetMarkerStyle(20);
+//    Graph_Graph3002->GetXaxis()->SetNdivisions(506);
+//    Graph_Graph3002->GetXaxis()->SetLabelFont(42);
+//    Graph_Graph3002->GetXaxis()->SetTitleSize(0.05);
+//    Graph_Graph3002->GetXaxis()->SetTickLength(0.02);
+//    Graph_Graph3002->GetXaxis()->SetTitleOffset(1.08);
+//    Graph_Graph3002->GetXaxis()->SetTitleFont(42);
+//    Graph_Graph3002->GetYaxis()->SetNdivisions(506);
+//    Graph_Graph3002->GetYaxis()->SetLabelFont(42);
+//    Graph_Graph3002->GetYaxis()->SetLabelOffset(0.007);
+//    Graph_Graph3002->GetYaxis()->SetTitleSize(0.05);
+//    Graph_Graph3002->GetYaxis()->SetTickLength(0.02);
+//    Graph_Graph3002->GetYaxis()->SetTitleOffset(1.08);
+//    Graph_Graph3002->GetYaxis()->SetTitleFont(42);
+//    Graph_Graph3002->GetZaxis()->SetNdivisions(506);
+//    Graph_Graph3002->GetZaxis()->SetLabelFont(42);
+//    Graph_Graph3002->GetZaxis()->SetLabelOffset(0.007);
+//    Graph_Graph3002->GetZaxis()->SetTitleSize(0.05);
+//    Graph_Graph3002->GetZaxis()->SetTickLength(0.02);
+//    Graph_Graph3002->GetZaxis()->SetTitleFont(42);
+//    grae->SetHistogram(Graph_Graph3002);
+    
+//    grae->Draw("3LP");
+    
+    
+    
+    //  TLegend* leg = new TLegend(0.50, 0.14, 0.90, 0.35,"CMS 19.7 fb^{-1}, #sqrt{s} = 8 TeV", "brNDC");
+    //  TLegend* leg = new TLegend(0.50, 0.14, 0.90, 0.35,"19.7 fb^{-1}, #sqrt{s} = 8 TeV", "brNDC");
+    TLegend* leg = new TLegend(0.45, 0.20, 0.8, 0.35,"", "brNDC");
+    leg->SetTextFont(42);
+    leg->SetTextSize(0.04);
+    leg->SetMargin(0.15);
+    leg->SetFillColor(0);
+    leg->SetBorderSize(0);
+    leg->AddEntry(grObs, "Observed exclusion","f");
+    leg->AddEntry(grExp, "Median expected limit","L");
+    leg->AddEntry(gMinusOneSigma, "68% expected limit","f");
+    leg->Draw();
+    
+    //gPad->RedrawAxis();
+    //    c->RedrawAxis();
+    //    pad_plot->Modified();
+    pad_plot->Draw();
+    c->cd();
+    c->Modified();
+    //    c->Print("limit_beta_vs_mass.eps");
+    c->Print("limit_2D_LQ.pdf");
+    //  c->Print("limit_beta_vs_mass.png");
+    
+    
 }

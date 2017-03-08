@@ -34,13 +34,13 @@ void Limit_1D_LQ()
     pad_leg->SetFrameLineWidth(2);
     pad_leg->SetFrameBorderMode(0);
     
-    TLegend *leg = new TLegend(0.25,0.01,0.89,0.91,NULL,"NBNDC");
+    TLegend *leg = new TLegend(0.20,0.01,0.85,0.91,NULL,"NBNDC");
     leg->SetBorderSize(0);
     leg->SetTextFont(62);
     leg->SetTextSize(0.15);
     leg->SetLineColor(1);
-    leg->SetLineStyle(1);
-    leg->SetLineWidth(1);
+    leg->SetLineStyle(2);
+    leg->SetLineWidth(2);
     leg->SetFillColor(0);
     leg->SetFillStyle(1001);
     
@@ -53,10 +53,10 @@ void Limit_1D_LQ()
     //   entry->SetMarkerSize(1);
     //   entry->SetTextFont(62);
     
-    TLegendEntry * entry=leg->AddEntry("Graph1","#sigma.#beta^{2} with unc. (#beta=1)","L");
+    TLegendEntry * entry=leg->AddEntry("Graph1","Theory (#beta=1)","L");
     entry->SetLineColor(4);
-    entry->SetLineStyle(1);
-    entry->SetLineWidth(3);
+    entry->SetLineStyle(2);
+    entry->SetLineWidth(4);
     entry->SetMarkerColor(4);
     entry->SetMarkerStyle(21);
     entry->SetMarkerSize(1);
@@ -86,7 +86,7 @@ void Limit_1D_LQ()
     entry->SetTextFont(62);
     
     
-    entry=leg->AddEntry("","#pm 1#sigma Expected","F");
+    entry=leg->AddEntry("","68% expected","F");
     
     
     ci = TColor::GetColor("#00ff00");
@@ -101,7 +101,7 @@ void Limit_1D_LQ()
     entry->SetTextFont(62);
     
     
-    entry=leg->AddEntry("","#pm 2#sigma Expected","F");
+    entry=leg->AddEntry("","95% expected","F");
     
     ci = TColor::GetColor("#fcf10f");
     entry->SetFillColor(ci);
@@ -155,7 +155,7 @@ void Limit_1D_LQ()
     hist1d__1->GetXaxis()->SetTickLength(0.02);
     hist1d__1->GetXaxis()->SetTitleOffset(1.08);
     hist1d__1->GetXaxis()->SetTitleFont(42);
-    hist1d__1->GetYaxis()->SetTitle("95% CL limit on #sigma#font[42]{}#upoint#font[52]{#beta}^{2} [pb]");
+    hist1d__1->GetYaxis()->SetTitle("#sigma#font[42]{}#upoint#font[52]{#beta}^{2} [pb]");
     hist1d__1->GetYaxis()->SetNdivisions(506);
     hist1d__1->GetYaxis()->SetLabelFont(42);
     hist1d__1->GetYaxis()->SetLabelOffset(0.007);
@@ -200,10 +200,13 @@ void Limit_1D_LQ()
         1400,
         1450,
         1500};
+    ////////////////////////////////////////////////////////////////
+    //   Expected limit
+    ////////////////////////////////////////////////////////////////
     Double_t Graph0_fy3001[27] = {
         5.212884,
         2.624342,
-        0.7600144,
+        1.042337,
         0.39624,
         0.206909,
         0.113708,
@@ -256,10 +259,13 @@ void Limit_1D_LQ()
         1.58101e-322,
         2.972545e-316,
         5.582942e-322};
+    ////////////////////////////////////////////////////////////////
+    //   - 2sigmal
+    ////////////////////////////////////////////////////////////////
     Double_t Graph0_fely3001[27] = {
         2.421144,
         1.189268,
-        0.3341486,
+        0.4398367,
         0.158496,
         0.082763,
         0.0511683,
@@ -312,10 +318,13 @@ void Limit_1D_LQ()
         1.58101e-322,
         2.955628e-316,
         5.143223e-321};
+    ////////////////////////////////////////////////////////////////
+    //   + 2 sigma
+    ////////////////////////////////////////////////////////////////
     Double_t Graph0_fehy3001[27] = {
         5.54053,
         3.202731,
-        0.7864584,
+        1.213311,
         0.441831,
         0.237946,
         0.12508,
@@ -407,10 +416,13 @@ void Limit_1D_LQ()
         1400,
         1450,
         1500};
+    ////////////////////////////////////////////////////////////////
+    //   Expected limit
+    ////////////////////////////////////////////////////////////////
     Double_t Graph1_fy3002[27] = {
         5.212884,
         2.624342,
-        0.7600144,
+        1.042337,
         0.39624,
         0.206909,
         0.113708,
@@ -463,10 +475,13 @@ void Limit_1D_LQ()
         1.58101e-322,
         2.967376e-316,
         1.630417e-322};
+    ////////////////////////////////////////////////////////////////
+    //   -1 sigma
+    ////////////////////////////////////////////////////////////////
     Double_t Graph1_fely3002[27] = {
         1.480962,
         0.7831655,
-        0.2065735,
+        0.2920889,
         0.09906,
         0.051727,
         0.0341121,
@@ -519,10 +534,13 @@ void Limit_1D_LQ()
         1.58101e-322,
         2.967422e-316,
         1.630417e-322};
+    ////////////////////////////////////////////////////////////////
+    //   +1 sigma
+    ////////////////////////////////////////////////////////////////
     Double_t Graph1_fehy3002[27] = {
         2.541088,
         1.288593,
-        0.3406162,
+        0.502809,
         0.1918498,
         0.103455,
         0.051169,
@@ -612,10 +630,13 @@ void Limit_1D_LQ()
         1400,
         1450,
         1500};
+    ////////////////////////////////////////////////////////////////
+    //   Expected limit
+    ////////////////////////////////////////////////////////////////
     Double_t Graph2_fy1[27] = {
         5.212884,
         2.624342,
-        0.7600144,
+        1.042337,
         0.39624,
         0.206909,
         0.113708,
@@ -706,10 +727,13 @@ void Limit_1D_LQ()
         1400,
         1450,
         1500};
+    ////////////////////////////////////////////////////////////////
+    //   Observed limit
+    ////////////////////////////////////////////////////////////////
     Double_t Graph3_fy2[27] = {
         5.169031,
         2.127156,
-        0.9710715,
+        1.119173,
         0.554736,
         0.279327,
         0.164877,
@@ -794,7 +818,9 @@ void Limit_1D_LQ()
     
     TGraph *xsTh_vs_m = new TGraph(nTH, mTh, xsTh);
     
-    xsTh_vs_m->SetLineWidth(2);
+    xsTh_vs_m->SetLineWidth(3);
+    
+    xsTh_vs_m->SetLineStyle(2);
     
     xsTh_vs_m->SetLineColor(kBlue);
     
@@ -809,14 +835,14 @@ void Limit_1D_LQ()
     
     TGraph *grshade = new TGraph(2*nTH,x_pdf,y_pdf);
     
-    grshade->SetFillColor(kCyan-6);
+    grshade->SetFillColor(kCyan-5);
     
-    grshade->SetFillStyle(3001);
+    grshade->SetFillStyle(3008);
     
     
     xsTh_vs_m->Draw("L");
     
-    grshade->Draw("f");
+//    grshade->Draw("f");
     
     
     
@@ -896,7 +922,7 @@ void Limit_1D_LQ()
     hist1d__2->GetXaxis()->SetTickLength(0.02);
     hist1d__2->GetXaxis()->SetTitleOffset(1.08);
     hist1d__2->GetXaxis()->SetTitleFont(42);
-    hist1d__2->GetYaxis()->SetTitle("95% CL limit on #sigma#font[42]{}#upoint#font[52]{B}^{2} [pb]");
+    hist1d__2->GetYaxis()->SetTitle("#sigma#font[42]{}#upoint#font[52]{B}^{2} [pb]");
     hist1d__2->GetYaxis()->SetNdivisions(506);
     hist1d__2->GetYaxis()->SetLabelFont(42);
     hist1d__2->GetYaxis()->SetLabelOffset(0.007);
