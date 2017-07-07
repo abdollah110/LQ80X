@@ -44,6 +44,8 @@ void Limit_2D_LQ() {
     c->SetFrameFillStyle(0);
     c->SetFrameLineWidth(2);
     c->SetFrameBorderMode(0);
+    c->SetTickx(1);
+    c->SetTicky(1);
     
     c->cd();
     
@@ -683,6 +685,8 @@ void Limit_2D_LQ() {
     pad_plot->SetFrameFillStyle(0);
     pad_plot->SetFrameLineWidth(2);
     pad_plot->SetFrameBorderMode(0);
+    pad_plot->SetTickx(1);
+    pad_plot->SetTicky(1);
     
     
     

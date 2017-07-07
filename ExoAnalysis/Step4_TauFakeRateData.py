@@ -56,7 +56,7 @@ def add_lumi():
     return lumi
 
 def add_CMS():
-    lowX=0.11
+    lowX=0.105
     lowY=0.75
     lumi  = ROOT.TPaveText(lowX, lowY+0.06, lowX+0.15, lowY+0.16, "NDC")
     lumi.SetTextFont(61)
@@ -69,7 +69,7 @@ def add_CMS():
     return lumi
 
 def add_Preliminary():
-    lowX=0.11
+    lowX=0.105
     lowY=0.68
     lumi  = ROOT.TPaveText(lowX, lowY+0.06, lowX+0.15, lowY+0.16, "NDC")
     lumi.SetTextFont(52)
@@ -78,17 +78,17 @@ def add_Preliminary():
     lumi.SetFillStyle(    0 )
     lumi.SetTextAlign(   12 )
     lumi.SetTextColor(    1 )
-    lumi.AddText("Preliminary")
+    lumi.AddText("Unpublished")
     return lumi
 
 def make_legend():
-    output = ROOT.TLegend(0.4, 0.65, 0.88, 0.88, "", "brNDC")
+    output = ROOT.TLegend(0.37, 0.78, 0.75, 0.88, "", "brNDC")
     output.SetLineWidth(0)
     output.SetLineStyle(0)
     output.SetFillStyle(0)
     output.SetBorderSize(0)
     output.SetTextFont(62)
-    output.SetTextSize(.045)
+    output.SetTextSize(.035)
     return output
 
 ############################################################################################################
@@ -234,7 +234,7 @@ else:
 #############################################################################################################
 ##   Calculating the Fake Rate ---> "Linear Fit, 2 parameters"
 #############################################################################################################
-def Make_Tau_FakeRate(channelName):
+def Make_Tau_FakeRate(channelName,channel):
     
     
     
@@ -275,7 +275,7 @@ def Make_Tau_FakeRate(channelName):
     HistoNum.SetTitle("")
     if FR_vs_LeptonPT: HistoNum.GetXaxis().SetTitle("#tau p_{T} [GeV]")
     else: HistoNum.GetXaxis().SetTitle("Jet p_{T} [GeV]")
-    HistoNum.GetYaxis().SetTitle("Tau Fake Rate  (Tight Iso / Loose Iso)")
+    HistoNum.GetYaxis().SetTitle("Tight #tau Isolation / Loose #tau isolation")
     HistoNum.GetYaxis().SetTitleOffset(1.3)
     HistoNum.GetYaxis().SetRangeUser(0.005,1)
     HistoNum.SetStats(0)
@@ -296,7 +296,7 @@ def Make_Tau_FakeRate(channelName):
     
     else:
         nPar = 5
-        theFit=TF1("theFit",_FIT_Jet,53,400,nPar)
+        theFit=TF1("theFit",_FIT_Jet,50,400,nPar)
 #        theFit.SetParLimits(0,    0,     0.5);
 ##        theFit.SetParameter(0, 0.03)
 ##        theFit.SetParameter(1, 0)
@@ -321,8 +321,8 @@ def Make_Tau_FakeRate(channelName):
     theFit.Draw("SAME")
 
     legende=make_legend()
-    legende.AddEntry(HistoNum,"Jet#rightarrow#tau fake rate","lp")
-    legende.AddEntry(theFit,"Fit (Landau)","lp")
+    legende.AddEntry(HistoNum,"Tight to loose isolation ratio","lp")
+    legende.AddEntry(theFit,"Fit (Landau)","l")
     
     legende.Draw()
     
@@ -340,12 +340,13 @@ def Make_Tau_FakeRate(channelName):
     categ.SetTextAlign(   12 )
     categ.SetTextSize ( 0.04 )
     categ.SetTextColor(    1 )
-    categ.SetTextFont (   41 )
-    categ.AddText(channelName+" channel")
+#    categ.SetTextFont (   41 )
+    categ.AddText(channel + ' channel')
     categ.Draw()
 
 
     canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".pdf")
+    canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".png")
     canv.SaveAs("tauFakeRate"+category_FakeEstim+channelName+".root")
     
     
@@ -360,8 +361,8 @@ def Make_Tau_FakeRate(channelName):
 ##########################################    ##########################################    ##########################################
 
 if __name__ == "__main__":
-    FR_FitMaram=Make_Tau_FakeRate("MuTau")
-    FR_FitMaram=Make_Tau_FakeRate("EleTau")
+    FR_FitMaram=Make_Tau_FakeRate("MuTau","#mu#tau_{h}")
+    FR_FitMaram=Make_Tau_FakeRate("EleTau","e#tau_{h}")
 
 
 

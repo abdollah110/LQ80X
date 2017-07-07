@@ -1,10 +1,9 @@
-#Test
 #!/usr/bin/env python
-import math
 import ROOT
 import re
 from array import array
 
+RB_=10
 def add_lumi():
     lowX=0.69
     lowY=0.835
@@ -15,7 +14,7 @@ def add_lumi():
     lumi.SetTextColor(    1 )
     lumi.SetTextSize(0.06)
     lumi.SetTextFont (   42 )
-    lumi.AddText("12.9 fb^{-1} (13 TeV)")
+    lumi.AddText("9.2 fb^{-1} (13 TeV)")
     return lumi
 
 def add_CMS():
@@ -41,11 +40,11 @@ def add_Preliminary():
     lumi.SetFillStyle(    0 )
     lumi.SetTextAlign(   12 )
     lumi.SetTextColor(    1 )
-    lumi.AddText("Supplementary")
+    lumi.AddText("Preliminary")
     return lumi
 
 def make_legend():
-        output = ROOT.TLegend(0.65, 0.44, 0.92, 0.84, "", "brNDC")
+        output = ROOT.TLegend(0.65, 0.4, 0.92, 0.82, "", "brNDC")
         output.SetLineWidth(0)
         output.SetLineStyle(0)
         output.SetFillStyle(0)
@@ -54,10 +53,11 @@ def make_legend():
         return output
 
 
-def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,TitleName_,SigName_):
+def MakePlot(FileName,categoriy,HistName,Xaxis,MaxRange,sig,sigLeg,XSection):
     ROOT.gStyle.SetFrameLineWidth(3)
     ROOT.gStyle.SetLineWidth(3)
     ROOT.gStyle.SetOptStat(0)
+    RB_=1
 
     c=ROOT.TCanvas("canvas","",0,0,600,600)
     c.cd()
@@ -79,23 +79,25 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     W.Rebin(RB_)
     TT=file.Get(categoriy).Get("TT")
     TT.Rebin(RB_)
-    TT.Scale(TTScaleFactor_)
     VV=file.Get(categoriy).Get("VV")
-#    VV.Rebin(RB_)
-    W.Add(VV)
+    VV.Rebin(RB_)
+    #W.Add(VV)
     SingleT=file.Get(categoriy).Get("SingleTop")
     SingleT.Rebin(RB_)
     DYS=file.Get(categoriy).Get("ZTT")
-#    DYS.Rebin(RB_)
-    W.Add(DYS)
-    Signal=file.Get(categoriy).Get("LQ_900")
-    Signal.Rebin(RB_)
-    Signal.Scale(10)
-    Signal.SetLineStyle(11)
-    Signal.SetLineWidth(3)
-    Signal.SetLineColor(2)
+    DYS.Rebin(RB_)
+    
+#    Signal=file.Get(categoriy).Get(sig)
+#    Signal.Scale(10 * XSection)
+#    Signal.Rebin(RB_)
+##    Signal.SetFillStyle(0.)
+#    Signal.SetLineStyle(11)
+##    Signal.SetLineWidth(3.)
+##    Signal.SetLineColor(kBlue)
 
-    Data.GetXaxis().SetRangeUser(200,5000)
+    
+    
+
     Data.GetXaxis().SetTitle("")
     Data.GetXaxis().SetTitleSize(0)
     Data.GetXaxis().SetNdivisions(505)
@@ -105,7 +107,7 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     Data.GetYaxis().SetTitleSize(0.075)
     Data.GetYaxis().SetTitleOffset(1.04)
     Data.SetTitle("")
-    Data.GetYaxis().SetTitle("Events / GeV")
+    Data.GetYaxis().SetTitle("Events")
 
 
 
@@ -113,57 +115,58 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     W.SetFillColor(ROOT.TColor.GetColor(200, 2, 285))
     TT.SetFillColor(ROOT.TColor.GetColor(208, 376, 124))
     SingleT.SetFillColor(ROOT.TColor.GetColor(150, 132, 232))
-#    VV.SetFillColor(ROOT.TColor.GetColor(200, 282, 232))
-#    DYS.SetFillColor(ROOT.TColor.GetColor(108, 226, 354))
+    VV.SetFillColor(ROOT.TColor.GetColor(200, 282, 232))
+    DYS.SetFillColor(ROOT.TColor.GetColor(108, 226, 354))
+
 
 
     ######  Add OverFlow Bin
-#    W.SetBinContent(W.GetNbinsX(),W.GetBinContent(W.GetNbinsX()+1)+W.GetBinContent(W.GetNbinsX()))
-#    TT.SetBinContent(TT.GetNbinsX(),TT.GetBinContent(TT.GetNbinsX()+1)+TT.GetBinContent(TT.GetNbinsX()))
-#    SingleT.SetBinContent(SingleT.GetNbinsX(),SingleT.GetBinContent(SingleT.GetNbinsX()+1)+SingleT.GetBinContent(SingleT.GetNbinsX()))
-#    VV.SetBinContent(VV.GetNbinsX(),VV.GetBinContent(VV.GetNbinsX()+1)+VV.GetBinContent(VV.GetNbinsX()))
-#    DYS.SetBinContent(DYS.GetNbinsX(),DYS.GetBinContent(DYS.GetNbinsX()+1)+DYS.GetBinContent(DYS.GetNbinsX()))
-#    Data.SetBinContent(Data.GetNbinsX(),Data.GetBinContent(Data.GetNbinsX()+1)+Data.GetBinContent(Data.GetNbinsX()))
+#    QCD.SetBinContent(18,QCD.Integral(18,20))
+#    W.SetBinContent(18,W.Integral(18,20))
+#    TT.SetBinContent(18,TT.Integral(18,20))
+#    SingleT.SetBinContent(18,SingleT.Integral(18,20))
+#    VV.SetBinContent(18,VV.Integral(18,20))
+#    DYS.SetBinContent(18,DYS.Integral(18,20))
+#    Data.SetBinContent(18,Data.Integral(18,20))
+#    Signal.SetBinContent(18,Signal.Integral(18,20))
 
-    
+
+
     Data.SetMarkerStyle(20)
     Data.SetMarkerSize(1)
 #    QCD.SetLineColor(ROOT.kBlack)
     W.SetLineColor(ROOT.kBlack)
     TT.SetLineColor(ROOT.kBlack)
-#    DYS.SetLineColor(ROOT.kBlack)
-#    VV.SetLineColor(ROOT.kBlack)
+    DYS.SetLineColor(ROOT.kBlack)
+    VV.SetLineColor(ROOT.kBlack)
     SingleT.SetLineColor(ROOT.kBlack)
     Data.SetLineColor(ROOT.kBlack)
     Data.SetLineWidth(2)
 
-
     stack=ROOT.THStack("stack","stack")
 #    stack.Add(QCD)
     stack.Add(W)
-#    stack.Add(VV)
-#    stack.Add(DYS)
+    stack.Add(VV)
+    stack.Add(DYS)
     stack.Add(SingleT)
     stack.Add(TT)
 
-#    errorBand = QCD.Clone()
-    errorBand=W.Clone()
+    errorBand = W.Clone()
+#    errorBand.Add(W)
     errorBand.Add(TT)
-    errorBand.Add(W)
-#    errorBand.Add(VV)
+    errorBand.Add(VV)
     errorBand.Add(SingleT)
-#    errorBand.Add(DYS)
+    errorBand.Add(DYS)
     errorBand.SetMarkerSize(0)
     errorBand.SetFillColor(16)
     errorBand.SetFillStyle(3001)
     errorBand.SetLineWidth(1)
-#    errorBand.Scale(1.1)
 
     pad1 = ROOT.TPad("pad1","pad1",0,0.35,1,1)
-    pad1.SetLogy()
-    pad1.SetLogx()
+    
     pad1.Draw()
     pad1.cd()
+#    pad1.SetLogy()
     pad1.SetFillColor(0)
     pad1.SetBorderMode(0)
     pad1.SetBorderSize(10)
@@ -180,26 +183,24 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     pad1.SetFrameBorderSize(10)
 
     Data.GetXaxis().SetLabelSize(0)
-    Data.SetMaximum(Data.GetMaximum()*250)
-    Data.SetMinimum(0.1)
+#    Data.SetMaximum(Data.GetMaximum()*200)
+    Data.SetMaximum(Data.GetMaximum()*2)
+    Data.GetXaxis().SetRangeUser(0,MaxRange)
+    Data.SetMinimum(0)
     Data.Draw("e")
     stack.Draw("histsame")
-    for jbin in range(errorBand.GetXaxis().GetNbins()):
-        errorBand.SetBinError(jbin+1,math.sqrt(math.pow(errorBand.GetBinError(jbin+1),2)+ math.pow(.10*errorBand.GetBinContent(jbin+1),2)))
-    
     errorBand.Draw("e2same")
-#    Signal.Draw("lsame")
     Data.Draw("esame")
-    
+#    Signal.Draw("lsame")
 
     legende=make_legend()
     legende.AddEntry(Data,"Observed","elp")
-#    legende.AddEntry(Signal,SigName_+"x 10","elp")
+#    legende.AddEntry(Signal,sigLeg,"elp")
     legende.AddEntry(TT,"t#bar{t}+jets","f")
     legende.AddEntry(SingleT,"SingleTop","f")
-#    legende.AddEntry(DYS,"DY #rightarrowll ","f")
-#    legende.AddEntry(VV,"Diboson","f")
-    legende.AddEntry(W,"Electroweak","f")
+    legende.AddEntry(DYS,"DY #rightarrowll ","f")
+    legende.AddEntry(VV,"VV","f")
+    legende.AddEntry(W,"W","f")
 #    legende.AddEntry(QCD,"QCD multijet","f")
     legende.AddEntry(errorBand,"Uncertainty","f")
 
@@ -214,22 +215,21 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
 
     pad1.RedrawAxis()
 
-    categ  = ROOT.TPaveText(0.21, 0.45+0.013, 0.43, 0.650+0.155, "NDC")
+    categ  = ROOT.TPaveText(0.21, 0.5+0.013, 0.43, 0.70+0.155, "NDC")
     categ.SetBorderSize(   0 )
     categ.SetFillStyle(    0 )
     categ.SetTextAlign(   12 )
-    categ.SetTextSize ( 0.045 )
+    categ.SetTextSize ( 0.06 )
     categ.SetTextColor(    1 )
-#    categ.SetTextFont (   41 )
-    #       if i==1 or i==3:
-    categ.AddText(TitleName_)
+    categ.SetTextFont (   41 )
+    #       if i==1 or i==3: 
+    categ.AddText(HistName)
     #       else :
     #        categ.AddText("SS")
     categ.Draw()
 
     c.cd()
     pad2 = ROOT.TPad("pad2","pad2",0,0,1,0.35);
-    pad2.SetLogx()
     pad2.SetTopMargin(0.05);
     pad2.SetBottomMargin(0.35);
     pad2.SetLeftMargin(0.18);
@@ -243,10 +243,10 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     pad2.cd()
     
     h1=errorBand.Clone()
-    h1.SetMaximum(1.9)
+    h1.SetMaximum(2)
     h1.SetMinimum(0.1)
     h1.SetMarkerStyle(20)
-    
+
     h3=Data.Clone()
     
     h3.Sumw2()
@@ -258,14 +258,9 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     h1.SetTitle("")
     
     h1.Divide(errorBand)
-    #######  set the bin errors to zero befive divinig data to that
-    errorBandZeroErr=errorBand.Clone()
-    for ibin in range(errorBandZeroErr.GetXaxis().GetNbins()):
-        errorBandZeroErr.SetBinError(ibin+1,0)
-    #######
-    h3.Divide(errorBandZeroErr)
-    
-    h1.GetXaxis().SetRangeUser(200,5000)
+    h3.Divide(errorBand)
+
+    h1.GetXaxis().SetRangeUser(0,MaxRange)
     h1.GetXaxis().SetTitle(Xaxis)
     h1.GetXaxis().SetLabelSize(0.08)
     h1.GetYaxis().SetLabelSize(0.08)
@@ -280,9 +275,10 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     h1.GetYaxis().SetLabelSize(0.11)
     h1.GetXaxis().SetTitleFont(42)
     h1.GetYaxis().SetTitleFont(42)
-
+    
     h1.Draw("e2")
     h3.Draw("epsame")
+
 
     c.cd()
     pad1.Draw()
@@ -290,46 +286,47 @@ def MakePlot(FileName,categoriy,HistName,Xaxis,Info,RB_,channel,TTScaleFactor_,T
     ROOT.gPad.RedrawAxis()
 
     c.Modified()
-    c.SaveAs("_plot_TTEstim"+HistName+"_"+categoriy+"_NoTTScaleFactor.pdf")
-    c.SaveAs("_plot_TTEstim"+HistName+"_"+categoriy+"_NoTTScaleFactor.png")
+#    c.SaveAs("_Finalplot_"+categoriy+"_Logy.pdf")
+    c.SaveAs("_Finalplot_TT_"+categoriy+".pdf")
     #       c.SaveAs("mvis"+categoriy+".png")
 
 
-channelDirectory = ["MuEle"]
-Category = ["_inclusive","_JetBJet","_DiJet","_JetBJetExtra","_DiJetExtra"]
-#TitleName = ["e#mu inclusive","e#mu LQ","e#mu  RH W","e#mu LQ Final cuts","e#mu RH W Final cuts"]
-TitleName = ["e#mu control region","e#mu control region","e#mu control region","t#bar{t} control region (LQ selection)","t#bar{t} control region (RHW selection)"]
-SigName = ["Signal","LQ 900 GeV","RH W 3 TeV","LQ 900 GeV","RH W 3 TeV"]
-#Category = ["_inclusive","_JetBJet","_DiJet"]
-#TitleName = ["emu inclusive","emu JetBJet","emu  DiJet"]
-
-#TTScaleFactor=[0.906953,0.879088,0.938038]
-TTScaleFactor=[1,1,1,1,1]
-
+#channelDirectory = ["et"]
+#channelDirectory = ["EleTau"]
+Category=["lq_em_1_13TeV_prefit","lq_em_1_13TeV_postfit"]
+#Category = ["_JetBJet"]
+#Category = ["_inclusive"]
 
 
 FileNamesInfo=[
+               ["final_TT_SF_em.root","lq_em_1_13TeV_prefit","ST_{l#taujjMET}  (GeV)","MuTau Prefit",3000,"RHW_","RH W 3TeV (x 10)",6.030E-03],
+               ["final_TT_SF_em.root","lq_em_1_13TeV_postfit","ST_{l#taujjMET}  (GeV)","MuTau Prefit",3000,"RHW_","RH W 3TeV (x 10)",6.030E-03],
 
-#               ["_VisMass_OS","e#mu VisMass (GeV)","",5],
-#               ["_MuPt_OS","#mu p_{T} (GeV)","",10],
-#               ["_ElePt_OS","electron p_{T} (GeV)","",10],
+               
+#               ["_VisMass_OS","VisMass (GeV)","",20],
+#               ["_LepPt_OS","lep PT (GeV)","",10],
+#               ["_LepEta_OS","lep #eta ","",10],
+#               ["_TauPt_OS","#tau PT (GeV)","",10],
+#               ["_TauEta_OS","#tau #eta ","",10],
 #               ["_NumJet_OS","Jet multiplicity","",1],
 #               ["_NumBJet_OS","B Jet multiplicity","",1],
-               ["_ST_MET_OS","#it{S}_{T} [GeV]","",1],
-#               ["_MET_OS","MET  (GeV)","",5],
-#               ["_EleEta_OS","#eta_{e}","",5],
-#               ["_MuEta_OS","#eta_{#mu}","",5],
-#               ["_LeadJetPt_OS","leading jet p_{T}","",5],
-#               ["_SubLeadJetPt_OS","sub leading jet p_{T}","",5],
-#               ["_LeadJetEta_OS","#eta of leading jet","",5],
-#               ["_SubLeadJetEta_OS","#eta of subleading jet","",5],
+#               ["_nVtx_OS","# of vertex","",1],
+#               ["_nVtx_NoPU_OS","# of vertex before PU reweighting","",1],
+#               ["_MET_OS","MET  (GeV)","",20],
+#               ["_M_taujet_OS","M_{#tauj}   (GeV)","",40],
+#               ["_LeadJetPt_OS","Leading Jet PT  (GeV)","",20],
+#               ["_SubLeadJetPt_OS","subLeading Jet PT  (GeV)","",20],
+#               ["_ST_DiJet_OS","ST_{l#taujj}  (GeV) ","",10],
+#               ["e#tau fit","ST_{l#taujjMET}  (GeV)","",1,2000],
+               
+               
                ]
 
 
-for ch in channelDirectory:
-    for cat in range(0,len(Category)):
-        for i in range(0,len(FileNamesInfo)):
+#for ch in channelDirectory:
+#    for cat in Category:
+for i in range(0,len(FileNamesInfo)):
 
-            FileName="TotalRootForLimit_"+ch+FileNamesInfo[i][0]+".root"
-            MakePlot(FileName,ch+Category[cat],FileNamesInfo[i][0],FileNamesInfo[i][1],FileNamesInfo[i][2],FileNamesInfo[i][3],ch,TTScaleFactor[cat],TitleName[cat],SigName[cat])
+#    FileName="ztt_"+ch+"_shapes.root"
+    MakePlot(FileNamesInfo[i][0],FileNamesInfo[i][1],FileNamesInfo[i][3],FileNamesInfo[i][2],FileNamesInfo[i][4],FileNamesInfo[i][5],FileNamesInfo[i][6],FileNamesInfo[i][7])
 

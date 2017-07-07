@@ -174,6 +174,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                         NormHisto=NormFile.Get("XXX")
                 
                         RebinedHist= NormHisto.Rebin(len(Binning)-1,"",Binning)
+                        RebinedHist.Scale(0.001) # added to chane pb to fb
                         tDirectory.WriteObject(RebinedHist,NameOut)
             
                         ###############  Systematics on Shape and Norm for  High Tau Pt ####
@@ -187,6 +188,7 @@ def MakeTheHistogram(channel,NormMC,NormQCD,ShapeQCD,CoMEnergy,chl,Binning,Analy
                                 NormHisto=NormFile.Get("XXX")
                                 
                                 RebinedHist= NormHisto.Rebin(len(Binning)-1,"",Binning)
+                                RebinedHist.Scale(0.001) # added to chane pb to fb
                                 tDirectory.WriteObject(RebinedHist,NameOut)
             
                 ################################################
@@ -478,6 +480,6 @@ if __name__ == "__main__":
     MakeTheHistogram("MuTau",NormMC+"_OS","_LQ_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0,Binning,"lq")
     MakeTheHistogram("EleTau",NormMC+"_OS","_LQ_CloseJetTauPt_OS_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1,Binning,"lq")
 
-    NormMC="_RW_ST_MET"
-    MakeTheHistogram("MuTau",NormMC,"_RW_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0,Binning,"RHW")
-    MakeTheHistogram("EleTau",NormMC,"_RW_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1,Binning,"RHW")
+#    NormMC="_RW_ST_MET"
+#    MakeTheHistogram("MuTau",NormMC,"_RW_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",0,Binning,"RHW")
+#    MakeTheHistogram("EleTau",NormMC,"_RW_CloseJetTauPt_TauAntiIsoLepIso",NormMC+"_LepAntiIso","",1,Binning,"RHW")
